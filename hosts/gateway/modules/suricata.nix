@@ -43,7 +43,6 @@ in {
             }
             { anomaly = { enabled = true; }; }
             { http = {}; } #TODO: turn on when enabling https
-            { dns = {}; }
             {
               tls = {
                 extended = true;
