@@ -5,13 +5,27 @@
 { config, lib, pkgs, ... }:
 let
   hostname = "gateway";
+  vars = {
+    network = {
+      interfaces = {
+        wan = "enp0s8";
+        lan = "enp0s3";
+      };
+
+      internal = {
+        gateway = "192.168.2.1";
+        subnet  = "192.168.2.0/24";
+        mask = "255.255.255.0";
+      };
+    };
+  };
 in
 {
   imports =
     [
       ./hardware-configuration.nix
       ./nixos/default.nix
-      ./hosts/${hostname}/default.nix
+      (import ./hosts/${hostname}/default.nix { inherit vars; })
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

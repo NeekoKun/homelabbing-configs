@@ -1,6 +1,8 @@
+{ vars }:
+
 {
   imports = [
-    ./networking.nix
-    ./modules/default.nix
+    ( import ./networking.nix { inherit vars; })
+    ( import ./modules/default.nix { inherit vars; })
   ];
 }

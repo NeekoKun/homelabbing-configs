@@ -1,5 +1,7 @@
+{ vars }:
+
 {
   imports = [
-    ./suricata.nix
+    ( import ./suricata.nix { inherit vars; })
   ];
 }
