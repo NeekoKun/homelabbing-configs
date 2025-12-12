@@ -48,6 +48,10 @@ in
     tmux
     git
     pastel
+
+    # Tools
+    python3
+    zip
     
     # Monitoring
     usbutils
