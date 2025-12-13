@@ -20,7 +20,7 @@ in
 
         host_metrics = {
           type = "host_metrics";
-          collectors = [ "cpu" "memory" "network" "load" "disk" ];
+          collectors = [ "cpu" "memory" "network" "disk" ];
         };
       };
 
@@ -39,7 +39,7 @@ in
         loki = {
           type = "loki";
           inputs = [ "add_metadata" ];
-          endpoint = "http://${net.internal.loki}:${vars.services.loki.listen_port}";
+          endpoint = "http://${net.internal.loki}:${vars.services.loki.http_listen_port}";
           encoding.codec = "json";
           labels.host = "{{ host }}";
         };

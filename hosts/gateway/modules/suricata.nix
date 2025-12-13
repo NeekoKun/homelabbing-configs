@@ -21,20 +21,19 @@ in {
         use-mmap = true;
       }];
 
+      app-layer.protocols = {
+        modbus.enabled = "no";
+        dnp3.enabled = "no";
+        enip.enabled = "no";
+      };
+
       outputs = [{
         eve-log = {
           enable = true;
           filetype = "regular";
-          filename = "eve.json";
+          filename = "/var/log/suricata/eve.json";
 
           types = [
-            {
-              stats = {
-                totals = true;
-                threads = true;
-                deltas = true;
-              };
-            }
             {
               alert = {
                 tagged-packets = true;
@@ -50,6 +49,14 @@ in {
               };
             }
             { ssh = {}; } #TODO: enable when starting ssh
+
+            {
+              stats = {
+                totals = true;
+                deltas = true;
+                threads = true;
+              };
+            }
           ];
         };
       }];

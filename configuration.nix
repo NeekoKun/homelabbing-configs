@@ -4,7 +4,7 @@
 
 { config, lib, pkgs, ... }:
 let
-  hostname = "loki";
+  hostname = "gateway";
   vars = {
     services = {
       loki = {
