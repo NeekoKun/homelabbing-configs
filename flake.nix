@@ -6,33 +6,73 @@
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
-    nixosConfigurations = {
+    let
+      vars = {
+        services = {
+          loki = {
+            http_listen_port = 3100;
+            grpc_listen_port = 9096;
+          };
+          grafana = {
+            port = 2342;
+          };
+        };
 
-      # Gateway Configs
-      gateway = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          ./hosts/gateway/default.nix
-        ];
+        network = {
+          interfaces = {
+            wan = "enp0s8";
+            lan = "enp0s3";
+          };
+
+          internal = {
+            gateway = "192.168.2.1";
+            loki = "192.168.2.2";
+            synapse = "192.168.2.3";
+            navidrome = "192.168.2.4";
+            nextcloud = "192.168.2.5";
+            subnet  = "192.168.2.0/24";
+            mask = "255.255.255.0";
+          };
+        };
       };
+    in
+    {
+      nixosConfigurations = {
 
-      # Loki Configs
-      loki = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          ./hosts/loki/default.nix
-        ];
-      };
+        # Gateway Configs
+        gateway = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit vars;
+            hostname = "gateway";
+          };
+          modules = [
+            ./configuration.nix
+          ];
+        };
 
-      # Synapse
-      synapse = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          ./hosts/synapse/default.nix
-        ];
+        # Loki Configs
+        loki = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit vars;
+            hostname = "loki";
+          };
+          modules = [
+            ./configuration.nix
+          ];
+        };
+
+        # Synapse
+        synapse = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit vars;
+            hostname = "synapse";
+          modules = [
+            ./configuration.nix
+          ];
+        };
       };
     };
   };
