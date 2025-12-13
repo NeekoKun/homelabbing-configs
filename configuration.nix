@@ -4,7 +4,6 @@
 
 { config, lib, pkgs, ... }:
 let
-  hostname = "gateway";
   vars = {
     services = {
       loki = {
@@ -37,9 +36,9 @@ in
 {
   imports =
     [
+      ./hostname.nix
       ./hardware-configuration.nix
       ./nixos/default.nix
-      (import ./hosts/${hostname}/default.nix { inherit vars; })
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -48,8 +47,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "video=1920x1200" ];
-
-  networking.hostName = hostname;
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
