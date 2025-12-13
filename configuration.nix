@@ -80,6 +80,7 @@ in
     # Tools
     python3
     zip
+    gh
     
     # Monitoring
     usbutils
