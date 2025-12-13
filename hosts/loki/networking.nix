@@ -1,5 +1,4 @@
-{ vars }:
-{ config, pkgs, ... }:
+{ vars, ... }:
 
 let
   net = vars.network;

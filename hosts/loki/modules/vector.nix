@@ -1,4 +1,4 @@
-{ vars }:
+{ vars, ... }:
 
 let
   net = vars.network;
