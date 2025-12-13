@@ -6,6 +6,7 @@ let
 in
 {
   networking = {
+    hostName = "navidrome";
     useDHCP = false;
 
     interfaces = {

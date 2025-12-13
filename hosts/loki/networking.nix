@@ -6,6 +6,7 @@ let
 in
 {
   networking = {
+    hostName = "loki";
     useDHCP = false;
 
     interfaces = {

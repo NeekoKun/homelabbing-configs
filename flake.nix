@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }: {
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
       vars = {
         services = {
@@ -13,6 +13,7 @@
             http_listen_port = 3100;
             grpc_listen_port = 9096;
           };
+
           grafana = {
             port = 2342;
           };
@@ -42,35 +43,30 @@
         # Gateway Configs
         gateway = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit vars;
-            hostname = "gateway";
-          };
+          specialArgs = { inherit vars; };
           modules = [
             ./configuration.nix
+            ./hosts/gateway/default.nix
           ];
         };
 
         # Loki Configs
         loki = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit vars;
-            hostname = "loki";
-          };
+          specialArgs = { inherit vars; };
           modules = [
             ./configuration.nix
+            ./hosts/loki/default.nix
           ];
         };
 
         # Synapse
         synapse = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit vars;
-            hostname = "synapse";
+          specialArgs = { inherit vars; };
           modules = [
             ./configuration.nix
+            ./hosts/synapse/default.nix
           ];
         };
       };

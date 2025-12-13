@@ -11,6 +11,7 @@ in
   };
 
   networking = {
+    hostName = "gateway";
     interfaces = {
       ${net.interfaces.lan} = {
         ipv4.addresses = [{
