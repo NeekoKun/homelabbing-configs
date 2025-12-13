@@ -4,8 +4,18 @@
 
 { config, lib, pkgs, ... }:
 let
-  hostname = "gateway";
+  hostname = "loki";
   vars = {
+    services = {
+      loki = {
+        http_listen_port = 3100;
+        grpc_listen_port = 9096;
+      };
+      grafana = {
+        port = 2342;
+      };
+    };
+
     network = {
       interfaces = {
         wan = "enp0s8";
@@ -14,6 +24,10 @@ let
 
       internal = {
         gateway = "192.168.2.1";
+        loki = "192.168.2.2";
+        synapse = "192.168.2.3";
+        navidrome = "192.168.2.4";
+        nextcloud = "192.168.2.5";
         subnet  = "192.168.2.0/24";
         mask = "255.255.255.0";
       };

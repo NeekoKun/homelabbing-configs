@@ -12,8 +12,8 @@ in
       ${net.interfaces.lan} = {
         useDHCP = false;
         ipv4.addresses = [{
-          address = net.internal.navidrome;
-          prefix = 24;
+          address = net.internal.loki;
+          prefixLength = 24;
         }];
       };
     };
@@ -23,7 +23,7 @@ in
       interface = net.interfaces.lan;
     };
 
-    nameserver = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 }
 
