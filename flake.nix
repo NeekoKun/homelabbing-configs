@@ -16,10 +16,17 @@
 
           grafana = {
             port = 2342;
+            http_port = 8080;
           };
         };
 
         network = {
+          DNS = {
+            domain = "neekokun";
+            tld = "duckdns.org";
+            token = "9c347773-7657-4258-88e1-5ff06eab805e";
+          };
+
           interfaces = {
             wan = "enp0s8";
             lan = "enp0s3";
