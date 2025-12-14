@@ -34,7 +34,7 @@ in
         loki = {
           type = "loki";
           inputs = [ "add_metadata" ];
-          endpoint = "http://${net.internal.loki}:${toString vars.services.loki.http_listen_port}";
+          endpoint = "http://${net.internal.loki}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
           labels = {
             host = "{{ host }}";

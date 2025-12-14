@@ -11,8 +11,8 @@ in
       auth_enabled = false;
 
       server = {
-        http_listen_port = vars.services.loki.http_listen_port;
-        grpc_listen_port = vars.services.loki.grpc_listen_port;
+        http_listen_port = vars.services.loki.http_port;
+        grpc_listen_port = vars.services.loki.grpc_port;
       };
 
       common = {

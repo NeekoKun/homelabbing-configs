@@ -10,8 +10,8 @@
       vars = {
         services = {
           loki = {
-            http_listen_port = 3100;
-            grpc_listen_port = 9096;
+            http_port = 3100;
+            grpc_port = 9096;
           };
 
           grafana = {
