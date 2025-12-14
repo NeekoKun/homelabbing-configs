@@ -27,6 +27,12 @@ in
             type = "loki";
             access = "proxy";
             url = "http://127.0.0.1:${toString vars.services.loki.http_port}";
+            isDefault = false;
+          }
+          {
+            name = "Prometheus";
+            type = "prometheus";
+            url = "http://127.0.0.1:${toString vars.services.prometheus.http_port}";
             isDefault = true;
           }
         ];

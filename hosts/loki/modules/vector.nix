@@ -25,14 +25,23 @@ in
 
         host_metrics = {
           type = "host_metrics";
-          collectors = [ "cpu" "memory" "disk" "filesystem" ];
+          collectors = [ "cpu" "disk" "filesystem" "load" "memory" "network" ];
+          scrape_interval_secs = 15;
         };
       };
 
       transforms = {
+        add_hostname = {
+          type = "remap";
+          inputs = [ "host_metrics" ];
+          source = ''
+            .host = "${config.networking.hostName}"
+          '';
+        };
+
         add_metadata = {
           type = "remap";
-          inputs = [ "journald" "host_metrics" ];
+          inputs = [ "journald" ];
           source = ''
             .job = "vector"
             .host = "${config.networking.hostName}"
@@ -49,6 +58,13 @@ in
       };
 
       sinks = {
+        prometheus = {
+          type = "prometheus_remote_write";
+          inputs = [ "add_hostname" ];
+          endpoint = "http://${net.internal.loki}:${toString cars.serices.prometheus.http_port}/api/v1/write";
+          default_namespace = "vector";
+        };
+
         loki = {
           type = "loki";
           inputs = [ "add_metadata" ];

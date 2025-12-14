@@ -9,6 +9,10 @@
     let
       vars = {
         services = {
+          prometheus = {
+            http_port = 9090;
+          };
+
           loki = {
             http_port = 3100;
             grpc_port = 9096;
