@@ -48,6 +48,7 @@
     python3
     zip
     gh
+    jq
     
     # Monitoring
     usbutils
