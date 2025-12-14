@@ -57,7 +57,7 @@ in
       annotations = {
         list = [];
       };
-      editable = true;
+      editable = false;
       fiscalYearStartMonth = 0;
       graphTooltip = 0;
       id = null;
@@ -67,7 +67,7 @@ in
         {
           datasource = {
             type = "loki";
-            uid = "loki";
+            uid = "Loki";
           };
           gridPos = {
             h = 12;
@@ -81,16 +81,16 @@ in
             enableLogDetails = true;
             prettifyLogMessage = false;
             showCommonLabels = false;
-            showLabels = false;
+            showLabels = true;
             showTime = true;
             sortOrder = "Descending";
-            wrapLogMessage = false;
+            wrapLogMessage = true;
           };
           targets = [
             {
               datasource = {
                 type = "loki";
-                uid = "loki";
+                uid = "Loki";
               };
               editorMode = "code";
               expr = "{job=\"vector\"}";
@@ -104,7 +104,7 @@ in
         {
           datasource = {
             type = "loki";
-            uid = "loki";
+            uid = "Loki";
           };
           fieldConfig = {
             defaults = {
@@ -178,7 +178,7 @@ in
             {
               datasource = {
                 type = "loki";
-                uid = "loki";
+                uid = "Loki";
               };
               editorMode = "code";
               expr = "sum(count_over_time({job=\"vector\"}[1m]))";
