@@ -16,7 +16,6 @@
 
           grafana = {
             port = 2342;
-            http_port = 8080;
           };
         };
 

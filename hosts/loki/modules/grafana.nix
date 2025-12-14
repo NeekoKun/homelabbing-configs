@@ -6,29 +6,19 @@ in
 {
   services.grafana = {
     enable = true;
-
+    
     settings = {
       server = {
-        http_port = vars.services.grafana.port;
         http_addr = "${net.internal.loki}";
-
+        http_port = vars.services.grafana.port;
         domain = "grafana.${net.DNS.domain}.${net.DNS.tld}";
-        root_url = "https://grafana.${net.DNS.domain}.${net.DNS.tld}/";
-      };
-
-      security = {
-        admin_user = "admin";
-        admin_password = "admin";
-      };
-
-      "auth.anonymous" = {
-        enabled = false;
+        root_url = "https://grafana.${net.DNS.domain}.${net.DNS.tld}";
       };
     };
-
+    
     provision = {
       enable = true;
-
+      
       datasources.settings = {
         apiVersion = 1;
         datasources = [
@@ -50,7 +40,7 @@ in
             orgId = 1;
             folder = "";
             type = "file";
-            disableDeletion = true;
+            disableDeletion = false;
             editable = true;
             options = {
               path = "/etc/grafana-dashboards";
@@ -61,21 +51,20 @@ in
     };
   };
 
-  environment.etc."grafana-dashboard/loki-logs.json" = {
+  # Create a properly formatted dashboard
+  environment.etc."grafana-dashboards/loki-logs.json" = {
     text = builtins.toJSON {
       annotations = {
         list = [];
       };
-      editable = false;
-      fisicalYearStartMonth = 0;
+      editable = true;
+      fiscalYearStartMonth = 0;
       graphTooltip = 0;
       id = null;
       links = [];
       liveNow = false;
-
       panels = [
         {
-          id = 1;
           datasource = {
             type = "loki";
             uid = "loki";
@@ -86,70 +75,138 @@ in
             x = 0;
             y = 0;
           };
+          id = 1;
+          options = {
+            dedupStrategy = "none";
+            enableLogDetails = true;
+            prettifyLogMessage = false;
+            showCommonLabels = false;
+            showLabels = false;
+            showTime = true;
+            sortOrder = "Descending";
+            wrapLogMessage = false;
+          };
+          targets = [
+            {
+              datasource = {
+                type = "loki";
+                uid = "loki";
+              };
+              editorMode = "code";
+              expr = "{job=\"vector\"}";
+              queryType = "range";
+              refId = "A";
+            }
+          ];
           title = "Recent Logs";
           type = "logs";
-          targets = [
-            {
-              expr = "{job=\"systemd-journal\"}";
-              refId = "A";
-            }
-          ];
-          options = {
-            showTime = true;
-            showLabels = true;
-            showCommondLabels = false;
-            wrapLogMessage = true;
-            prettifyLogMessage = false;
-            enableLogDetails = true;
-            dedupStrategy = "none";
-            sortOrder = "Descending";
-          };
         }
         {
+          datasource = {
+            type = "loki";
+            uid = "loki";
+          };
+          fieldConfig = {
+            defaults = {
+              color = {
+                mode = "palette-classic";
+              };
+              custom = {
+                axisCenteredZero = false;
+                axisColorMode = "text";
+                axisLabel = "";
+                axisPlacement = "auto";
+                barAlignment = 0;
+                drawStyle = "line";
+                fillOpacity = 10;
+                gradientMode = "none";
+                hideFrom = {
+                  tooltip = false;
+                  viz = false;
+                  legend = false;
+                };
+                lineInterpolation = "linear";
+                lineWidth = 1;
+                pointSize = 5;
+                scaleDistribution = {
+                  type = "linear";
+                };
+                showPoints = "never";
+                spanNulls = false;
+                stacking = {
+                  group = "A";
+                  mode = "none";
+                };
+                thresholdsStyle = {
+                  mode = "off";
+                };
+              };
+              mappings = [];
+              thresholds = {
+                mode = "absolute";
+                steps = [
+                  {
+                    color = "green";
+                    value = null;
+                  }
+                ];
+              };
+              unit = "short";
+            };
+            overrides = [];
+          };
+          gridPos = {
+            h = 8;
+            w = 24;
+            x = 0;
+            y = 12;
+          };
           id = 2;
-          title = "Log Rate";
-          type = "graph";
-          gridPos = { h = 8; w = 24; x = 0; y = 12; };
-          datasource = {
-            type = "loki";
-            uid = "loki";
+          options = {
+            legend = {
+              calcs = [];
+              displayMode = "list";
+              placement = "bottom";
+              showLegend = true;
+            };
+            tooltip = {
+              mode = "single";
+              sort = "none";
+            };
           };
           targets = [
             {
-              expr = "sum(rate({jobs=\"systemd-journal\"}[1m]))";
-              refid = "A";
-              legendFormat = "logs/sec";
-            }
-          ];
-          yaxes = [
-            { format = "short"; label = "logs/sec"; }
-            { format = "short"; }
-          ];
-        }
-        {
-          id = 3;
-          title = "Logs by Unit";
-          type = "logs";
-          gridPos = { h = 12; w = 24; x = 0; y = 20; };
-          datasource = {
-            type = "loki";
-            uid = "loki";
-          };
-          targets = [
-            {
-             expr = "{jobs=\"systemd-journal\"} |= \"\"";
+              datasource = {
+                type = "loki";
+                uid = "loki";
+              };
+              editorMode = "code";
+              expr = "sum(count_over_time({job=\"vector\"}[1m]))";
+              queryType = "range";
               refId = "A";
             }
           ];
-          options = {
-            showTime = true;
-            showLabels = true;
-            showCommonLabels = false;
-            wrapLogMessage = true;
-          };
+          title = "Log Volume";
+          type = "timeseries";
         }
       ];
+      refresh = "30s";
+      schemaVersion = 38;
+      style = "dark";
+      tags = ["loki" "logs"];
+      templating = {
+        list = [];
+      };
+      time = {
+        from = "now-6h";
+        to = "now";
+      };
+      timepicker = {};
+      timezone = "";
+      title = "System Logs";
+      uid = "loki-vector-logs";
+      version = 0;
+      weekStart = "";
     };
-    mode = "0644";
   };
 }
