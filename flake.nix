@@ -20,6 +20,11 @@
         };
 
         network = {
+          DNS = {
+            domain = "neekokun";
+            tld = "duckdns.org";
+          };
+
           interfaces = {
             wan = "enp0s8";
             lan = "enp0s3";

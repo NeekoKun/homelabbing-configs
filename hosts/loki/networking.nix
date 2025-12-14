@@ -28,7 +28,9 @@ in
     firewall = {
       enable = true;
 
-      allowedTCPPorts = [ 8080 ];
+      allowedTCPPorts = [
+        vars.services.grafana.port
+      ];
     };
   };
 }
