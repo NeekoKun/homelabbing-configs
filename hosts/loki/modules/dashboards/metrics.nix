@@ -12,7 +12,7 @@
         {
           datasource = {
             type = "prometheus";
-            uid = "prometheus";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -49,7 +49,7 @@
         {
           datasource = {
             type = "prometheus";
-            uid = "prometheus";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -86,7 +86,7 @@
         {
           datasource = {
             type = "prometheus";
-            uid = "prometheus";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {

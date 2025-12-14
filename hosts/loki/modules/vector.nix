@@ -61,7 +61,7 @@ in
         prometheus = {
           type = "prometheus_remote_write";
           inputs = [ "add_hostname" ];
-          endpoint = "http://${net.internal.loki}:${toString cars.serices.prometheus.http_port}/api/v1/write";
+          endpoint = "http://${net.internal.loki}:${toString vars.services.prometheus.http_port}/api/v1/write";
           default_namespace = "vector";
         };
 
