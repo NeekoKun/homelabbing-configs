@@ -37,8 +37,23 @@ in
             type = "loki";
             access = "proxy";
             url = "http://127.0.0.1:${toString vars.services.loki.http_port}";
-            jsonData = {
-              maxLines = 1000;
+            isDefault = true;
+          }
+        ];
+      };
+
+      dashboards.settings = {
+        apiVersion = 1;
+        providers = [
+          {
+            name = "default";
+            orgId = 1;
+            folder = "";
+            type = "file";
+            disableDeletion = true;
+            editable = true;
+            options = {
+              path = "/etc/grafana-dashboards";
             };
           }
         ];
@@ -48,24 +63,31 @@ in
 
   environment.etc."grafana-dashboard/loki-logs.json" = {
     text = builtins.toJSON {
-      title = "System Logs";
-      uid = "loki-logs";
-      tags = [ "loki" "logs" ];
-      timezone = "browser";
-      schemaVersion = 16;
-      version = 0;
-      refresh = "30s";
+      annotations = {
+        list = [];
+      };
+      editable = false;
+      fisicalYearStartMonth = 0;
+      graphTooltip = 0;
+      id = null;
+      links = [];
+      liveNow = false;
 
       panels = [
         {
           id = 1;
-          title = "Recent Logs";
-          type = "logs";
-          gridPos = { h = 12; w = 24; x = 0; y = 0; };
           datasource = {
             type = "loki";
             uid = "loki";
           };
+          gridPos = {
+            h = 12;
+            w = 24;
+            x = 0;
+            y = 0;
+          };
+          title = "Recent Logs";
+          type = "logs";
           targets = [
             {
               expr = "{job=\"systemd-journal\"}";
