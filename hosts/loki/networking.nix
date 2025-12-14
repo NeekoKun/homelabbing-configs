@@ -30,6 +30,8 @@ in
 
       allowedTCPPorts = [
         vars.services.grafana.port
+        vars.services.loki.http_port
+        vars.services.prometheus.http_port
       ];
     };
   };
