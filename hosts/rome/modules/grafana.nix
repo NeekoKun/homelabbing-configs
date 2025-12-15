@@ -9,7 +9,7 @@ in
     
     settings = {
       server = {
-        http_addr = "${net.internal.loki}";
+        http_addr = "${net.internal.rome}";
         http_port = vars.services.grafana.port;
         domain = "grafana.${net.DNS.domain}.${net.DNS.tld}";
         root_url = "https://grafana.${net.DNS.domain}.${net.DNS.tld}";

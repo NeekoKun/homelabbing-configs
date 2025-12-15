@@ -3,7 +3,7 @@
 {
   services.prometheus = {
     enable = true;
-    port = vars.services.prometeus.http_port;
+    port = vars.services.prometheus.http_port;
 
     extraFlags = [
       "--web.enable-remote-write-receiver"

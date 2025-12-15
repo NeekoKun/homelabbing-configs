@@ -18,7 +18,7 @@ in
 
       # Grafana
       locations."/" = {
-        proxyPass = "http://${vars.network.internal.loki}:${toString vars.services.grafana.port}/";
+        proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
         #extraConfig = ''
         #  proxy_set_header Host $host;
         #  proxy_set_header X-Real-IP $remote_addr;

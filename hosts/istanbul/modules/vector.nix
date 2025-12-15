@@ -27,9 +27,9 @@ in
       transforms = {
         add_metadata = {
           type = "remap";
-          inputs = [ "journald" "suricata" "host_metrics" ];
+          inputs = [ "journald" "suricata" ];
           source = ''
-            .host = "${net.internal.gateway}"
+            .host = "${net.internal.istanbul}"
             .role = "gateway"
           '';
         };
@@ -39,7 +39,7 @@ in
         loki = {
           type = "loki";
           inputs = [ "add_metadata" ];
-          endpoint = "http://${net.internal.loki}:${toString vars.services.loki.http_listen_port}";
+          endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_listen_port}";
           encoding.codec = "json";
           labels.host = "{{ host }}";
         };

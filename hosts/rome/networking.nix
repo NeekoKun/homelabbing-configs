@@ -5,21 +5,21 @@ let
 in
 {
   networking = {
-    hostName = "loki";
+    hostName = "rome";
     useDHCP = false;
 
     interfaces = {
       ${net.interfaces.lan} = {
         useDHCP = false;
         ipv4.addresses = [{
-          address = net.internal.loki;
+          address = net.internal.rome;
           prefixLength = 24;
         }];
       };
     };
 
     defaultGateway = {
-      address = net.internal.gateway;
+      address = net.internal.istanbul;
       interface = net.interfaces.lan;
     };
 

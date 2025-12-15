@@ -36,8 +36,8 @@
           };
 
           internal = {
-            gateway = "192.168.2.1";
-            loki = "192.168.2.2";
+            istanbul = "192.168.2.1";
+            rome = "192.168.2.2";
             synapse = "192.168.2.3";
             navidrome = "192.168.2.4";
             nextcloud = "192.168.2.5";
@@ -51,22 +51,22 @@
       nixosConfigurations = {
 
         # Gateway Configs
-        gateway = nixpkgs.lib.nixosSystem {
+        istanbul = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit vars; };
           modules = [
             ./configuration.nix
-            ./hosts/gateway/default.nix
+            ./hosts/istanbul/default.nix
           ];
         };
 
-        # Loki Configs
-        loki = nixpkgs.lib.nixosSystem {
+        # Data Aggregation Configs
+        rome = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit vars; };
           modules = [
             ./configuration.nix
-            ./hosts/loki/default.nix
+            ./hosts/rome/default.nix
           ];
         };
 

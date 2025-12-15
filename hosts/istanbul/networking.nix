@@ -10,11 +10,11 @@ in
   };
 
   networking = {
-    hostName = "gateway";
+    hostName = "istanbul";
     interfaces = {
       ${net.interfaces.lan} = {
         ipv4.addresses = [{
-          address = net.internal.gateway; # This machine functions as gateway of the internal network
+          address = net.internal.istanbul; # This machine functions as gateway of the internal network
           prefixLength = 24;
         }];
       };

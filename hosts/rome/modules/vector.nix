@@ -61,14 +61,14 @@ in
         prometheus = {
           type = "prometheus_remote_write";
           inputs = [ "add_hostname" ];
-          endpoint = "http://${net.internal.loki}:${toString vars.services.prometheus.http_port}/api/v1/write";
+          endpoint = "http://${net.internal.rome}:${toString vars.services.prometheus.http_port}/api/v1/write";
           default_namespace = "vector";
         };
 
         loki = {
           type = "loki";
           inputs = [ "add_metadata" ];
-          endpoint = "http://${net.internal.loki}:${toString vars.services.loki.http_port}";
+          endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
 
           labels = {
