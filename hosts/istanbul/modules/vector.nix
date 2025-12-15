@@ -39,7 +39,7 @@ in
         loki = {
           type = "loki";
           inputs = [ "add_metadata" ];
-          endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_listen_port}";
+          endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
           labels.host = "{{ host }}";
         };
