@@ -46,7 +46,7 @@
           targets = [
             {
               expr = "sum(rate(host_cpu_seconds_total{mode!=\"idle\",host=\"rome\"}[1m])) by (host) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
-              #legendFormat = "{{hostname}}"; Will figure out
+              legendFormat = "{{mode}}";
               refId = "A";
             }
           ];
@@ -167,7 +167,7 @@
           ];
           type = "timeseries";
         }
-       {
+        {
           title = "Network Traffic Percentage";
           datasource = {
             type = "prometheus";
