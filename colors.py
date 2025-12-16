@@ -66,7 +66,7 @@ def output(bright_colors, dimmed_colors):
 
     print("{")
     for i, color in enumerate(colors):
-        print(f'  "color{i}": "{color}"')
+        print(f'  "color{i}"="{color}";')
     print("}")
 
 def main():

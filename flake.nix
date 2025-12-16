@@ -8,11 +8,6 @@
   outputs = inputs@{ self, nixpkgs, ... }:
     let
       vars = {
-        colors = {
-          istanbul = "8E00DD";
-          rome = "6A0025";
-        };
-
         services = {
           prometheus = {
             http_port = 9696;
@@ -70,8 +65,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit vars; };
           modules = [
-            ./configuration.nix
             ./hosts/rome/default.nix
+            ./configuration.nix
           ];
         };
 
