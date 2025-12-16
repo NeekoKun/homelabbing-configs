@@ -25,7 +25,7 @@ in
 
         host_metrics = {
           type = "host_metrics";
-          collectors = [ "cpu" "disk" "filesystem" "load" "memory" "network" ];
+          collectors = [ "cpu" "memory" "network" ];
           scrape_interval_secs = 15;
         };
       };

@@ -1,5 +1,5 @@
 {
-  # Host metrics dashboard (now works with Vector metrics)
+  # Host metrics dashboard
   environment.etc."grafana-dashboards/host-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
@@ -38,7 +38,7 @@
           id = 1;
           targets = [
             {
-              expr = "100 - (avg by (hostname) (irate(vector_host_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)";
+              expr = "sum(rate(host_cpu_seconds_total{mode!=\"idle\"}[1m])) by (host) / sum(rate(host_cpu_seconds_total[1m])) by (host) * 100";
               legendFormat = "{{hostname}}";
               refId = "A";
             }
@@ -75,8 +75,8 @@
           id = 2;
           targets = [
             {
-              expr = "(vector_host_memory_total_bytes - vector_host_memory_available_bytes) / vector_host_memory_total_bytes * 100";
-              legendFormat = "{{hostname}}";
+              expr = "(host_memory_total_bytes - host_memory_available_bytes) / host_memory_total_bytes * 100";
+              legendFormat = "{{host}}";
               refId = "A";
             }
           ];
@@ -126,7 +126,7 @@
       ];
       refresh = "30s";
       schemaVersion = 38;
-      tags = ["host" "metrics" "vector"];
+      tags = [ "metrics" ];
       time = { from = "now-6h"; to = "now"; };
       title = "Multi-Host Metrics";
       uid = "multi-host-metrics";

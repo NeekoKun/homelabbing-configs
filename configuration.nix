@@ -49,6 +49,7 @@
     zip
     gh
     jq
+    stress-ng
     
     # Monitoring
     usbutils
