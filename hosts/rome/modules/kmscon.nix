@@ -12,8 +12,8 @@
     palette-blue = 106,0,37
     palette-magenta = 106,0,10
     palette-cyan = 106,15,0
-    palette-light-gray = 106,42,0
-    palette-dark-gray = 37,0,53
+    palette-light-grey = 106,42,0
+    palette-dark-grey = 37,0,53
     palette-light-red = 47,0,53
     palette-light-green = 53,0,45
     palette-light-yellow = 53,0,31
