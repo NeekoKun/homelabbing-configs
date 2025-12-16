@@ -14,6 +14,22 @@ in
     font-size = 12
     xkb-layout = it
     palette = custom
+    palette-black = ${colors.color0}
+    palette-red = ${colors.color1}
+    palette-green = ${colors.color2}
+    palette-yellow = ${colors.color3}
+    palette-blue = ${colors.color4}
+    palette-magenta = ${colors.color5}
+    palette-cyan = ${colors.color6}
+    palette-light-gray = ${colors.color7}
+    palette-dark-gray = ${colors.color8}
+    palette-light-red = ${colors.color9}
+    palette-light-green = ${colors.color10}
+    palette-light-yellow = ${colors.color11}
+    palette-light-blue = ${colors.color12}
+    palette-light-magenta = ${colors.color13}
+    palette-light-cyan = ${colors.color14}
+    palette-white = ${colors.color15}
   '';
 }
     
