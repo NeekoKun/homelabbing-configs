@@ -2,7 +2,7 @@
 
 let
   generateColors = color: import (pkgs.runCommand "console-colors.nix" {
-    buildInputs = [ python3 ];
+    buildInputs = [ pkgs.python3 ];
   } ''
     python3 ${./../../../colors.py} "${color}" > $out
   '');

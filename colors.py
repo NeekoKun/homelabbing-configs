@@ -62,11 +62,11 @@ def output(bright_colors, dimmed_colors):
     dimmed_hex = [f"{r:02x}{g:02x}{b:02x}" for r, g, b in dimmed_rgb]
 
     # 3. Generate JSON object
-    colors = bright_hex + dimmed_hex
+    colors = bright_rgb + dimmed_rgb
 
     print("{")
     for i, color in enumerate(colors):
-        print(f'  "color{i}"="{color}";')
+        print(f'  "color{i}"="{color[0]},{color[1]},{color[2]}";')
     print("}")
 
 def main():

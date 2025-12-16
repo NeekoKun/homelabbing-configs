@@ -13,7 +13,7 @@
     extraConfig = ''
       font-size = 12
       xkb-layout = it
-    ''
+    '';
   };
 
   environment.variables = {
