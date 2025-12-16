@@ -1,35 +1,26 @@
 { config, pkgs, vars, ... }:
 
-let
-  generateColors = color: import (pkgs.runCommand "console-colors.nix" {
-    buildInputs = [ pkgs.python3 ];
-  } ''
-    python3 ${./../../../colors.py} "${color}" > $out
-  '');
-
-  colors = generateColors "6A0025";
-in
 {
   services.kmscon.extraConfig = ''
     font-size = 12
     xkb-layout = it
     palette = custom
-    palette-black = ${colors.color0}
-    palette-red = ${colors.color1}
-    palette-green = ${colors.color2}
-    palette-yellow = ${colors.color3}
-    palette-blue = ${colors.color4}
-    palette-magenta = ${colors.color5}
-    palette-cyan = ${colors.color6}
-    palette-light-gray = ${colors.color7}
-    palette-dark-gray = ${colors.color8}
-    palette-light-red = ${colors.color9}
-    palette-light-green = ${colors.color10}
-    palette-light-yellow = ${colors.color11}
-    palette-light-blue = ${colors.color12}
-    palette-light-magenta = ${colors.color13}
-    palette-light-cyan = ${colors.color14}
-    palette-white = ${colors.color15}
+    palette-black = 68,0,106
+    palette-red = 95,0,106
+    palette-green = 106,0,90
+    palette-yellow = 106,0,63
+    palette-blue = 106,0,37
+    palette-magenta = 106,0,10
+    palette-cyan = 106,15,0
+    palette-light-gray = 106,42,0
+    palette-dark-gray = 37,0,53
+    palette-light-red = 47,0,53
+    palette-light-green = 53,0,45
+    palette-light-yellow = 53,0,31
+    palette-light-blue = 53,0,18
+    palette-light-magenta = 53,0,5
+    palette-light-cyan = 53,7,0
+    palette-white = 53,21,0
   '';
 }
     
