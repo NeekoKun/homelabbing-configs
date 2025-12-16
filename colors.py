@@ -70,7 +70,7 @@ def output(bright_colors, dimmed_colors):
     print("}")
 
 def main():
-    hue_step = 15
+    hue_step = 10
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <#hex-code>")
         sys.exit()

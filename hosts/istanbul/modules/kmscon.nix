@@ -7,7 +7,7 @@ let
     python3 ${./../../../colors.py} ${color} > $out
   '');
 
-  colors = generateColors "B3000F";
+  colors = generateColors "920B3";
 in 
 {
   services.kmscon.extraConfig = ''
