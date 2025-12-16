@@ -1,6 +1,8 @@
 {
   imports = [
     ./logs.nix
-    ./metrics.nix
+    ./hosts.nix
+    ./rome.nix
+    ./istanbul.nix
   ];
 }
