@@ -127,7 +127,7 @@
           type = "timeseries";
         }
         {
-          title = "Network Traffic Transmitted";
+          title = "Network Traffic Total";
           datasource = {
             type = "prometheus";
             uid = "Prometheus";
@@ -156,14 +156,19 @@
           targets = [
             {
               expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
-              #legendFormat = "{{host}} - {{device}}";
+              legendFormat = "{{device}} - TX";
               refId = "A";
+            }
+            {
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
+              legendFormat = "{{device}} - RX";
+              refId = "B";
             }
           ];
           type = "timeseries";
         }
        {
-          title = "Network Traffic Received";
+          title = "Network Traffic Percentage";
           datasource = {
             type = "prometheus";
             uid = "Prometheus";
@@ -191,9 +196,14 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
-              #legendFormat = "{{host}} - {{device}}";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"})[5m])";
+              legendFormat = "{{device}} - RX %";
               refId = "A";
+            }
+            {
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"})[5m])";
+              legendFormat = "{{device}} - TX %";
+              refId = "B";
             }
           ];
           type = "timeseries";
