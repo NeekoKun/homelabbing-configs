@@ -1,3 +1,5 @@
+{ vars, ... }:
+
 {
   ## Rome Metrics dashboard ##
 
@@ -8,7 +10,7 @@
       annotations.list = [];
       editable = true;
       fiscalYearStartMonth = 0;
-      graphTooltip = 0;
+      graphTooltip = 2;
       id = null;
       links = [];
       panels = [
@@ -153,7 +155,7 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\"}[5m])";
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
               #legendFormat = "{{host}} - {{device}}";
               refId = "A";
             }
@@ -189,7 +191,7 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\"}[5m])";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
               #legendFormat = "{{host}} - {{device}}";
               refId = "A";
             }
@@ -199,10 +201,10 @@
       ];
       refresh = "30s";
       schemaVersion = 38;
-      tags = [ "metrics" ];
+      tags = [ "metrics" "rome" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "Multi-Host Metrics";
-      uid = "multi-host-metrics";
+      title = "Rome Metrics";
+      uid = "rome-metrics";
       version = 0;
     };
   };

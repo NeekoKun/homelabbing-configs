@@ -1,3 +1,5 @@
+{ vars, ... }:
+
 {
   ## Istanbul Metrics dashboard ##
 
@@ -8,7 +10,7 @@
       annotations.list = [];
       editable = true;
       fiscalYearStartMonth = 0;
-      graphTooltip = 0;
+      graphTooltip = 2;
       id = null;
       links = [];
       panels = [
@@ -199,10 +201,10 @@
       ];
       refresh = "30s";
       schemaVersion = 38;
-      tags = [ "metrics" ];
+      tags = [ "metrics" "istanbul" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "Multi-Host Metrics";
-      uid = "multi-host-metrics";
+      title = "Istanbul Metrics";
+      uid = "Istanbul-metrics";
       version = 0;
     };
   };

@@ -1,3 +1,5 @@
+{ vars, ... }:
+
 {
   # Host metrics dashboard
   environment.etc."grafana-dashboards/host-metrics.json" = {
