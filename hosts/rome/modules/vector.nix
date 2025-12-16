@@ -62,7 +62,18 @@ in
           type = "prometheus_remote_write";
           inputs = [ "add_hostname" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.prometheus.http_port}/api/v1/write";
-          default_namespace = "vector";
+
+          healthcheck.enabled = true;
+
+          batch = {
+            max_events = 1000;
+            timeout_secs = 1;
+          };
+
+          request = {
+            retry_attempts = 5;
+            timeout_secs = 60;
+          };
         };
 
         loki = {
@@ -84,6 +95,13 @@ in
           };
 
           out_of_order_action = "accept";
+        };
+
+        debug_metrics = {
+          type = "console";
+          inputs = [ "add_hostname" ];
+          encoding.codec = "json";
+          target = "stdout";
         };
       };
     };
