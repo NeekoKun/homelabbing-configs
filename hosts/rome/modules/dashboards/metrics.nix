@@ -25,9 +25,10 @@
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
-                pointSize = 5;
+                pointSize = 3;
                 showPoints = "never";
-                spanNulls = false;
+                spanNulls = true;
+                gradientMode = "hue";
               };
               max = 100;
               min = 0;
@@ -62,9 +63,10 @@
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
-                pointSize = 5;
+                pointSize = 3;
                 showPoints = "never";
-                spanNulls = false;
+                spanNulls = true;
+                gradientMode = "hue";
               };
               max = 100;
               min = 0;
@@ -99,9 +101,10 @@
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
-                pointSize = 5;
+                pointSize = 3;
                 showPoints = "never";
-                spanNulls = false;
+                spanNulls = true;
+                gradientMode = "hue";
               };
               unit = "bytes";
             };
@@ -110,13 +113,13 @@
           id = 3;
           targets = [
             {
-              expr = "rate(vector_host_network_receive_bytes_total{device!=\"lo\"}[5m])";
-              legendFormat = "{{hostname}} - {{device}} RX";
+              expr = "rate(host_network_receive_bytes_total{device!=\"lo\"}[5m])";
+              legendFormat = "{{host}} - {{device}} RX";
               refId = "A";
             }
             {
-              expr = "rate(vector_host_network_transmit_bytes_total{device!=\"lo\"}[5m])";
-              legendFormat = "{{hostname}} - {{device}} TX";
+              expr = "rate(host_network_transmit_bytes_total{device!=\"lo\"}[5m])";
+              legendFormat = "{{host}} - {{device}} TX";
               refId = "B";
             }
           ];
