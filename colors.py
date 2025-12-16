@@ -64,9 +64,10 @@ def output(bright_colors, dimmed_colors):
     # 3. Generate JSON object
     colors = bright_hex + dimmed_hex
 
-    print("[")
-    
-    print("]")
+    print("{")
+    for i, color in enumerate(colors):
+        print(f'  "color{i}": "{color}"')
+    print("}")
 
 def main():
     hue_step = 15
