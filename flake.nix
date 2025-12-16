@@ -8,6 +8,11 @@
   outputs = inputs@{ self, nixpkgs, ... }:
     let
       vars = {
+        colors = {
+          istanbul = "8E00DD";
+          rome = "6A0025";
+        };
+
         services = {
           prometheus = {
             http_port = 9696;

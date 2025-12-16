@@ -19,7 +19,7 @@ def rgb_to_hsl(rgb: list):
         else:
             h = (rgb[0] - rgb[1]) / delta + 4
         h /= 6
-    
+
     return [h * 360, s * 100, l * 100]
 
 def hsl_to_rgb(hsl: list):
@@ -65,13 +65,8 @@ def output(bright_colors, dimmed_colors):
     colors = bright_hex + dimmed_hex
 
     print("[")
-    for i, color in enumerate(colors):
-        print(f'"{color}"')
-    print("]")
     
-
-def print_colored_text(text: str, rgb: list):
-    print(f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m{text}\033[0m", end='')
+    print("]")
 
 def main():
     hue_step = 15
@@ -81,10 +76,9 @@ def main():
 
     rgb = [int(sys.argv[1].strip("#")[i*2] + sys.argv[1].strip("#")[i*2 + 1], 16)/255 for i in range(0, 3)]
     hsl = rgb_to_hsl(rgb)
-    #print(f"HSL: ({hsl[0]:.2f}, {hsl[1]:.2f}%, {hsl[2]:.2f}%)")
 
     bright_colors = [[hsl[0] + hue_step * (i - 4), hsl[1], hsl[2]] for i in range(0, 8)]
-    
+
     dimmed_colors = map(lambda c: [c[0], c[1], c[2] * 0.5], bright_colors)
 
     output(bright_colors, dimmed_colors)

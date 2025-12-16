@@ -1,5 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
+let
+  generateColors = color: import (pkgs.runCommand "console-colors.nix" {
+    buildInputs = [ pkgs.python3 ];
+  } ''
+    python3 ${../colors.py} "${color}" > $out
+  '');
+
+  colors = generateColors vars.colors.${config.networking.hostName};
+in
 {
   services.kmscon = {
     enable = true;
@@ -13,6 +22,9 @@
     extraConfig = ''
       font-size = 12
       xkb-layout = it
+      palette = custom
+      palette-black = ${colors.color0}
+      palette-red = ${colors.color1}
     '';
   };
 
