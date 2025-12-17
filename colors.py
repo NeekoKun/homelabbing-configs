@@ -24,6 +24,8 @@ def rgb_to_hsl(rgb: list):
 
 def hsl_to_rgb(hsl: list):
     h, s, l = hsl
+    s = min(max(s, 0), 100)
+    l = min(max(l, 0), 100)
     s /= 100
     l /= 100
 
@@ -52,6 +54,16 @@ def hsl_to_rgb(hsl: list):
 
     return [int(r * 255), int(g * 255), int(b * 255)]
 
+def print_colored_squares(colors):
+    for color in colors[:8]:
+        r, g, b = hsl_to_rgb([(color[0] + 360) % 360, color[1], color[2]])
+        print(f"\033[48;2;{r};{g};{b}m  \033[0m", end="")
+    print()
+    for color in colors[8:]:
+        r, g, b = hsl_to_rgb([(color[0] + 360) % 360, color[1], color[2]])
+        print(f"\033[48;2;{r};{g};{b}m  \033[0m", end="")
+    print()
+
 def output(bright_colors, dimmed_colors):
     # 1. Convert HSL to RGB
     bright_rgb = [hsl_to_rgb([(c[0] + 360) % 360, c[1], c[2]]) for c in bright_colors]
@@ -71,18 +83,87 @@ def output(bright_colors, dimmed_colors):
 
 def main():
     hue_step = 10
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <#hex-code>")
+
+    if len(sys.argv) < 2 or "-h" in sys.argv or "--help" in sys.argv:
+        print(f"Usage: {sys.argv[0]} <#hex-code> <#optional-hex-end>")
+        print(f"Flags:")
+        print(f"  -h, --help                         Show this help message and exit")
+        print(f"  --hue-step <int>                   Set the hue step for single color palette generation (default: 10)")
+        print(f"  --range <start-color> <end-color>  Generate palette between two colors")
+        print(f"  --debug                            Enable debug output")
         sys.exit()
 
-    rgb = [int(sys.argv[1].strip("#")[i*2] + sys.argv[1].strip("#")[i*2 + 1], 16)/255 for i in range(0, 3)]
-    hsl = rgb_to_hsl(rgb)
+    if "--hue-step" in sys.argv:
+        idx = sys.argv.index("--hue-step")
+        if idx + 1 < len(sys.argv):
+            hue_step = int(sys.argv[idx + 1])
+            del sys.argv[idx:idx + 2]
+        else:
+            print("Error: --hue-step requires an integer argument.")
+            sys.exit(1)
+    
+    if "--range" in sys.argv:
+        idx = sys.argv.index("--range")
+        if idx + 2 < len(sys.argv):
+            # Validate format
+            if not (sys.argv[idx + 1].startswith("#") and len(sys.argv[idx + 1]) == 7 and
+                    sys.argv[idx + 2].startswith("#") and len(sys.argv[idx + 2]) == 7):
+                print("Error: Colors must be in #RRGGBB format.")
+                sys.exit(1)
 
-    bright_colors = [[hsl[0] + hue_step * (i - 4), hsl[1], hsl[2]] for i in range(0, 8)]
+            start_color = sys.argv[idx + 1]
+            end_color = sys.argv[idx + 2]
+            sys.argv.append(start_color)
+            sys.argv.append(end_color)
+        else:
+            print("Error: --range requires two color arguments.")
+            sys.exit(1)
 
-    dimmed_colors = map(lambda c: [c[0], c[1], c[2] * 0.5], bright_colors)
+    if "--range" in sys.argv:
+        # Two colors, generate palette between them
+        start_rgb = [int(sys.argv[-2].strip("#")[i*2] + sys.argv[-2].strip("#")[i*2 + 1], 16)/255 for i in range(0, 3)]
+        end_rgb = [int(sys.argv[-1].strip("#")[i*2] + sys.argv[-1].strip("#")[i*2 + 1], 16)/255 for i in range(0, 3)]
 
-    output(bright_colors, dimmed_colors)
+        start_hsl = rgb_to_hsl(start_rgb)
+        end_hsl = rgb_to_hsl(end_rgb)
+
+        bright_colors = []
+
+        for i in range(0, 8):
+            ratio = i / 7
+            if start_hsl[0] - end_hsl[0] > 180:
+                end_hsl[0] += 360
+            elif end_hsl[0] - start_hsl[0] > 180:
+                start_hsl[0] += 360
+            h = start_hsl[0] + (end_hsl[0] - start_hsl[0]) * ratio
+            s = max(start_hsl[1], end_hsl[1])
+            l = max(start_hsl[2], end_hsl[2])
+            bright_colors.append([h, s, l])
+
+        dimmed_colors = map(lambda c: [c[0], c[1], c[2] * 1.5], bright_colors)
+
+        if "--debug" in sys.argv:
+            print_colored_squares(bright_colors + list(dimmed_colors))
+        else:
+            output(bright_colors, dimmed_colors)
+    else:
+        # Single color, generate palette with HUE step
+        
+        rgb = [int(sys.argv[1].strip("#")[i*2] + sys.argv[1].strip("#")[i*2 + 1], 16)/255 for i in range(0, 3)]
+        hsl = rgb_to_hsl(rgb)
+
+        bright_colors = [[hsl[0] + hue_step * (i - 4), hsl[1], hsl[2]] for i in range(0, 8)]
+
+        dimmed_colors = map(lambda c: [c[0], c[1], c[2] * 1.5], bright_colors)
+
+        if "--debug" in sys.argv:
+            print_colored_squares(bright_colors + list(dimmed_colors))
+        else:
+            output(bright_colors, dimmed_colors)
+    
+    sys.exit(0)
+
+
 
 if __name__ == "__main__":
     main()
