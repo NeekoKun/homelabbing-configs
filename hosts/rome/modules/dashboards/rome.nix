@@ -28,7 +28,10 @@
                 axisColorMode = "text";
                 axisPlacement = "auto";
                 drawStyle = "bars";
-                stack = "normal";
+                stacking = {
+                  group = "A";
+                  mode = "normal";
+                }
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
