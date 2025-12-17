@@ -30,8 +30,12 @@ in
     firewall = {
       enable = true;
 
-      allowedTCPPorts = [ 80 443 53 ];
-      allowedUDPPorts = [ 53 ];
+      interfaces.${net.interfaces.lan} = {
+        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [ 53 ];
+      };
+
+      allowedTCPPorts = [ 80 443 ];
     };
   };
 
@@ -40,7 +44,7 @@ in
     enable = true;
     settings = {
       server = [ "8.8.8.8" "1.1.1.1" ];
-      interface = vars.network.interfaces.lan;
+      interface = net.interfaces.lan;
     };
   };
 }
