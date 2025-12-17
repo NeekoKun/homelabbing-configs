@@ -15,7 +15,7 @@
       links = [];
       panels = [
         {
-          title = "CPU Usage";
+          title = "CPU Usage by Processor State";
           datasource = {
             type = "prometheus";
             uid = "Prometheus";
@@ -45,9 +45,19 @@
           id = 1;
           targets = [
             {
-              expr = "sum(rate(host_cpu_seconds_total{mode!=\"idle\",host=\"rome\"}[1m])) by (host) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
+              expr = "sum(rate(host_cpu_seconds_total{mode=\"system\",host=\"rome\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
               legendFormat = "{{mode}}";
               refId = "A";
+            }
+            {
+              expr = "sum(rate(host_cpu_seconds_total{mode=\"user\",host=\"rome\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
+              legendFormat = "{{mode}}";
+              refId = "B";
+            }
+            {
+              expr = "sum(rate(host_cpu_seconds_total{mode=\"io_wait\",host=\"rome\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
+              legendFormat = "{{mode}}";
+              refId = "C";
             }
           ];
           type = "timeseries";
