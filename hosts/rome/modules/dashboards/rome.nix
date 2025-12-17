@@ -31,7 +31,7 @@
                 stacking = {
                   group = "A";
                   mode = "normal";
-                }
+                };
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
