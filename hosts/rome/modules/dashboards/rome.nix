@@ -27,7 +27,7 @@
                 axisCenteredZero = false;
                 axisColorMode = "text";
                 axisPlacement = "auto";
-                drawStyle = "bar";
+                drawStyle = "bars";
                 stackSeries = "normal";
                 fillOpacity = 10;
                 lineInterpolation = "linear";
