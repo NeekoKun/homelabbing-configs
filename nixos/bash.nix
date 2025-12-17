@@ -4,7 +4,11 @@
   programs.bash = {
     enable = true;
 
-    interactiveShellInit = "tmux";
+    loginShellInit = ''
+      if [ -z "$TMUX" ] && [ -n "KMSCON" ]; then
+        exec tmux
+      fi
+    '';
   };
 
   environment.etc.inputrc.text = ''
