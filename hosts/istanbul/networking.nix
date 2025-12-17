@@ -29,6 +29,17 @@ in
 
     firewall = {
       enable = true;
+
+      allowedTCPPorts = [ 80 443 ];
+    };
+  };
+
+  # DNS Service
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      server = [ "8.8.8.8" "1.1.1.1" ];
+      interface = vars.network.interfaces.lan;
     };
   };
 }

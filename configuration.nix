@@ -50,6 +50,8 @@
     gh
     jq
     stress-ng
+    tshark
+    dig
     
     # Monitoring
     usbutils
