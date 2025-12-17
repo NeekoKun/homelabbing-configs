@@ -169,13 +169,13 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
-              legendFormat = "{{device}} - TX";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
+              legendFormat = "{{device}} - RX";
               refId = "A";
             }
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
-              legendFormat = "{{device}} - RX";
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])";
+              legendFormat = "{{device}} - TX";
               refId = "B";
             }
           ];
