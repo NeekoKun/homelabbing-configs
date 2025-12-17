@@ -28,7 +28,7 @@
                 axisColorMode = "text";
                 axisPlacement = "auto";
                 drawStyle = "bars";
-                stackSeries = "normal";
+                stack = "normal";
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
