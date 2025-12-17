@@ -194,6 +194,10 @@
                 axisCenteredZero = false;
                 axisColorMode = "text";
                 axisPlacement = "auto";
+                stacking = {
+                  group = "A";
+                  mode = "normal";
+                };
                 drawStyle = "line";
                 fillOpacity = 10;
                 lineInterpolation = "linear";
