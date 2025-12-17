@@ -206,6 +206,9 @@
                 showPoints = "never";
                 spanNulls = true;
                 gradientMode = "hue";
+                min = 0;
+                max = 100;
+                unit = "percent";
               };
               unit = "bytes";
             };
