@@ -10,7 +10,7 @@
       annotations.list = [];
       editable = true;
       fiscalYearStartMonth = 0;
-      graphTooltip = 2;
+      graphTooltip = 1;
       id = null;
       links = [];
       panels = [
@@ -27,7 +27,8 @@
                 axisCenteredZero = false;
                 axisColorMode = "text";
                 axisPlacement = "auto";
-                drawStyle = "line";
+                drawStyle = "bar";
+                stackSeries = "normal";
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
@@ -46,17 +47,17 @@
           targets = [
             {
               expr = "sum(rate(host_cpu_seconds_total{mode=\"system\",host=\"rome\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
-              legendFormat = "{{mode}}";
+              legendFormat = "System Mode";
               refId = "A";
             }
             {
               expr = "sum(rate(host_cpu_seconds_total{mode=\"user\",host=\"rome\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
-              legendFormat = "{{mode}}";
+              legendFormat = "User Mode";
               refId = "B";
             }
             {
               expr = "sum(rate(host_cpu_seconds_total{mode=\"io_wait\",host=\"rome\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"rome\"}[1m])) * 100";
-              legendFormat = "{{mode}}";
+              legendFormat = "IO Wait";
               refId = "C";
             }
           ];
