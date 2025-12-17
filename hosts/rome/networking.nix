@@ -23,7 +23,7 @@ in
       interface = net.interfaces.lan;
     };
 
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ vars.network.internal.istanbul ];
 
     firewall = {
       enable = true;
