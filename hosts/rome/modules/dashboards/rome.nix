@@ -105,6 +105,53 @@
           type = "timeseries";
         }
         {
+          title = "Disk Usage";
+          datasource = {
+            type = "prometheus";
+            uid = "Prometheus";
+          };
+          fieldConfig = {
+            defaults = {
+              color.mode = "palette-classic";
+              custom = {
+                axisCenteredZero = false;
+                axisColorMode = "text";
+                axisPlacement = "auto";
+                drawStyle = "bars";
+                stacking = {
+                  group = "A";
+                  mode = "normal";
+                };
+                fillOpacity = 10;
+                lineInterpolation = "linear";
+                lineWidth = 1;
+                pointSize = 3;
+                showPoints = "never";
+                spanNulls = true;
+                gradientMode = "hue";
+              };
+              max = 100;
+              min = 0;
+              unit = "percent";
+            };
+          };
+          gridPos = { h = 8; w = 12; x = 0; y = 0; };
+          id = 1;
+          targets = [
+            {
+              expr = "host_filesystem_size_bytes{mountpoint=\"/\",host=\"rome\"}";
+              legendFormat = "Total Space";
+              refId = "A";
+            }
+            {
+              expr = "host_filesystem_used_bytes{mountpoint=\"/\",host=\"rome\"}";
+              legendFormat = "Used Space";
+              refId = "B";
+            }
+          ];
+          type = "timeseries";
+        }
+        {
           title = "Network Traffic Total";
           datasource = {
             type = "prometheus";
