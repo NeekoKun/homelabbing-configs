@@ -105,42 +105,6 @@
           type = "timeseries";
         }
         {
-          title = "Network Saturation Percentage";
-          datasource = {
-            type = "prometheus";
-            uid = "Prometheus";
-          };
-          fieldConfig = {
-            defaults = {
-              color.mode = "palette-classic";
-              custom = {
-                axisCenteredZero = false;
-                axisColorMode = "text";
-                axisPlacement = "auto";
-                drawStyle = "line";
-                fillOpacity = 10;
-                lineInterpolation = "linear";
-                lineWidth = 1;
-                pointSize = 3;
-                showPoints = "never";
-                spanNulls = true;
-                gradientMode = "hue";
-              };
-              unit = "bytes";
-            };
-          };
-          gridPos = { h = 8; w = 24; x = 0; y = 8; };
-          id = 3;
-          targets = [
-            {
-              expr = "sum(rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])) / sum(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])) * 100";
-              #legendFormat = "{{host}} - {{device}}";
-              refId = "A";
-            }
-          ];
-          type = "timeseries";
-        }
-        {
           title = "Network Traffic Total";
           datasource = {
             type = "prometheus";
