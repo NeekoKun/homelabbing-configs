@@ -11,7 +11,7 @@
       editable = true;
       fiscalYearStartMonth = 0;
       graphTooltip = 1;
-      id = 0;
+      id = null;
       links = [];
       panels = [
         {
