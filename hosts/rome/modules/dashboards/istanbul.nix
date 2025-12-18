@@ -262,7 +262,7 @@
           id = 1;
           targets = [
             {
-              expr = "rate(host_network_transmit_bytes_total{host!="istanbul",device="enp0s3"}[1m]) / ignoring(host) group_left rate(host_network_receive_bytes_total{host="istanbul",device="enp0s3"}[1m])";
+              expr = "rate(host_network_transmit_bytes_total{host!=\"istanbul\",device=\"enp0s3\"}[1m]) / ignoring(host) group_left rate(host_network_receive_bytes_total{host=\"istanbul\",device=\"enp0s3\"}[1m])";
               legendFormat = "{{host}}";
               refId = "A";
             }
