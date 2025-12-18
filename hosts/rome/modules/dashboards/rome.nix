@@ -98,7 +98,7 @@
           targets = [
             {
               expr = "(host_memory_total_bytes{host=\"rome\"} - host_memory_available_bytes{host=\"rome\"}) / host_memory_total_bytes{host=\"rome\"} * 100";
-              #legendFormat = "{{host}}";
+              legendFormat = "Used Memory";
               refId = "A";
             }
           ];
