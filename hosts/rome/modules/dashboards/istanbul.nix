@@ -1,17 +1,17 @@
 { vars, ... }:
 
 {
-  ## Rome Metrics dashboard ##
+  ## Istanbul Metrics dashboard ##
 
   # This dashboard shows CPU, memory usage, network saturation percentage, network received and transmitted in LAN
-  # and disk saturation percentage for Rome.
+  # and disk saturation percentage for Istanbul.
   environment.etc."grafana-dashboards/istanbul-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;
       fiscalYearStartMonth = 0;
       graphTooltip = 1;
-      id = 1;
+      id = 2;
       links = [];
       panels = [
         {
