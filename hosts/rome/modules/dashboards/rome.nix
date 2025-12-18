@@ -133,7 +133,7 @@
           id = 3;
           targets = [
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m]) / host_network_received_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"} * 100";
+              expr = "sum(rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"rome\"}[5m])) / sum(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])) * 100";
               #legendFormat = "{{host}} - {{device}}";
               refId = "A";
             }
