@@ -172,9 +172,8 @@
                 gradientMode = "hue";
                 min = 0;
                 max = 100;
-                unit = "percent";
               };
-              unit = "bytes";
+              unit = "percent";
             };
           };
           gridPos = { h = 8; w = 12; x = 12; y = 16; };
