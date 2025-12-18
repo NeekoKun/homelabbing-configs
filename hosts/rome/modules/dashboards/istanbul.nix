@@ -129,7 +129,7 @@
               unit = "bytes";
             };
           };
-          gridPos = { h = 8; w = 24; x = 0; y = 12; };
+          gridPos = { h = 8; w = 24; x = 0; y = 8; };
           id = 1;
           targets = [
             {
@@ -258,7 +258,7 @@
               unit = "bytes";
             };
           };
-          gridPos = { h = 8; w = 24; x = 0; y = 12; };
+          gridPos = { h = 8; w = 24; x = 0; y = 24; };
           id = 1;
           targets = [
             {
