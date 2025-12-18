@@ -117,11 +117,7 @@
                 axisCenteredZero = false;
                 axisColorMode = "text";
                 axisPlacement = "auto";
-                drawStyle = "bars";
-                stacking = {
-                  group = "A";
-                  mode = "normal";
-                };
+                drawStyle = "line";
                 fillOpacity = 10;
                 lineInterpolation = "linear";
                 lineWidth = 1;
@@ -130,16 +126,14 @@
                 spanNulls = true;
                 gradientMode = "hue";
               };
-              max = 100;
-              min = 0;
-              unit = "percent";
+              unit = "bytes";
             };
           };
           gridPos = { h = 8; w = 24; x = 0; y = 12; };
           id = 1;
           targets = [
             {
-              expr = "host_filesystem_size_bytes{mountpoint=\"/\",host=\"rome\"}";
+              expr = "host_filesystem_total_bytes{mountpoint=\"/\",host=\"rome\"}";
               legendFormat = "Total Space";
               refId = "A";
             }
