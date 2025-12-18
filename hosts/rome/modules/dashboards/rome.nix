@@ -88,18 +88,22 @@
                 spanNulls = true;
                 gradientMode = "hue";
               };
-              max = 100;
               min = 0;
-              unit = "percent";
+              unit = "bytes";
             };
           };
           gridPos = { h = 8; w = 12; x = 12; y = 0; };
           id = 2;
           targets = [
             {
-              expr = "(host_memory_total_bytes{host=\"rome\"} - host_memory_available_bytes{host=\"rome\"}) / host_memory_total_bytes{host=\"rome\"} * 100";
+              expr = "(host_memory_total_bytes{host=\"rome\"} - host_memory_available_bytes{host=\"rome\"})";
               legendFormat = "Used Memory";
               refId = "A";
+            }
+            {
+              expr = "host_memory_total_bytes{host=\"rome\"}";
+              legendFormat = "Total Memory";
+              refId = "B";
             }
           ];
           type = "timeseries";
