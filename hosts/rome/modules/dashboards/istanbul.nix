@@ -90,16 +90,21 @@
               };
               max = 100;
               min = 0;
-              unit = "percent";
+              unit = "bytes";
             };
           };
           gridPos = { h = 8; w = 12; x = 12; y = 0; };
           id = 2;
           targets = [
             {
-              expr = "(host_memory_total_bytes{host=\"istanbul\"} - host_memory_available_bytes{host=\"istanbul\"}) / host_memory_total_bytes{host=\"istanbul\"} * 100";
-              #legendFormat = "{{host}}";
+              expr = "(host_memory_total_bytes{host=\"istanbul\"} - host_memory_available_bytes{host=\"istanbul\"})";
+              legendFormat = "Used Memory";
               refId = "A";
+            }
+            {
+              expr = "host_memory_total_bytes{host=\"istanbul\"}";
+              legendFormat = "Total Memory";
+              refId = "B";
             }
           ];
           type = "timeseries";
