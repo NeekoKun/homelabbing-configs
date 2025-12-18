@@ -39,7 +39,7 @@
             istanbul = "192.168.2.1";
             rome = "192.168.2.2";
             synapse = "192.168.2.3";
-            navidrome = "192.168.2.4";
+            thebes = "192.168.2.4";
             nextcloud = "192.168.2.5";
             subnet  = "192.168.2.0/24";
             mask = "255.255.255.0";
@@ -70,13 +70,23 @@
           ];
         };
 
-        # Synapse
-        synapse = nixpkgs.lib.nixosSystem {
+        # Navidrome
+        thebes = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit vars; };
           modules = [
             ./configuration.nix
-            ./hosts/synapse/default.nix
+            ./hosts/thebes/default.nix
+          ];
+        };
+
+        # Synapse
+        babylon = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit vars; };
+          modules = [
+            ./configuration.nix
+            ./hosts/babylon/default.nix
           ];
         };
       };

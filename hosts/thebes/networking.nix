@@ -1,30 +1,33 @@
-{ vars }:
-{ config, pkgs, ... }:
+{ vars, ... }:
 
 let
   net = vars.network;
 in
 {
   networking = {
-    hostName = "navidrome";
+    hostName = "thebes";
     useDHCP = false;
 
     interfaces = {
       ${net.interfaces.lan} = {
         useDHCP = false;
         ipv4.addresses = [{
-          address = net.internal.navidrome;
-          prefix = 24;
+          address = net.internal.thebes;
+          prefixLength = 24;
         }];
       };
     };
 
     defaultGateway = {
-      address = net.internal.gateway;
+      address = net.internal.istanbul;
       interface = net.interfaces.lan;
     };
 
-    nameserver = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ vars.network.internal.istanbul "8.8.8.8" ];
+
+    firewall = {
+      enable = true;
+    };
   };
 }
 
