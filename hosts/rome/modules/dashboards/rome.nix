@@ -135,7 +135,7 @@
               unit = "percent";
             };
           };
-          gridPos = { h = 8; w = 12; x = 0; y = 0; };
+          gridPos = { h = 8; w = 24; x = 0; y = 12; };
           id = 1;
           targets = [
             {
