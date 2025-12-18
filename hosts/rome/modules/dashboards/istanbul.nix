@@ -88,7 +88,6 @@
                 spanNulls = true;
                 gradientMode = "hue";
               };
-              max = 100;
               min = 0;
               unit = "bytes";
             };
