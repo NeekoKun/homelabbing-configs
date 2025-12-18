@@ -136,8 +136,8 @@ def main():
             elif end_hsl[0] - start_hsl[0] > 180:
                 start_hsl[0] += 360
             h = start_hsl[0] + (end_hsl[0] - start_hsl[0]) * ratio
-            s = max(start_hsl[1], end_hsl[1])
-            l = max(start_hsl[2], end_hsl[2])
+            s = start_hsl[1] + (end_hsl[1] - start_hsl[1]) * ratio
+            l = start_hsl[2] + (end_hsl[2] - start_hsl[2]) * ratio
             bright_colors.append([h, s, l])
 
         dimmed_colors = map(lambda c: [c[0], c[1], c[2] * 1.5], bright_colors)
