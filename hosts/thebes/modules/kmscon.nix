@@ -7,7 +7,7 @@ let
     python3 ${./../../../colors.py} ${params} > $out
   '');
 
-  colors = generateColors "--range \"#B3000F\" \"#F6A700\" ";
+  colors = generateColors "--range \"#C9D523\" \"#298117\" ";
 in 
 {
   services.kmscon.extraConfig = ''
