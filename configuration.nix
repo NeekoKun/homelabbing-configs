@@ -52,6 +52,7 @@
     stress-ng
     tshark
     dig
+    mlocate
     
     # Monitoring
     usbutils
