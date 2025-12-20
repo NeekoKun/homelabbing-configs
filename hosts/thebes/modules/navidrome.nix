@@ -17,7 +17,10 @@
       DataFolder = "/var/lib/navidrome";
       Address = "0.0.0.0";
       Port = vars.services.navidrome.http_port;
-    };
+
+      ND_DEFAULTADMIN_USERNAME = "admin";
+      ND_DEFAULTADMIN_PASSWORD = "1234";
+    }; #TODO add Prometheus endpoint, add default admin user account
   };
 
   systemd.services.navidrome = {

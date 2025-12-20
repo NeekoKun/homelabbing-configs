@@ -27,6 +27,8 @@ in
 
     firewall = {
       enable = true;
+
+      allowedTCPPorts = [ vars.services.navidrome.http_port ];
     };
   };
 }
