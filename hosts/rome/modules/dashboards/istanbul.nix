@@ -225,12 +225,12 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m]))";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])) * 100";
               legendFormat = "{{device}} - RX %";
               refId = "A";
             }
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m]))";
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"istanbul\"}[5m])) * 100";
               legendFormat = "{{device}} - TX %";
               refId = "B";
             }
@@ -259,14 +259,14 @@
                 spanNulls = true;
                 gradientMode = "hue";
               };
-              unit = "bytes";
+              unit = "percent";
             };
           };
           gridPos = { h = 8; w = 24; x = 0; y = 24; };
           id = 1;
           targets = [
             {
-              expr = "rate(host_network_transmit_bytes_total{host!=\"istanbul\",device=\"enp0s3\"}[1m]) / ignoring(host) group_left rate(host_network_receive_bytes_total{host=\"istanbul\",device=\"enp0s3\"}[1m])";
+              expr = "rate(host_network_transmit_bytes_total{host!=\"istanbul\",device=\"enp0s3\"}[1m]) / ignoring(host) group_left rate(host_network_receive_bytes_total{host=\"istanbul\",device=\"enp0s3\"}[1m]) * 100";
               legendFormat = "{{host}}";
               refId = "A";
             }
