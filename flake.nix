@@ -21,6 +21,10 @@
           grafana = {
             port = 2342;
           };
+
+          navidrome = {
+            http_port = 4533;
+          };
         };
 
         network = {
@@ -38,7 +42,7 @@
           internal = {
             istanbul = "192.168.2.1";
             rome = "192.168.2.2";
-            synapse = "192.168.2.3";
+            babylon = "192.168.2.3";
             thebes = "192.168.2.4";
             nextcloud = "192.168.2.5";
             subnet  = "192.168.2.0/24";

@@ -12,11 +12,19 @@ in
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
 
+    virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/" = {
+        proxyPass = "http://${vars.network.internal.thebes}:${toString vars.services.navidrome.http_port}/";
+      };
+    };
+
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
 
-      # Grafana
       locations."/" = {
         proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
         #extraConfig = ''
