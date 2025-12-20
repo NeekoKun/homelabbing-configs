@@ -140,7 +140,7 @@ def main():
             l = start_hsl[2] + (end_hsl[2] - start_hsl[2]) * ratio
             bright_colors.append([h, s, l])
 
-        dimmed_colors = map(lambda c: [c[0], c[1], c[2] * 1.5], bright_colors)
+        dimmed_colors = map(lambda c: [c[0], c[1] * 0.8, c[2] * 1.5], bright_colors)
 
         if "--debug" in sys.argv:
             print_colored_squares(bright_colors + list(dimmed_colors))
