@@ -8,6 +8,7 @@ let
   domains = [
     "neekokun.com"
     "grafana.neekokun.com"
+    "navidrome.neekokun.com"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''
