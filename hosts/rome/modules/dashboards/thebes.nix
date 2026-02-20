@@ -225,12 +225,12 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m]))";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])) * 100";
               legendFormat = "{{device}} - RX %";
               refId = "A";
             }
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m]))";
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])) * 100";
               legendFormat = "{{device}} - TX %";
               refId = "B";
             }
