@@ -10,8 +10,7 @@ let
 
   allHosts = [ neeko istanbul rome thebes ];
 in {
-  "mysecret.age".publicKeys = allHosts;
+  "admin-password.age".publicKeys = allHosts;
   "grafana-secret.age".publicKeys = [ neeko rome ];
   "navidrome-secret.age".publicKeys = [ neeko thebes ];
-  "matrix-secret.age".publicKeys = [ neeko babylon ];
 }

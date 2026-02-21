@@ -21,7 +21,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
-  ## USELESS: Using kmscon
+  ## USELESS: Using kmscon, set as fallback IN CASE
   console = {
     font = "Lat2-Terminus16";
     keyMap = "it";
@@ -32,7 +32,7 @@
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    password = "1234"; #TODO: Hash password
+    hashedPasswordFile = "./secrets/admin-password.age";
   };
 
   environment.systemPackages = with pkgs; [
