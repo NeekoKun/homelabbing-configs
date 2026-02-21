@@ -39,16 +39,6 @@ in
         #'';
       };
     };
-
-    virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
-      enableACME = true;
-      forceSSL = true;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8080";
-        proxyWebSocket = true;
-      };
-    };
   };
 
   systemd.services.nginx.serviceConfig = {

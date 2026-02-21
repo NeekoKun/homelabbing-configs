@@ -5,6 +5,5 @@
     ./vector.nix
     ./nginx.nix
     ./ddns.nix
-    ./apache.nix
   ];
 }
