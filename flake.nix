@@ -3,9 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = inputs@{ self, agenix, nixpkgs, ... }:
     let
       vars = {
         services = {
@@ -35,7 +39,7 @@
           };
 
           interfaces = {
-            wan = "enp0s8";
+            wan = "enp0s9";
             lan = "enp0s3";
           };
 
@@ -50,49 +54,34 @@
           };
         };
       };
+
+      mkHost = name: nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit vars;
+          flakeRoot = ./.;
+        };
+        modules = [
+          agenix.nixosModules.default
+          ./configuration.nix
+          ./hosts/${name}/default.nix
+        ];
+      };
     in
     {
       nixosConfigurations = {
 
         # Gateway Configs
-        istanbul = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit vars; };
-          modules = [
-            ./configuration.nix
-            ./hosts/istanbul/default.nix
-          ];
-        };
+        istanbul = mkHost "istanbul";
 
         # Data Aggregation Configs
-        rome = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit vars; };
-          modules = [
-            ./hosts/rome/default.nix
-            ./configuration.nix
-          ];
-        };
+        rome = mkHost "rome";
 
         # Navidrome
-        thebes = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit vars; };
-          modules = [
-            ./configuration.nix
-            ./hosts/thebes/default.nix
-          ];
-        };
+        thebes = mkHost "thebes";
 
         # Synapse
-        babylon = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit vars; };
-          modules = [
-            ./configuration.nix
-            ./hosts/babylon/default.nix
-          ];
-        };
+        babylon = mkHost "babylon";
       };
     };
 }

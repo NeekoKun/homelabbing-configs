@@ -1,20 +1,19 @@
-{ vars, pkgs, ... }:
+{ flakeRoot, config, vars, pkgs, ... }:
 
 let
   cloudflareEmail = "neekokun@proton.me";
-  cloudflareApiKey = "vdS4xVeRD7zkjSZoi3uIewi4wXKxKDXoQQ3b2Zd1";
-  cloudflareZoneId = "59198c0b5ea5132371b7a801f7b89f8a";
-
+  
   domains = [
     "neekokun.com"
     "grafana.neekokun.com"
+    "navidrome.neekokun.com"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''
     set -e
 
     # Get current public IP
-    IP=$(${pkgs.curl}/bin/curl -s https://api.ipify.org)
+    IP=$(${pkgs.curl}/bin/curl -s ifconfig.me)
 
     echo "Current IP: $IP"
 
@@ -23,17 +22,15 @@ let
 
       # Get DNS record ID
       RECORD_ID=$(${pkgs.curl}/bin/curl -s -X GET \
-        "https://api.cloudflare.com/client/v4/zones/${cloudflareZoneId}/dns_records?name=${domain}" \
-        -H "X-Auth-Email: ${cloudflareEmail}" \
-        -H "X-Auth-Key: ${cloudflareApiKey}" \
+        "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?name=${domain}" \
+        -H "Authorization: Bearer $CLOUDFLARE_API_KEY" \
         -H "Content-Type: application/json" | ${pkgs.jq}/bin/jq -r '.result[0].id')
 
       if [ "$RECORD_ID" != "null" ]; then
         # Update existing record
         ${pkgs.curl}/bin/curl -s -X PUT \
-          "https://api.cloudflare.com/client/v4/zones/${cloudflareZoneId}/dns_records/$RECORD_ID" \
-          -H "X-Auth-Email: ${cloudflareEmail}" \
-          -H "X-Auth-Key: ${cloudflareApiKey}" \
+          "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records/$RECORD_ID" \
+          -H "Authorization: Bearer $CLOUDFLARE_API_KEY" \
           -H "Content-Type: application/json" \
           --data "{\"type\":\"A\",\"name\":\"${domain}\",\"content\":\"$IP\",\"ttl\":120,\"proxied\":false}"
 
@@ -45,6 +42,8 @@ let
   '';
 in
 {
+  age.secrets.cloudflareEnv.file = "${flakeRoot}/secrets/cloudflare-env.age";
+
   systemd.services.cloudflare-ddns = {
     description = "Cloudflare Dynamic DNS Update";
 
@@ -52,6 +51,7 @@ in
 
     serviceConfig = {
       Type = "oneshot";
+      EnvironmentFile = config.age.secrets.cloudflareEnv.path;
       ExecStart = "${updateScript}";
     };
   };

@@ -13,6 +13,9 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Make user configuration immutable (forces password from hashedPasswordFile)
+  users.mutableUsers = false;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -21,7 +24,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
-  ## USELESS: Using kmscon
+  ## USELESS: Using kmscon, set as fallback IN CASE
   console = {
     font = "Lat2-Terminus16";
     keyMap = "it";
@@ -29,10 +32,15 @@
 
   systemd.services."getti@tty1".enable = false;
 
+  age.secrets.adminPassword.file = ./secrets/admin-password.age;
+
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    password = "1234"; #TODO: Hash password
+    hashedPasswordFile = config.age.secrets.adminPassword.path;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrhbe8Ow3i9PXPcBqI/X/MAv4tcJd0io7kA3Ku4AKkF neeko@arch"
+    ];
   };
 
   environment.systemPackages = with pkgs; [

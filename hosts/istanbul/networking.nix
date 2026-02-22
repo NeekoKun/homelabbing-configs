@@ -35,7 +35,21 @@ in
         allowedUDPPorts = [ 53 ];
       };
 
-      allowedTCPPorts = [ 80 443 ];
+      trustedInterfaces = [ net.interfaces.lan ];
+
+      allowedTCPPorts = [
+        80      # HTTP
+        443     # HTTPS
+        4343    # SSH
+      ];
+
+      extraCommands = ''
+        # Clear any existing NAT rules to ensure a clean slate (optional)
+        iptables -t nat -F POSTROUTING
+  
+        # Explicitly masquerade everything leaving the WAN interface
+        iptables -t nat -A POSTROUTING -o ${net.interfaces.wan} -j MASQUERADE
+      '';
     };
   };
 

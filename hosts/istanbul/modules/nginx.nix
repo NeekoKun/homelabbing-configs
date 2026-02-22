@@ -1,9 +1,13 @@
-{ vars, ... }:
+{ pkgs, vars, ... }:
 
 let
   net = vars.network;
 in
 {
+  environment.systemPackages = with pkgs; [
+    nginx
+  ];
+
   services.nginx = {
     enable = true;
 
