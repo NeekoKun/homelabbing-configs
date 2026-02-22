@@ -10,6 +10,12 @@ in
   };
 
   networking = {
+    hosts = {
+      ${net.internal.rome}    = [ "rome" ];
+      ${net.internal.babylon} = [ "babylon" ];
+      ${net.internal.thebes}  = [ "thebes" ];
+    };
+
     hostName = "istanbul";
     interfaces = {
       ${net.interfaces.lan} = {
