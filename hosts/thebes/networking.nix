@@ -29,6 +29,12 @@ in
       enable = true;
 
       allowedTCPPorts = [ vars.services.navidrome.http_port ];
+      
+      interfaces.${net.interfaces.lan} = {
+        allowedTCPPorts = [
+          22 # SSH from bastion
+        ];
+      };
     };
   };
 }
