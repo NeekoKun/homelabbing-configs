@@ -8,6 +8,7 @@ let
 in
 {
   "admin-password.age".publicKeys = allHosts;
+  "cloudflare-env.age".publicKeys = [ admin istanbul ];
   "grafana-secret.age".publicKeys = [ admin rome ];
   "navidrome-secret.age".publicKeys = [ admin thebes ];
 }
