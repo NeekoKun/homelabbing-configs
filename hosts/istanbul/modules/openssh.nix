@@ -22,10 +22,9 @@
     maxretry = 5;
     bantime = "5h";
 
-    bantime.increment = {
+    bantime-increment = {
       enable = true;
       formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
-      multipliers = "1 2 4 8 16 32 64";
       maxtime = "168h";
       overalljails = true;
     };
@@ -38,7 +37,7 @@
         filter = "apache-nohome";
         action = ''iptables-multiport[name=HTTP, port="http,https"]'';
         logpath = "/var/log/httpd/error_log*";
-        backend = "auto";
+        backend = "systemd";
         findtime = 600;
         bantime  = 600;
         maxretry = 5;
@@ -48,11 +47,11 @@
         filter = "sshd";
         action = ''iptables[name=SSH, port="4343", protocol=tcp]'';
         logpath = "/var/log/auth.log*";
-        backend = "auto";
+        backend = "systemd";
         findtime = 600;
         bantime  = 600;
         maxretry = 5;
       };
-    }
+    };
   };
 }

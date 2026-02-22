@@ -14,7 +14,6 @@ in {
 
       af-packet = [{
         interface = "${net.interfaces.wan}";
-        interface = "${net.interfaces.lan}";
         threads = 2;
         cluster-type = "cluster_flow";
         defrag = true;
