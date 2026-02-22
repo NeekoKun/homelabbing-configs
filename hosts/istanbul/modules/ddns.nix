@@ -1,4 +1,4 @@
-{ config, vars, pkgs, ... }:
+{ flakeRoot, config, vars, pkgs, ... }:
 
 let
   cloudflareEmail = "neekokun@proton.me";
@@ -44,7 +44,7 @@ let
   '';
 in
 {
-  age.secrets.cloudflareEnv.file = ../../../../secrets/cloudflare-env.age;
+  age.secrets.cloudflareEnv.file = "${flakeRoot}/secrets/cloudflare-env.age";
 
   systemd.services.cloudflare-ddns = {
     description = "Cloudflare Dynamic DNS Update";

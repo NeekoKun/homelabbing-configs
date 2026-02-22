@@ -57,7 +57,10 @@
 
       mkHost = name: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit vars; };
+        specialArgs = {
+          inherit vars;
+          flakeRoot = ./.;
+        };
         modules = [
           agenix.nixosModules.default
           ./configuration.nix
