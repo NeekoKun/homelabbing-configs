@@ -48,7 +48,7 @@ in
         iptables -t nat -F POSTROUTING
   
         # Explicitly masquerade everything leaving the WAN interface
-        iptables -t nat -A POSTROUTING -o wlp3s0 -j MASQUERADE
+        iptables -t nat -A POSTROUTING -o ${net.interfaces.wan} -j MASQUERADE
       '';
     };
   };
