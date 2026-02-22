@@ -47,6 +47,7 @@
       sshd.settings = {
         enabled = true;
         port = "4343";
+        backend = "systemd";
         filter = "sshd";
         maxretry = 5;
         bantime = "1h";
