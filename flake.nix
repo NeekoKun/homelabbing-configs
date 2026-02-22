@@ -5,8 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     agenix = {
       url = "github:ryantm/agenix";
-      input.nixpkgs.follows = "nixpkgs";
-    }
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, agenix, ... }:
@@ -54,6 +54,7 @@
           };
         };
       };
+
       mkHost = name: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit vars; };
