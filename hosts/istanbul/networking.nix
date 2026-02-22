@@ -35,6 +35,8 @@ in
         allowedUDPPorts = [ 53 ];
       };
 
+      trustedInterfaces = [ net.interfaces.lan ];
+
       allowedTCPPorts = [
         80      # HTTP
         443     # HTTPS
