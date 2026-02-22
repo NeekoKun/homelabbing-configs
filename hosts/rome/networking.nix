@@ -38,8 +38,8 @@ in
     interfaces.${net.interfaces.lan} = {
       allowedTCPPorts = [
         22 # SSH from bastion
-      ]
-    }
+      ];
+    };
   };
 }
 
