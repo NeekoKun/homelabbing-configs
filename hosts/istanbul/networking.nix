@@ -35,7 +35,11 @@ in
         allowedUDPPorts = [ 53 ];
       };
 
-      allowedTCPPorts = [ 80 443 ];
+      allowedTCPPorts = [
+        80      # HTTP
+        443     # HTTPS
+        4343    # SSH
+      ];
     };
   };
 
