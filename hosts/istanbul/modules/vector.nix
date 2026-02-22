@@ -109,7 +109,7 @@ in
 
         loki = {
           type = "loki";
-          inputs = [ "add_metadata" ];
+          inputs = [ "add_metadata" "parse_fail2ban" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
 
