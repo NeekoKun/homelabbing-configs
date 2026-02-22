@@ -59,7 +59,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit vars; };
         modules = [
-          #agenix.nixosModules.default
+          agenix.nixosModules.default
           ./configuration.nix
           ./hosts/${name}/default.nix
         ];
