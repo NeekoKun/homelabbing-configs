@@ -8,7 +8,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./secrets.nix
+      #./secrets.nix
       ./nixos/default.nix
     ];
 
@@ -32,6 +32,8 @@
   };
 
   systemd.services."getti@tty1".enable = false;
+
+  age.secrets.adminPassword.file = ./secrets/admin-password.age;
 
   users.users.admin = {
     isNormalUser = true;
