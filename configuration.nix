@@ -14,6 +14,9 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Make user configuration immutable (forces password from hashedPasswordFile)
+  users.mutableUsers = false;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
