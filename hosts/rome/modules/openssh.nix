@@ -3,17 +3,11 @@
 {
   services.openssh = {
     enable = true;
-    ports = [ 4343 ];
+    ports = [ 22 ];
 
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "prohibit-password";
     };
-
-    extraConfig = ''
-      X11Forwarding no
-      AllowAgentForwarding yes
-      AllowTcpForwarding yes
-    '';
   };
 }

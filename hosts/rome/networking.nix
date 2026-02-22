@@ -33,6 +33,12 @@ in
         vars.services.loki.http_port
         vars.services.prometheus.http_port
       ];
+
+      extraRules = ''
+        # ACCEPT SSH connection from bastion host, DROP all other SSH traffic
+        -A INPUT -p tcp -s ${vars.network.internal.istanbul} --dport 22 -j ACCEPT
+        -A INPUT -p tcp --dport 22 -j DROP
+      '';
     };
   };
 }
