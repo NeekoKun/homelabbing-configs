@@ -5,8 +5,6 @@
 { config, lib, pkgs, vars, ... }:
 
 {
-  age.secrets.admin-password.file = ./secrets/admin-password.age;
-
   imports =
     [
       ./hardware-configuration.nix
