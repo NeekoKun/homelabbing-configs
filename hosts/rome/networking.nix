@@ -33,12 +33,12 @@ in
         vars.services.loki.http_port
         vars.services.prometheus.http_port
       ];
-    };
-
-    interfaces.${net.interfaces.lan} = {
-      allowedTCPPorts = [
-        22 # SSH from bastion
-      ];
+      
+      interfaces.${net.interfaces.lan} = {
+        allowedTCPPorts = [
+          22 # SSH from bastion
+        ];
+      };
     };
   };
 }
