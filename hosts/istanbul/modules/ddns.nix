@@ -1,4 +1,4 @@
-{ vars, pkgs, ... }:
+{ config, vars, pkgs, ... }:
 
 let
   cloudflareEmail = "neekokun@proton.me";
