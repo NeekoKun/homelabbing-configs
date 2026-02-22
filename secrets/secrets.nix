@@ -4,7 +4,8 @@ let
   thebes = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPR/TfhkCvtiRbEgxGpomCWWI7rGL/YV0L76sVeBXtdD admin@thebes";
 
   allHosts = [ istanbul rome thebes ];
-in {
+in
+{
   "admin-password.age".publicKeys = allHosts;
   "grafana-secret.age".publicKeys = [ rome ];
   "navidrome-secret.age".publicKeys = [ thebes ];
