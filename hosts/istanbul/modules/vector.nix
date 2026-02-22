@@ -46,19 +46,18 @@ in
               abort
             }
 
-            .message = string!(.MESSAGE)
-            .jail = parse_regex(.message, r'.*\\[([^\\[]+)\\].*')
-            .host = "${config.networking.hostName}"
-
+            .message = string!(.message)
             if contains(.message, "Ban") {
               .action = "ban"
-              .ip = parse_regex(.message, r'.*Ban ([^ ]+).*')
+              .ip = replace(.message, r'^.*Ban (.+)$', "$1")
             } else if contains(.message, "Unban") {
               .action = "unban"
-              .ip = parse_regex(.message, r'.*Unban ([^ ]+).*')
+              .ip = replace(.message, r'^.*Unban (.+)$', "$1")
             } else {
               abort
             }
+            .jail = "sshd"
+            .host = get_hostname!()
           '';
         };
 
