@@ -24,15 +24,15 @@ let
 
       # Get DNS record ID
       RECORD_ID=$(${pkgs.curl}/bin/curl -s -X GET \
-        "https://api.cloudflare.com/client/v4/zones/${cloudflareZoneId}/dns_records?name=${domain}" \
-        -H "Authorization: Bearer ${cloudflareApiKey}" \
+        "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?name=${domain}" \
+        -H "Authorization: Bearer $CLOUDFLARE_API_KEY" \
         -H "Content-Type: application/json" | ${pkgs.jq}/bin/jq -r '.result[0].id')
 
       if [ "$RECORD_ID" != "null" ]; then
         # Update existing record
         ${pkgs.curl}/bin/curl -s -X PUT \
-          "https://api.cloudflare.com/client/v4/zones/${cloudflareZoneId}/dns_records/$RECORD_ID" \
-          -H "Authorization: Bearer ${cloudflareApiKey}" \
+          "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records/$RECORD_ID" \
+          -H "Authorization: Bearer $CLOUDFLARE_API_KEY" \
           -H "Content-Type: application/json" \
           --data "{\"type\":\"A\",\"name\":\"${domain}\",\"content\":\"$IP\",\"ttl\":120,\"proxied\":false}"
 
@@ -44,6 +44,8 @@ let
   '';
 in
 {
+  age.secrets.cloudflareEnv.file = ../../../../secrets/cloudflare-env.age;
+
   systemd.services.cloudflare-ddns = {
     description = "Cloudflare Dynamic DNS Update";
 
@@ -51,6 +53,7 @@ in
 
     serviceConfig = {
       Type = "oneshot";
+      EnvironmentFile = config.age.secrets.cloudflareEnv.path;
       ExecStart = "${updateScript}";
     };
   };
