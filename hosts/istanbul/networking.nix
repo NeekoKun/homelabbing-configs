@@ -42,6 +42,14 @@ in
         443     # HTTPS
         4343    # SSH
       ];
+
+      extraCommands = ''
+        # Clear any existing NAT rules to ensure a clean slate (optional)
+        iptables -t nat -F POSTROUTING
+  
+        # Explicitly masquerade everything leaving the WAN interface
+        iptables -t nat -A POSTROUTING -o wlp3s0 -j MASQUERADE
+      '';
     };
   };
 
