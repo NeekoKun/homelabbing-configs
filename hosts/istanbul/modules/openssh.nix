@@ -44,13 +44,12 @@
       };
 
       sshd.settings = {
-        filter = "sshd";
-        action = ''iptables[name=SSH, port="4343", protocol=tcp]'';
-        logpath = "/var/log/auth.log*";
+        enabled = true;
+        port = "4343";
         backend = "systemd";
-        findtime = 600;
-        bantime  = 600;
+        filter = "sshd";
         maxretry = 5;
+        bantime = "1h";
       };
     };
   };
