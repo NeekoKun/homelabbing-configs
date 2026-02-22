@@ -40,7 +40,7 @@ in {
               };
             }
             { anomaly = { enabled = true; }; }
-            { http = {}; } #TODO: turn on when enabling https
+            { http = {}; } #TODO: enable yesterday
             {
               tls = {
                 extended = true;
