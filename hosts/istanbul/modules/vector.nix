@@ -47,15 +47,15 @@ in
             }
 
             .message = string!(.MESSAGE)
-            .jail = parse_regex(.message, ".*\\[([^\\[]+)\\].*")
+            .jail = parse_regex(.message, r'.*\\[([^\\[]+)\\].*')
             .host = "${config.networking.hostName}"
 
             if contains(.message, "Ban") {
               .action = "ban"
-              .ip = parse_regex(.message, ".*Ban ([^ ]+).*")
+              .ip = parse_regex(.message, r'.*Ban ([^ ]+).*')
             } else if contains(.message, "Unban") {
               .action = "unban"
-              .ip = parse_regex(.message, ".*Unban ([^ ]+).*")
+              .ip = parse_regex(.message, r'.*Unban ([^ ]+).*')
             } else {
               abort
             }
