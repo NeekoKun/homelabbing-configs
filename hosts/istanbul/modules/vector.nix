@@ -16,6 +16,13 @@ in
       };
 
       sources = {
+        fail2ban = {
+          type = "journald";
+          include_matches = {
+            _SYSTEMD_UNIT = [ "fail2ban.service" ];
+          };
+        };
+
         journald = {
           type = "journald";
           exclude_matches = {
@@ -31,6 +38,30 @@ in
       };
 
       transforms = {
+        parse_fail2ban = {
+          type = "remap";
+          inputs = [ "fail2ban" ];
+          source = ''
+            if !contains(string!(.PRIORITY), "5") {
+              abort
+            }
+
+            .message = string!(.MESSAGE)
+            .jail = parse_regex(.message, ".*\\[([^\\[]+)\\].*")
+            .host = "${config.networking.hostName}"
+
+            if contains(.message, "Ban") {
+              .action = "ban"
+              .ip = parse_regex(.message, ".*Ban ([^ ]+).*")
+            } else if contains(.message, "Unban") {
+              .action = "unban"
+              .ip = parse_regex(.message, ".*Unban ([^ ]+).*")
+            } else {
+              abort
+            }
+          '';
+        };
+
         add_hostname = {
           type = "remap";
           inputs = [ "host_metrics" ];
