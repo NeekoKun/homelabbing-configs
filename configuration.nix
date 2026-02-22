@@ -35,7 +35,7 @@
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    hashedPasswordFile = "./secrets/admin-password.age";
+    password = "1234";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrhbe8Ow3i9PXPcBqI/X/MAv4tcJd0io7kA3Ku4AKkF neeko@arch"
     ];
