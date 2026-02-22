@@ -2,9 +2,7 @@
 
 let
   cloudflareEmail = "neekokun@proton.me";
-  cloudflareApiKey = "YKg_3xM6FL0JWSwr8DJ-CcajWNPbZ0SzQcsTXxyE";
-  cloudflareZoneId = "59198c0b5ea5132371b7a801f7b89f8a";
-
+  
   domains = [
     "neekokun.com"
     "grafana.neekokun.com"
