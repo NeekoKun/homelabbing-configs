@@ -49,15 +49,20 @@ in
             .message = string!(.message)
             if contains(.message, "Ban") {
               .action = "ban"
-              .ip = replace(.message, r'^.*Ban (.+)$', "$1")
+              parsed, err = parse_regex(.message, r'^.*Ban (?P<ip>.+)$')
+              if err != null { abort }
+              .ip = parsed.ip
             } else if contains(.message, "Unban") {
               .action = "unban"
-              .ip = replace(.message, r'^.*Unban (.+)$', "$1")
+              parsed, err = parse_regex(.message, r'^.*Unban (?P<ip>.+)$')
+              if err != null { abort }
+              .ip = parsed.ip
             } else {
               abort
             }
+
             .jail = "sshd"
-            .host = get_hostname!()
+            .host = "${config.networking.hostName}"
           '';
         };
 
