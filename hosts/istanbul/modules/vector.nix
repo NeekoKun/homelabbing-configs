@@ -61,6 +61,7 @@ in
               abort
             }
 
+            .level = if .action == "ban" { "warn" } else { "info" }
             .job = "fail2ban"
             .jail = "sshd"
             .host = "${config.networking.hostName}"
@@ -121,6 +122,7 @@ in
           labels = {
             job = "{{ job }}";
             host = "{{ host }}";
+            level = "{{ level }}";
           };
 
           remove_label_fields = true;
