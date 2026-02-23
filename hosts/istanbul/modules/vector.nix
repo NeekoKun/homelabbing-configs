@@ -61,6 +61,7 @@ in
               abort
             }
 
+            .job = "fail2ban"
             .jail = "sshd"
             .host = "${config.networking.hostName}"
           '';
