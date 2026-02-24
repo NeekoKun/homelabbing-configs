@@ -82,10 +82,10 @@
         # Data Aggregation Configs
         rome = mkHost "rome";
 
-        # Synapse
+        # Synapse Configs
         babylon = mkHost "babylon";
 
-        # Navidrome
+        # Navidrome Configs
         thebes = mkHost "thebes";
       };
     };

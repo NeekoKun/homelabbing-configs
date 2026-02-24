@@ -33,6 +33,7 @@ in
       interfaces.${net.interfaces.lan} = {
         allowedTCPPorts = [
           22 # SSH from bastion
+          vars.services.synapse.http_port
         ];
       };
     };
