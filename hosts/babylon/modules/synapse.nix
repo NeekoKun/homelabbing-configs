@@ -38,7 +38,7 @@ in
     };
   };
 
-  services.synapse-admin-etkecc = {
+  services.matrix-synapse-admin = {
     enable = true;
   };
 
