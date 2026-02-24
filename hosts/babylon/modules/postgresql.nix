@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  service.postgresql = {
+  services.postgresql = {
     enable = true;
 
     ensureUsers = [
@@ -10,6 +10,8 @@
         ensureDBOwnership = true;
       }
     ];
+
+    ensureDatabases = [ "matrix-synapse" ];
 
     initialScript = pkgs.writeText "synapse-pg-init" ''
     CREATE DATABASE "matrix-synapse"
