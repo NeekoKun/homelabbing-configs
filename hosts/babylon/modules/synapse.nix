@@ -15,6 +15,7 @@ in
     settings = {
       server_name = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
       public_baseurl = "https://matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
+      cors_allow_origin = [ "http://localhost:8080" ];
 
       listeners = [
         {
@@ -36,10 +37,6 @@ in
       registration_requires_token = true;
       registration_shared_secret = "passwordMoltoSicura"; # TODO: age-encrypt
     };
-  };
-
-  services.matrix-synapse-admin = {
-    enable = true;
   };
 
   environment.systemPackages = [ pkgs.matrix-synapse ];
