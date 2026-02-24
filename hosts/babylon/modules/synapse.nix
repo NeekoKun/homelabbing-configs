@@ -25,6 +25,9 @@ in
           ];
         }
       ];
+
+      enable_registration = true;
+      registration_requires_token = true;
     };
   };
 }
