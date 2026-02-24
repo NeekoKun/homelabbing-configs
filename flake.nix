@@ -66,7 +66,6 @@
           agenix.nixosModules.default
           ./configuration.nix
           ./hosts/${name}/default.nix
-          ./hosts/${name}/disko.nix
         ];
       };
     in
