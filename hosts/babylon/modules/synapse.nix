@@ -30,4 +30,6 @@ in
       registration_requires_token = true;
     };
   };
+
+  environment.systemPackages = [ pkgs.matrix-synapse ];
 }
