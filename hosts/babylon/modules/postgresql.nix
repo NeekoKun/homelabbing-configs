@@ -4,16 +4,8 @@
   services.postgresql = {
     enable = true;
 
-    ensureUsers = [
-      {
-        name = "matrix-synapse";
-        ensureDBOwnership = true;
-      }
-    ];
-
-    ensureDatabases = [ "matrix-synapse" ];
-
     initialScript = pkgs.writeText "synapse-pg-init" ''
+    CREATE ROLE "matrix-synapse" LOGIN;
     CREATE DATABASE "matrix-synapse"
       WITH OWNER "matrix-synapse"
       TEMPLATE template0
