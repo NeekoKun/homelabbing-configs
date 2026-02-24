@@ -1,4 +1,4 @@
-{ config, pkgs, lib, vars, ... }:
+{ config, pkgs, lib, vars, flakeRoot, ... }:
 
 let 
 
@@ -26,8 +26,11 @@ in
         }
       ];
 
+      age.secrets.synapseSecret.file = "${flakeRoot}/secrets/synapse-secret.age";
+
       enable_registration = true;
       registration_requires_token = true;
+      registration_shared_secret = age.secrets.synapseSecret.content;
     };
   };
 }
