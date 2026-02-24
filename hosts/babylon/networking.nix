@@ -35,6 +35,10 @@ in
           22 # SSH from bastion
           vars.services.synapse.http_port
         ];
+
+        allowedUDPPorts = [
+          3478 # TURN
+        ];
       };
     };
   };
