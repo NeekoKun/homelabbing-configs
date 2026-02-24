@@ -1,9 +1,9 @@
 {
   imports = [
     ./kmscon.nix
-    ./suricata.nix
-    ./openssh.nix
     ./vector.nix
+    ./openssh.nix
+    ./suricata.nix
     ./nginx.nix
     ./ddns.nix
   ];

@@ -3,8 +3,5 @@
     ./kmscon.nix
     ./vector.nix
     ./openssh.nix
-    ./loki.nix
-    ./grafana.nix
-    ./prometheus.nix
   ];
 }

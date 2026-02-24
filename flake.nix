@@ -3,13 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, agenix, nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, agenix, ... }:
     let
       vars = {
         services = {
@@ -65,6 +66,7 @@
           agenix.nixosModules.default
           ./configuration.nix
           ./hosts/${name}/default.nix
+          ./hosts/${name}/disko.nix
         ];
       };
     in
@@ -77,11 +79,11 @@
         # Data Aggregation Configs
         rome = mkHost "rome";
 
-        # Navidrome
-        thebes = mkHost "thebes";
-
         # Synapse
         babylon = mkHost "babylon";
+
+        # Navidrome
+        thebes = mkHost "thebes";
       };
     };
 }
