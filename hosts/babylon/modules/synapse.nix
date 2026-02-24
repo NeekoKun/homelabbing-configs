@@ -38,5 +38,9 @@ in
     };
   };
 
+  services.synapse-admin-etkecc = {
+    enable = true;
+  };
+
   environment.systemPackages = [ pkgs.matrix-synapse ];
 }
