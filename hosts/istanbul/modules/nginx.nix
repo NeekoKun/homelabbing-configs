@@ -31,12 +31,42 @@ in
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
-        #extraConfig = ''
-        #  proxy_set_header Host $host;
-        #  proxy_set_header X-Real-IP $remote_addr;
-        #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        #  proxy_set_header X-Forwarded-Proto $scheme;
-        #'';
+      };
+    };
+
+    virtualHosts."matrix.${net.DNS.domain}.${net.DNS.tld}" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/" = {
+        proxyPass = "http://${vars.network.internal.babylon}:${toString vars.services.synapse.http_port}/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Forwarded-For $remote_addr;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header Host $host;
+          client_max_body_size 50M;
+        '';
+      };
+    };
+
+    virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/.well-known/matrix/server" = {
+        return = ''200 "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}"'';
+        extraConfig = ''
+          add_header Content-Type application/json;
+        '';
+      };
+
+      locations."/.well-known/matrix/client" = {
+        return = ''200 "{\"m.homeserver\": {\"base_url\": \"https://matrix.${net.DNS.domain}.${net.DNS.tld}\"}}"'';
+        extraConfig = ''
+          add_header Content-Type application/json;
+          add_header Access-Control-Allow-Origin *;
+        '';
       };
     };
   };

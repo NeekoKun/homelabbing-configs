@@ -30,6 +30,10 @@
           navidrome = {
             http_port = 4533;
           };
+
+          synapse = {
+            http_port = 8008;
+          };
         };
 
         network = {
