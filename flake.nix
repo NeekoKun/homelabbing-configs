@@ -38,7 +38,7 @@
           coturn = {
             port = 3478;
             tls_port = 3480;
-          }
+          };
         };
 
         network = {

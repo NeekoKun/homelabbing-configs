@@ -34,7 +34,7 @@ in
 
       forwardPorts = [
         { sourcePort = 3478; proto = "tcp"; destination = "${net.internal.babylon}:3478"; } # TURN
-      ]
+      ];
     };
 
     firewall = {
