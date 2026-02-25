@@ -17,7 +17,13 @@ in
       public_baseurl = "https://matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
       cors_allow_origin = [ "http://localhost:8080" ]; # Prevent matrix from blocking admin console changes
 
-      turn_uris = [ "turn:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:3478?transport=udp" ];
+      turn_uris = [
+        "turn:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.port}?transport=udp"
+        "turn:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.port}?transport=tcp"
+        "turns:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.tls_port}?transport=udp"
+        "turns:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.tls_port}?transport=tcp"
+      ];
+      
       turn_shared_secret = "passwordMoltoSicura"; # TODO: age-encrypt
       turn_user_lifetime = "1h";
 
@@ -44,16 +50,6 @@ in
       registration_requires_token = true;
       registration_shared_secret = "passwordMoltoSicura"; # TODO: age-encrypt
     };
-  };
-
-  # VoIP
-  services.coturn = {
-    enable = true;
-    use-auth-secret = true;
-    static-auth-secret = "passwordMoltoSicura"; # TODO: age-encrypt
-    realm = "matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
-    no-tcp-relay = true;
-    extraConfig = "no-multicast-peers";
   };
 
   environment.systemPackages = [ pkgs.matrix-synapse ];

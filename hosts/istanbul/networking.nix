@@ -51,6 +51,17 @@ in
         80      # HTTP
         443     # HTTPS
         4343    # SSH
+        vars.services.coturn.port
+        vars.services.coturn.tls_port
+      ];
+
+      allowedUDPPorts = [
+        vars.services.coturn.port
+        vars.services.coturn.tls_port
+      ];
+
+      allowedUDPPortRanges = [
+        { from = 49152; to = 65535; } # CoTURN
       ];
 
       extraCommands = ''

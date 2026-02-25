@@ -242,7 +242,7 @@
       schemaVersion = 38;
       tags = [ "metrics" "babylon" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "babylon Metrics";
+      title = "Babylon Metrics";
       uid = "babylon-metrics";
       version = 0;
     };

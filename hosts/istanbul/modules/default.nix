@@ -6,5 +6,6 @@
     ./suricata.nix
     ./nginx.nix
     ./ddns.nix
+    ./coturn.nix
   ];
 }
