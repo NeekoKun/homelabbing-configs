@@ -18,10 +18,10 @@ in
       cors_allow_origin = [ "http://localhost:8080" ]; # Prevent matrix from blocking admin console changes
 
       turn_uris = [
-        "turn:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.port}?transport=udp"
-        "turn:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.port}?transport=tcp"
-        "turns:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.tls_port}?transport=udp"
-        "turns:matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${vars.services.coturn.tls_port}?transport=tcp"
+        "turn:turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${toString vars.services.coturn.port}?transport=udp"
+        "turn:turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${toString vars.services.coturn.port}?transport=tcp"
+        "turns:turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${toString vars.services.coturn.tls_port}?transport=udp"
+        "turns:turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}:${toString vars.services.coturn.tls_port}?transport=tcp"
       ];
       
       turn_shared_secret = "passwordMoltoSicura"; # TODO: age-encrypt
