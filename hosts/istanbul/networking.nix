@@ -31,10 +31,6 @@ in
 
       externalInterface = net.interfaces.wan;
       internalInterfaces = [ net.interfaces.lan ];
-
-      forwardPorts = [
-        { sourcePort = 3478; proto = "tcp"; destination = "${net.internal.babylon}:3478"; } # TURN
-      ];
     };
 
     firewall = {
@@ -66,7 +62,7 @@ in
 
       extraCommands = ''
         # Clear any existing NAT rules to ensure a clean slate (optional)
-        iptables -t nat -F POSTROUTING
+        #iptables -t nat -F POSTROUTING
   
         # Explicitly masquerade everything leaving the WAN interface
         iptables -t nat -A POSTROUTING -o ${net.interfaces.wan} -j MASQUERADE
