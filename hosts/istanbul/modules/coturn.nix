@@ -1,10 +1,15 @@
 { config, pkgs, vars, ... }:
 
 {
+  age.secrets.coturnSecret = {
+    file = "${config.flakeRoot}/secrets/coturn-secret.age";
+    owner = "coturn";
+  };
+
   services.coturn = {
     enable = true;
     use-auth-secret = true;
-    static-auth-secret = "passwordMoltoSicura"; # TODO: age-encrypt
+    static-auth-secret-file = config.age.secrets.coturnSecret.path;
     realm = "turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
 
     listening-ips = [ "0.0.0.0" ];

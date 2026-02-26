@@ -1,17 +1,22 @@
 { config, pkgs, lib, vars, flakeRoot, ... }:
 
-let 
-
-in
 {
-  age.secrets.synapseSecret = {
-    file = "${flakeRoot}/secrets/synapse-secret.age";
+  age.secrets.coturnSecret = {
+    file = "${flakeRoot}/secrets/coturn-secret.age";
     owner = "matrix-synapse";
   };
 
+  systemd.services.matrix-synapse.serviceConfig.ExecStartPre = let
+    script = pkgs.writeShellScript "synapse-secret-setup" ''
+      echo "registration_shared_secret: \"$(cat ${config.age.secrets.coturnSecret.path})\"" \
+        > /run/matrix-synapse/secret.yaml
+      chmod 400 /run/matrix-synapse/secret.yaml
+    '';
+  in [ "+${script}" ];
+
   services.matrix-synapse = {
     enable = true;
-    #extraConfigFiles = [ config.age.secrets.synapseSecret.path ];
+    extraConfigFiles = [ "/run/matrix-synapse/secret.yaml" ];
     settings = {
       server_name = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
       public_baseurl = "https://matrix.${vars.network.DNS.domain}.${vars.network.DNS.tld}";

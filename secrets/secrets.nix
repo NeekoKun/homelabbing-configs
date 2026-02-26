@@ -11,7 +11,7 @@ in
 {
   "admin-password.age".publicKeys = allHosts;
   "cloudflare-env.age".publicKeys = [ admin istanbul ];
-  "synapse-secret.age".publicKeys = [ admin babylon ];
+  "coturn-secret.age".publicKeys = [ admin istanbul babylon ];
   "grafana-secret.age".publicKeys = [ admin rome ];
   "navidrome-secret.age".publicKeys = [ admin thebes ];
 }
