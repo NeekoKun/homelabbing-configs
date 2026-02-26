@@ -10,6 +10,7 @@
     script = pkgs.writeShellScript "synapse-secret-setup" ''
       echo "registration_shared_secret: \"$(cat ${config.age.secrets.coturnSecret.path})\"" \
         > /run/matrix-synapse/secret.yaml
+      chown matrix-synapse /run/matrix-synapse/secret.yaml
       chmod 400 /run/matrix-synapse/secret.yaml
     '';
   in [ "+${script}" ];
