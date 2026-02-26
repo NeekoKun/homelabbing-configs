@@ -1,7 +1,10 @@
 { config, pkgs, vars, flakeRoot, ... }:
 
 {
-  age.secrets.coturnSecret.file = "${flakeRoot}/secrets/coturn-secret.age";
+  age.secrets.coturnSecret = {
+    file = "${flakeRoot}/secrets/coturn-secret.age";
+    owner = "turnserver";
+  };
 
   services.coturn = {
     enable = true;
