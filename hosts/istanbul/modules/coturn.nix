@@ -12,7 +12,10 @@
     tls-listening-port = vars.services.coturn.tls_port;
 
     no-tcp-relay = true;
-    extraConfig = "no-multicast-peers";
+    extraConfig = ''
+      no-multicast-peers
+      verbose
+    '';
     cert = "/var/lib/acme/turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}/cert.pem";
     pkey = "/var/lib/acme/turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}/key.pem";
   };
