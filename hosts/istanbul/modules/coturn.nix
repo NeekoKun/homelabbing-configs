@@ -1,8 +1,8 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, vars, flakeRoot, ... }:
 
 {
   age.secrets.coturnSecret = {
-    file = "${config.flakeRoot}/secrets/coturn-secret.age";
+    file = "${flakeRoot}/secrets/coturn-secret.age";
     owner = "coturn";
   };
 
