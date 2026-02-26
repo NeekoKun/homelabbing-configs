@@ -15,6 +15,7 @@
     extraConfig = ''
       no-multicast-peers
       verbose
+      external-ip=turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}
     '';
     cert = "/var/lib/acme/turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}/cert.pem";
     pkey = "/var/lib/acme/turn.${vars.network.DNS.domain}.${vars.network.DNS.tld}/key.pem";
