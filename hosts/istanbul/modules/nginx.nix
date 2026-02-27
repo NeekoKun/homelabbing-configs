@@ -17,9 +17,25 @@ in
     recommendedProxySettings = true;
     logError = "stderr debug";
 
+    appendHttpConfig = ''
+      log_format json_combined escape=json
+        '{'
+          '"time_local":"$time_local",'
+          '"remote_addr":"$remote_addr",'
+          '"request":"$request",'
+          '"status":$status,'
+          '"body_bytes_sent":$body_bytes_sent,'
+          '"http_referer":"$http_referer",'
+          '"http_user_agent":"$http_user_agent",'
+          '"http_x_forwarded_for":"$http_x_forwarded_for",'
+          '"request_time":$request_time'
+        '}';
+    '';
+
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
+      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.alexandria}";
@@ -35,6 +51,7 @@ in
     virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
+      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}/";
@@ -44,6 +61,7 @@ in
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
+      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
@@ -53,6 +71,7 @@ in
     virtualHosts."matrix.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
+      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.babylon}:${toString vars.services.synapse.http_port}/";
@@ -69,6 +88,7 @@ in
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
+      accessLog = "stderr json_combined";
 
       locations."/.well-known/matrix/server" = {
         return = ''200 "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}"'';
