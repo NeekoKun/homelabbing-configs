@@ -76,7 +76,7 @@ in
             .http_x_forwarded_for = parsed.http_x_forwarded_for
             .request_time = parsed.request_time
                           
-            request_parts, err = parse_regex(.request, r'^(?P&lt;method&gt;\S+) (?P&lt;uri&gt;[^\s]+) (?P&lt;protocol&gt;[^"]+)$')
+            request_parts, err = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
 
             if err != null {
                 log("Request parsing error: " + err, level: "error")
