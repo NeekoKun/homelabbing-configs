@@ -51,7 +51,7 @@ in
               abort
             }
 
-            parsed_message, err = json_parse(.message)
+            parsed_message, err = parse_json!(.message)
 
             if err != null {
               abort
