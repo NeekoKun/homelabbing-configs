@@ -9,8 +9,11 @@
     config = {
       adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
       dbtype = "sqlite";
-      overwriteProtocol = "https";
-      trustedProxies = [ "${vars.network.internal.istanbul}" ];
+    };
+
+    settings = {
+      overwriteprotocol = "https";
+      trusted_proxies = [ "${vars.network.internal.istanbul}" ];
     };
   };
 
