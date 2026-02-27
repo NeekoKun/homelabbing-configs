@@ -129,7 +129,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{status=~\"^2..\",instance=\"'\$host'\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"'\$host'\"}[\$__rate_interval])) * 100";
+              expr = "sum(rate(nginx_http_response_count_total{status=~\"^2..\",instance='\$host'}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance='\$host'}[\$__rate_interval])) * 100";
               hide = false;
               interval = "";
               legendFormat = "2** status codes";
@@ -141,7 +141,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{status=~\"^4..\",instance=\"'\$host'\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"'\$host'\"}[\$__rate_interval])) * 100";
+              expr = "sum(rate(nginx_http_response_count_total{status=~\"^4..\",instance='\$host'}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance='\$host'}[\$__rate_interval])) * 100";
               interval = "";
               legendFormat = "4** status codes";
               refId = "A";
@@ -152,7 +152,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{status=~\"^5..\",instance=\"'\$host'\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"'\$host'\"}[\$__rate_interval])) * 100";
+              expr = "sum(rate(nginx_http_response_count_total{status=~\"^5..\",instance='\$host'}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance='\$host'}[\$__rate_interval])) * 100";
               hide = false;
               interval = "";
               legendFormat = "5** status codes";
@@ -242,7 +242,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_time_seconds_count{instance=\"'\$host'\"}[\$__rate_interval])) by (method) or label_replace(sum(rate(nginx_http_response_time_seconds_count{instance=\"'\$host'\"}[\$__rate_interval])), \"method\", \"Total\", \"\", \"\")";
+              expr = "sum(rate(nginx_http_response_time_seconds_count{instance='\$host'}[\$__rate_interval])) by (method) or label_replace(sum(rate(nginx_http_response_time_seconds_count{instance='\$host'}[\$__rate_interval])), \"method\", \"Total\", \"\", \"\")";
               format = "time_series";
               interval = "";
               intervalFactor = 1;
@@ -333,7 +333,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_size_bytes{instance=\"'\$host'\"}[\$__rate_interval])) by (method) / 1024 or label_replace(sum(rate(nginx_http_response_size_bytes{instance=\"'\$host'\"}[\$__rate_interval])) / 1024, \"method\", \"Total\", \"\", \"\")";
+              expr = "sum(rate(nginx_http_response_size_bytes{instance='\$host'}[\$__rate_interval])) by (method) / 1024 or label_replace(sum(rate(nginx_http_response_size_bytes{instance='\$host'}[\$__rate_interval])) / 1024, \"method\", \"Total\", \"\", \"\")";
               format = "time_series";
               interval = "";
               intervalFactor = 1;
@@ -421,7 +421,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_time_seconds_sum{instance=\"'\$host'\"}[\$__rate_interval])) by (method) / sum(rate(nginx_http_response_time_seconds_count{instance=\"'\$host'\"}[\$__rate_interval])) by (method)";
+              expr = "sum(rate(nginx_http_response_time_seconds_sum{instance='\$host'}[\$__rate_interval])) by (method) / sum(rate(nginx_http_response_time_seconds_count{instance='\$host'}[\$__rate_interval])) by (method)";
               format = "time_series";
               interval = "";
               intervalFactor = 1;
@@ -511,7 +511,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{instance='\$host'}[1m])) by (status)";
+              expr = "sum(rate(nginx_http_response_count_total{instance=\$host}[1m])) by (status)";
               format = "time_series";
               interval = "";
               intervalFactor = 1;
@@ -601,7 +601,7 @@ in
                 uid = "Prometheus";
               };
               exemplar = true;
-              expr = "histogram_quantile(0.9, sum(rate(nginx_http_response_time_seconds_bucket{status=~\"2[0-9]*\",instance=~\"'\$host'\"}[\$__rate_interval])) by (method, le))";
+              expr = "histogram_quantile(0.9, sum(rate(nginx_http_response_time_seconds_bucket{status=~\"2[0-9]*\",instance=~'\$host'}[\$__rate_interval])) by (method, le))";
               format = "time_series";
               interval = "";
               intervalFactor = 1;
