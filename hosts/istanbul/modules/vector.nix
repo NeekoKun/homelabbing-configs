@@ -53,14 +53,12 @@ in
             cleaned, err = strip_whitespace(.message)
 
             if err != null {
-                log("Strip whitespace error: " + err, level: "error")
                 cleaned = .message
             }
 
             parsed, err = parse_json(cleaned)
 
             if err != null {
-                log("Parsing error: " + err, level: "error")
                 abort
             }
                           
@@ -77,7 +75,6 @@ in
             request_parts, err = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
 
             if err != null {
-                log("Request parsing error: " + err, level: "error")
                 .request_method = "UNKNOWN"
                 .request_uri = "/"
                 .request_protocol = "HTTP/1.1"
@@ -93,8 +90,7 @@ in
             .request_uri = if .request_uri == "" || .request_uri == null { "/" } else { .request_uri }
             .request_time, err = if .request_time == "" || .request_time == null { 0.0 } else { to_float(.request_time) }
             .count = 1
-                          
-            log("Parsed log: " + encode_json(.), level: "debug")
+            .job = "nginx"
           '';
         };
 
