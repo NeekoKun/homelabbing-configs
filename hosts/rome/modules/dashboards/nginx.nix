@@ -515,7 +515,7 @@ in
               format = "time_series";
               interval = "";
               intervalFactor = 1;
-              legendFormat = "";
+              legendFormat = "{{status}}";
               refId = "A";
             }
           ];
