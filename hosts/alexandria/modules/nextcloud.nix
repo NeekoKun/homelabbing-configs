@@ -34,10 +34,10 @@
     };
 
     # Enable CalDAV and CardDAV
-    #extraApps = {
-    #  inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
-    #};
-    #extraAppsEnable = true;
+    extraApps = {
+      inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
+    };
+    extraAppsEnable = true;
   };
 
   services.postgresql = {
