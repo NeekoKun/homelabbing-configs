@@ -97,7 +97,7 @@ in
         };
 
         extract_nginx_metrics = {
-          type = "logs_to_metrics";
+          type = "log_to_metric";
           inputs = [ "parse_nginx" ];
           metrics = [
             {
