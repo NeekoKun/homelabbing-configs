@@ -14,7 +14,9 @@
     settings = {
       overwriteprotocol = "https";
       trusted_domains = [ vars.network.internal.istanbul vars.network.internal.alexandria ];
-      trusted_proxies = [ "${vars.network.internal.istanbul}" ];
+      trusted_proxies = [ vars.network.internal.istanbul ];
     };
   };
+
+  services.nginx.enable = true;
 }
