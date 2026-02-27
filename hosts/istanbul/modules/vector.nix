@@ -24,10 +24,8 @@ in
         };
 
         nginx_logs = {
-          type = "journald";
-          include_matches = {
-            _SYSTEMD_UNIT = [ "nginx.service" ];
-          };
+          type = "file";
+          include = [ "/var/log/nginx/access.log" ];
         };
 
         journald = {
