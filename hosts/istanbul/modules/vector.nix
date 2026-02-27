@@ -91,7 +91,9 @@ in
             .request_time, err = if .request_time == "" || .request_time == null { 0.0 } else { to_float(.request_time) }
             .count = 1
             .job = "nginx"
-          '';
+            .level = "info"
+            .host = "${config.networking.hostName}"
+          ''; # TODO: Change level depending on status code (e.g. warn for 5xx)
         };
 
         extract_nginx_metrics = {
@@ -256,6 +258,7 @@ in
     };
 
     serviceConfig = {
+      SupplementaryGroups = [ "nginx" ];
       LogRateLimitIntervalSec = 0;
       LogRateLimitBurst = 0;
     };
