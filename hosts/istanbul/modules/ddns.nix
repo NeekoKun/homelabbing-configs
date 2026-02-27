@@ -9,6 +9,7 @@ let
     "navidrome.neekokun.com"
     "matrix.neekokun.com"
     "turn.neekokun.com"
+    "nextcloud.neekokun.com"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''

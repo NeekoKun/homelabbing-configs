@@ -5,10 +5,14 @@
 
   services.nextcloud = {
     enable = true;
-    hostName = "localhost";
-    config.adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
-    config.dbtype = "sqlite";
+    hostName = "nextcloud.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
+    config = {
+      adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
+      dbtype = "sqlite";
+      overwriteProtocol = "https";
+      trustedProxies = [ "${vars.network.internal.istanbul}" ];
+    };
   };
 
-  services.nginx.enabled = true;
+  services.nginx.enable = true;
 }
