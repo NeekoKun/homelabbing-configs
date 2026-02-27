@@ -94,6 +94,7 @@ in
             .status = if .status == "" || .status == null { "000" } else { .status }
             .request_uri = if .request_uri == "" || .request_uri == null { "/" } else { .request_uri }
             .request_time, err = if .request_time == "" || .request_time == null { 0.0 } else { to_float(.request_time) }
+            .count = 1
                           
             log("Parsed log: " + encode_json(.), level: "debug")
           '';
@@ -107,6 +108,7 @@ in
               type = "counter";
               name = "nginx_http_response_count_total";
               description = "Total HTTP requests";
+              field = "count";
               tags.method = ".request_method";
               tags.status = ".status";
               tags.path = ".request_uri";
