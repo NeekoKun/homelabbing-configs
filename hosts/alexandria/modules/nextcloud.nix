@@ -15,7 +15,11 @@
 
     settings = {
       overwriteprotocol = "https";
-      trusted_domains = [ vars.network.internal.istanbul vars.network.internal.alexandria ];
+      trusted_domains = [
+        vars.network.internal.istanbul
+        vars.network.internal.alexandria
+        "nextcloud.${vars.network.DNS.domain}.${vars.network.DNS.tld}"
+      ];
       trusted_proxies = [ vars.network.internal.istanbul ];
     };
   };
