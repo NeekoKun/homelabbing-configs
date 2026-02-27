@@ -215,12 +215,12 @@ in
           out_of_order_action = "accept";
         };
 
-        #debug_metrics = {
-        #  type = "console";
-        #  inputs = [ "add_hostname" ];
-        #  encoding.codec = "json";
-        #  target = "stdout";
-        #};
+        debug_metrics = {
+          type = "console";
+          inputs = [ "parse_nginx" ];
+          encoding.codec = "json";
+          target = "stdout";
+        };
       };
     };
   };
