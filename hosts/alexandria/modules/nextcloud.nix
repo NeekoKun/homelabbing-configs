@@ -1,4 +1,4 @@
-{ config, vars, flakeRoot, ... }:
+{ config, vars, flakeRoot, pkgs, ... }:
 
 {
   age.secrets.nextcloudAdminPassword.file = "${flakeRoot}/secrets/nextcloud-admin-password.age";
@@ -16,6 +16,4 @@
       trusted_proxies = [ "${vars.network.internal.istanbul}" ];
     };
   };
-
-  services.nginx.enable = true;
 }
