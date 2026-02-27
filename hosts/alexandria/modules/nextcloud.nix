@@ -6,6 +6,7 @@
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
+    trusted_domains = [ vars.network.internal.istanbul vars.network.internal.alexandria ];
     config = {
       adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
       dbtype = "sqlite";
