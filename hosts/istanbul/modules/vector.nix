@@ -51,11 +51,7 @@ in
               abort
             }
 
-            parsed_message, err = parse_json!(.message)
-
-            if err != null {
-              abort
-            }
+            parsed_message = parse_json(.message)
 
             .time_local = parsed_message.time_local
             .remote_addr = parsed_message.remote_addr
@@ -67,17 +63,11 @@ in
             .http_x_forwarded_for = parsed_message.http_x_forwarded_for
             .request_time = parsed_message.request_time
                           
-            request_parts = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
+            request_parts, err = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
 
-            if err != null {
-                .request_method = "UNKNOWN"
-                .request_uri = "/"
-                .request_protocol = "HTTP/1.1"
-            } else {
-                .request_method = request_parts.method
-                .request_uri = request_parts.uri
-                .request_protocol = request_parts.protocol
-            }
+            .request_method = request_parts.method
+            .request_uri = request_parts.uri
+            .request_protocol = request_parts.protocol
             
             .status, err = to_string(.status)
                           
