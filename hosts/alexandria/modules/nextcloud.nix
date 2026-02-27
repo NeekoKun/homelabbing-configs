@@ -7,6 +7,16 @@
     owner = "nextcloud";
   };
 
+  age.secrets.nextcloudDatabasePassword = {
+    file = "${flakeRoot}/secrets/nextcloud-database-password.age";
+    owner = "nextcloud";
+  };
+
+  age.secrets.postgresqlPassword = {
+    file = "${flakeRoot}/secrets/nextcloud-database-password.age";
+    owner = "postgresql";
+  };
+
   services.nginx.enable = true;
 
   services.nextcloud = {
@@ -21,6 +31,7 @@
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbname = "nextcloud";
+      dbhost = "/run/postgresql";
     };
 
     settings = {
