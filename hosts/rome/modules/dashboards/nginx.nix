@@ -73,7 +73,7 @@ in
         {
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -126,7 +126,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_count_total{status=~\"^2..\",instance=\"\$host\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[\$__rate_interval])) * 100";
@@ -138,7 +138,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_count_total{status=~\"^4..\",instance=\"\$host\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[\$__rate_interval])) * 100";
@@ -149,7 +149,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_count_total{status=~\"^5..\",instance=\"\$host\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[\$__rate_interval])) * 100";
@@ -166,7 +166,7 @@ in
         {
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -239,7 +239,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_time_seconds_count{instance=\"\$host\"}[\$__rate_interval])) by (method) or label_replace(sum(rate(nginx_http_response_time_seconds_count{instance=\"\$host\"}[\$__rate_interval])), \"method\", \"Total\", \"\", \"\")";
@@ -256,7 +256,7 @@ in
         {
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           description = "Response sizes in bytes";
           fieldConfig = {
@@ -330,7 +330,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_size_bytes{instance=\"\$host\"}[\$__rate_interval])) by (method) / 1024 or label_replace(sum(rate(nginx_http_response_size_bytes{instance=\"\$host\"}[\$__rate_interval])) / 1024, \"method\", \"Total\", \"\", \"\")";
@@ -347,7 +347,7 @@ in
         {
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -418,7 +418,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_time_seconds_sum{instance=\"\$host\"}[\$__rate_interval])) by (method) / sum(rate(nginx_http_response_time_seconds_count{instance=\"\$host\"}[\$__rate_interval])) by (method)";
@@ -435,7 +435,7 @@ in
         {
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -508,7 +508,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[1m])) by (status)";
@@ -525,7 +525,7 @@ in
         {
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           fieldConfig = {
             defaults = {
@@ -598,7 +598,7 @@ in
             {
               datasource = {
                 type = "prometheus";
-                uid = "\${DS_PROMETHEUS}";
+                uid = "Prometheus";
               };
               exemplar = true;
               expr = "histogram_quantile(0.9, sum(rate(nginx_http_response_time_seconds_bucket{status=~\"2[0-9]*\",instance=~\"\$host\"}[\$__rate_interval])) by (method, le))";
@@ -621,7 +621,7 @@ in
           current = {};
           datasource = {
             type = "prometheus";
-            uid = "\${DS_PROMETHEUS}";
+            uid = "Prometheus";
           };
           definition = "label_values(nginx_http_response_count_total,instance)";
           includeAll = false;
