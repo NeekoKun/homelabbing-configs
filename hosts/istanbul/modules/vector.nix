@@ -50,49 +50,52 @@ in
           inputs = [ "nginx_logs" ];
           source = ''
             if !exists(.message) {
-            abort
+                abort
             }
             cleaned, err = strip_whitespace(.message)
 
             if err != null {
-            # log("Strip whitespace error: " + err, level: "error")
-            cleaned = .message
+                log("Strip whitespace error: " + err, level: "error")
+                cleaned = .message
             }
-              parsed, err = parse_json(cleaned)
-              if err != null {
-                # log(&#34;Parsing error: &#34; + err, level: &#34;error&#34;)
+
+            parsed, err = parse_json(cleaned)
+
+            if err != null {
+                log("Parsing error: " + err, level: "error")
                 abort
-              }
-              
-              .time_local = parsed.time_local
-              .remote_addr = parsed.remote_addr
-              .request = parsed.request
-              .status = parsed.status
-              .body_bytes_sent = parsed.body_bytes_sent
-              .http_referer = parsed.http_referer
-              .http_user_agent = parsed.http_user_agent
-              .http_x_forwarded_for = parsed.http_x_forwarded_for
-              .request_time = parsed.request_time
-              
-              request_parts, err = parse_regex(.request, r&#39;^(?P&lt;method&gt;\S+) (?P&lt;uri&gt;[^\s]+) (?P&lt;protocol&gt;[^&#34;]+)$&#39;)
-              if err != null {
-                log(&#34;Request parsing error: &#34; + err, level: &#34;error&#34;)
-                .request_method = &#34;UNKNOWN&#34;
-                .request_uri = &#34;/&#34;
-                .request_protocol = &#34;HTTP/1.1&#34;
-              } else {
+            }
+                          
+            .time_local = parsed.time_local
+            .remote_addr = parsed.remote_addr
+            .request = parsed.request
+            .status = parsed.status
+            .body_bytes_sent = parsed.body_bytes_sent
+            .http_referer = parsed.http_referer
+            .http_user_agent = parsed.http_user_agent
+            .http_x_forwarded_for = parsed.http_x_forwarded_for
+            .request_time = parsed.request_time
+                          
+            request_parts, err = parse_regex(.request, r'^(?P&lt;method&gt;\S+) (?P&lt;uri&gt;[^\s]+) (?P&lt;protocol&gt;[^"]+)$')
+
+            if err != null {
+                log("Request parsing error: " + err, level: "error")
+                .request_method = "UNKNOWN"
+                .request_uri = "/"
+                .request_protocol = "HTTP/1.1"
+            } else {
                 .request_method = request_parts.method
                 .request_uri = request_parts.uri
                 .request_protocol = request_parts.protocol
-              }
-              
-              .body_bytes_sent, err = if .body_bytes_sent == &#34;&#34; || .body_bytes_sent == null { 0 } else { to_int(.body_bytes_sent) }
-              .request_method = if .request_method == &#34;&#34; || .request_method == null { &#34;UNKNOWN&#34; } else { .request_method }
-              .status = if .status == &#34;&#34; || .status == null { &#34;000&#34; } else { .status }
-              .request_uri = if .request_uri == &#34;&#34; || .request_uri == null { &#34;/&#34; } else { .request_uri }
-              .request_time, err = if .request_time == &#34;&#34; || .request_time == null { 0.0 } else { to_float(.request_time) }
-              
-              # log(&#34;Parsed log: &#34; + encode_json(.), level: &#34;debug&#34;)
+            }
+                          
+            .body_bytes_sent, err = if .body_bytes_sent == "" || .body_bytes_sent == null { 0 } else { to_int(.body_bytes_sent) }
+            .request_method = if .request_method == "" || .request_method == null { "UNKNOWN" } else { .request_method }
+            .status = if .status == "" || .status == null { "000" } else { .status }
+            .request_uri = if .request_uri == "" || .request_uri == null { "/" } else { .request_uri }
+            .request_time, err = if .request_time == "" || .request_time == null { 0.0 } else { to_float(.request_time) }
+                          
+            log("Parsed log: " + encode_json(.), level: "debug")
           '';
         };
 
