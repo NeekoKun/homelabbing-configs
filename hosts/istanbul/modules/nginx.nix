@@ -23,7 +23,7 @@ in
       locations."/" = {
         proxyPass = "http://${vars.network.internal.alexandria}:80/";
         extraConfig = ''
-          proxy_set_header Host $host;
+          proxy_set_header Host nextcloud.${net.DNS.domain}.${net.DNS.tld};
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Proto $scheme;
