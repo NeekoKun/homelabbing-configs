@@ -3,10 +3,6 @@
 
 {
   age.secrets.nextcloudAdminPassword.file = "${flakeRoot}/secrets/nextcloud-admin-password.age";
-  
-  environment.systemPackages = with pkgs; [
-    nextcloud
-  ];
 
   services.nginx.enable = true;
 
