@@ -15,7 +15,7 @@
     https = false;
     config = {
       adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
-      dbtype = "sqlite";
+      dbtype = "pgsql";
       dbuser = "nextcloud";
       dbname = "nextcloud";
     };
@@ -31,7 +31,7 @@
 
     # Enable CalDAV and CardDAV
     extraApps = {
-      inherit (pkgs.nextcloud32.apps) calendar contacts;
+      inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
     };
     extraApps.enable = true;
   };
