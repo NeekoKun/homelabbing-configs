@@ -9,4 +9,6 @@
     config.adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
     config.dbtype = "sqlite";
   };
+
+  services.nginx.enabled = true;
 }
