@@ -5,14 +5,14 @@ let
 in
 {
   networking = {
-    hostName = "thebes";
+    hostName = "alexandria";
     useDHCP = false;
 
     interfaces = {
       ${net.interfaces.lan} = {
         useDHCP = false;
         ipv4.addresses = [{
-          address = net.internal.thebes;
+          address = net.internal.alexandria;
           prefixLength = 24;
         }];
       };

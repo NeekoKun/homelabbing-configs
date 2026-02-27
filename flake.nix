@@ -57,8 +57,7 @@
             istanbul = "192.168.2.1";
             rome = "192.168.2.2";
             babylon = "192.168.2.3";
-            thebes = "192.168.2.4";
-            nextcloud = "192.168.2.5";
+            alexandria = "192.168.2.4";
             subnet  = "192.168.2.0/24";
             mask = "255.255.255.0";
           };
@@ -90,8 +89,8 @@
         # Synapse Configs
         babylon = mkHost "babylon";
 
-        # Navidrome Configs
-        thebes = mkHost "thebes";
+        # Navidrome + Nextcloud + Vaultwarden Configs
+        alexandria = mkHost "alexandria";
       };
     };
 }

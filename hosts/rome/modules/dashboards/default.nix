@@ -5,6 +5,6 @@
     ./rome.nix
     ./istanbul.nix
     ./babylon.nix
-    ./thebes.nix
+    ./alexandria.nix
   ];
 }

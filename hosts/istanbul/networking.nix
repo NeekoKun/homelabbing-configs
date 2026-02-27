@@ -13,7 +13,7 @@ in
     hosts = {
       ${net.internal.rome}    = [ "rome" ];
       ${net.internal.babylon} = [ "babylon" ];
-      ${net.internal.thebes}  = [ "thebes" ];
+      ${net.internal.alexandria}  = [ "alexandria" ];
     };
 
     hostName = "istanbul";

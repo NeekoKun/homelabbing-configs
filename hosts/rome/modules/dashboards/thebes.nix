@@ -1,11 +1,11 @@
 { vars, ... }:
 
 {
-  ## Thebes Metrics dashboard ##
+  ## alexandria Metrics dashboard ##
 
   # This dashboard shows CPU, memory usage, network saturation percentage, network received and transmitted in LAN
-  # and disk saturation percentage for Thebes.
-  environment.etc."grafana-dashboards/thebes-metrics.json" = {
+  # and disk saturation percentage for alexandria.
+  environment.etc."grafana-dashboards/alexandria-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;
@@ -49,17 +49,17 @@
           id = 1;
           targets = [
             {
-              expr = "sum(rate(host_cpu_seconds_total{mode=\"system\",host=\"thebes\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"thebes\"}[1m])) * 100";
+              expr = "sum(rate(host_cpu_seconds_total{mode=\"system\",host=\"alexandria\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"alexandria\"}[1m])) * 100";
               legendFormat = "System Mode";
               refId = "A";
             }
             {
-              expr = "sum(rate(host_cpu_seconds_total{mode=\"user\",host=\"thebes\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"thebes\"}[1m])) * 100";
+              expr = "sum(rate(host_cpu_seconds_total{mode=\"user\",host=\"alexandria\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"alexandria\"}[1m])) * 100";
               legendFormat = "User Mode";
               refId = "B";
             }
             {
-              expr = "sum(rate(host_cpu_seconds_total{mode=\"io_wait\",host=\"thebes\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"thebes\"}[1m])) * 100";
+              expr = "sum(rate(host_cpu_seconds_total{mode=\"io_wait\",host=\"alexandria\"}[1m])) / sum(rate(host_cpu_seconds_total{host=\"alexandria\"}[1m])) * 100";
               legendFormat = "IO Wait";
               refId = "C";
             }
@@ -96,12 +96,12 @@
           id = 2;
           targets = [
             {
-              expr = "(host_memory_total_bytes{host=\"thebes\"} - host_memory_available_bytes{host=\"thebes\"})";
+              expr = "(host_memory_total_bytes{host=\"alexandria\"} - host_memory_available_bytes{host=\"alexandria\"})";
               legendFormat = "Used Memory";
               refId = "A";
             }
             {
-              expr = "host_memory_total_bytes{host=\"thebes\"}";
+              expr = "host_memory_total_bytes{host=\"alexandria\"}";
               legendFormat = "Total Memory";
               refId = "B";
             }
@@ -137,12 +137,12 @@
           id = 1;
           targets = [
             {
-              expr = "host_filesystem_total_bytes{mountpoint=\"/\",host=\"thebes\"}";
+              expr = "host_filesystem_total_bytes{mountpoint=\"/\",host=\"alexandria\"}";
               legendFormat = "Total Space";
               refId = "A";
             }
             {
-              expr = "host_filesystem_used_bytes{mountpoint=\"/\",host=\"thebes\"}";
+              expr = "host_filesystem_used_bytes{mountpoint=\"/\",host=\"alexandria\"}";
               legendFormat = "Used Space";
               refId = "B";
             }
@@ -178,12 +178,12 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])";
               legendFormat = "{{device}} - RX";
               refId = "A";
             }
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])";
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])";
               legendFormat = "{{device}} - TX";
               refId = "B";
             }
@@ -225,12 +225,12 @@
           id = 4;
           targets = [
             {
-              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])) * 100";
+              expr = "rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])) * 100";
               legendFormat = "{{device}} - RX %";
               refId = "A";
             }
             {
-              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"thebes\"}[5m])) * 100";
+              expr = "rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])/(rate(host_network_receive_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])+rate(host_network_transmit_bytes_total{device=\"${vars.network.interfaces.lan}\",host=\"alexandria\"}[5m])) * 100";
               legendFormat = "{{device}} - TX %";
               refId = "B";
             }
@@ -240,10 +240,10 @@
       ];
       refresh = "30s";
       schemaVersion = 38;
-      tags = [ "metrics" "thebes" ];
+      tags = [ "metrics" "alexandria" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "Thebes Metrics";
-      uid = "thebes-metrics";
+      title = "alexandria Metrics";
+      uid = "alexandria-metrics";
       version = 0;
     };
   };
