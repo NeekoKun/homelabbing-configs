@@ -47,17 +47,27 @@ in
           type = "remap";
           inputs = [ "nginx_logs" ];
           source = ''
-            .time_local = .time_local
-            .remote_addr = .remote_addr
-            .request = .request
-            .status = .status
-            .body_bytes_sent = .body_bytes_sent
-            .http_referer = .http_referer
-            .http_user_agent = .http_user_agent
-            .http_x_forwarded_for = .http_x_forwarded_for
-            .request_time = .request_time
+            if .message == "" || .message == null {
+              abort
+            }
+
+            parsed_message, err = json_parse(.message)
+
+            if err != null {
+              abort
+            }
+
+            .time_local = parsed_message.time_local
+            .remote_addr = parsed_message.remote_addr
+            .request = parsed_message.request
+            .status = parsed_message.status
+            .body_bytes_sent = parsed_message.body_bytes_sent
+            .http_referer = parsed_message.http_referer
+            .http_user_agent = parsed_message.http_user_agent
+            .http_x_forwarded_for = parsed_message.http_x_forwarded_for
+            .request_time = parsed_message.request_time
                           
-            request_parts, err = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
+            request_parts = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
 
             if err != null {
                 .request_method = "UNKNOWN"
