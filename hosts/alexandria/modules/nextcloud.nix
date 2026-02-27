@@ -13,7 +13,7 @@
     enable = true;
     hostName = "nextcloud.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
 
-    package = pkgs.nextcloud28;
+    package = pkgs.nextcloud32;
 
     https = false;
     config = {
@@ -36,7 +36,7 @@
     extraApps = {
       inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
     };
-    extraApps.enable = true;
+    extraAppsEnable = true;
   };
 
   services.postgresql = {
