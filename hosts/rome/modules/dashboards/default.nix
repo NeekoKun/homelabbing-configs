@@ -2,9 +2,14 @@
   imports = [
     ./logs.nix
     ./hosts.nix
+
     ./rome.nix
+
     ./istanbul.nix
+    ./nginx.nix
+
     ./babylon.nix
+    
     ./alexandria.nix
   ];
 }

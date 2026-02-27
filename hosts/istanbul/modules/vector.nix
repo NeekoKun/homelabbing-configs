@@ -23,6 +23,13 @@ in
           };
         };
 
+        nginx_logs = {
+          type = "journald";
+          include_matches = {
+            _SYSTEMD_UNIT = [ "nginx.service" ];
+          };
+        };
+
         journald = {
           type = "journald";
           exclude_matches = {
@@ -38,6 +45,89 @@ in
       };
 
       transforms = {
+        parse_nginx = {
+          type = "remap";
+          inputs = [ "nginx_logs" ];
+          source = ''
+            if !exists(.message) {
+            abort
+            }
+            cleaned, err = strip_whitespace(.message)
+
+            if err != null {
+            # log("Strip whitespace error: " + err, level: "error")
+            cleaned = .message
+            }
+              parsed, err = parse_json(cleaned)
+              if err != null {
+                # log(&#34;Parsing error: &#34; + err, level: &#34;error&#34;)
+                abort
+              }
+              
+              .time_local = parsed.time_local
+              .remote_addr = parsed.remote_addr
+              .request = parsed.request
+              .status = parsed.status
+              .body_bytes_sent = parsed.body_bytes_sent
+              .http_referer = parsed.http_referer
+              .http_user_agent = parsed.http_user_agent
+              .http_x_forwarded_for = parsed.http_x_forwarded_for
+              .request_time = parsed.request_time
+              
+              request_parts, err = parse_regex(.request, r&#39;^(?P&lt;method&gt;\S+) (?P&lt;uri&gt;[^\s]+) (?P&lt;protocol&gt;[^&#34;]+)$&#39;)
+              if err != null {
+                log(&#34;Request parsing error: &#34; + err, level: &#34;error&#34;)
+                .request_method = &#34;UNKNOWN&#34;
+                .request_uri = &#34;/&#34;
+                .request_protocol = &#34;HTTP/1.1&#34;
+              } else {
+                .request_method = request_parts.method
+                .request_uri = request_parts.uri
+                .request_protocol = request_parts.protocol
+              }
+              
+              .body_bytes_sent, err = if .body_bytes_sent == &#34;&#34; || .body_bytes_sent == null { 0 } else { to_int(.body_bytes_sent) }
+              .request_method = if .request_method == &#34;&#34; || .request_method == null { &#34;UNKNOWN&#34; } else { .request_method }
+              .status = if .status == &#34;&#34; || .status == null { &#34;000&#34; } else { .status }
+              .request_uri = if .request_uri == &#34;&#34; || .request_uri == null { &#34;/&#34; } else { .request_uri }
+              .request_time, err = if .request_time == &#34;&#34; || .request_time == null { 0.0 } else { to_float(.request_time) }
+              
+              # log(&#34;Parsed log: &#34; + encode_json(.), level: &#34;debug&#34;)
+          '';
+        };
+
+        extract_nginx_metrics = {
+          type = "logs_to_metrics";
+          inputs = [ "parse_nginx" ];
+          metrics = [
+            {
+              type = "counter";
+              name = "nginx_http_response_count_total";
+              description = "Total HTTP requests";
+              field = "status";
+              method = "{{ request_method }}";
+              status = "{{ status }}";
+              path = "{{ request_uri }}";
+            }
+            {
+              type = "counter";
+              name = "nginx_http_response_size_bytes";
+              description = "Total bytes sent";
+              field = "body_bytes_sent";
+              method = "{{ request_method }}";
+              status = "{{ status }}";
+            }
+            {
+              type = "histogram";
+              name = "nginx_http_request_time_seconds";
+              description = "Request processing time in seconds";
+              field = "request_time";
+              method = "{{ request_method }}";
+              status = "{{ status }}";
+            }
+          ];
+        };
+
         parse_fail2ban = {
           type = "remap";
           inputs = [ "fail2ban" ];
@@ -97,7 +187,7 @@ in
       sinks = {
         prometheus = {
           type = "prometheus_remote_write";
-          inputs = [ "add_hostname" ];
+          inputs = [ "add_hostname" "extract_nginx_metrics" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.prometheus.http_port}/api/v1/write";
 
           healthcheck.enabled = true;
@@ -115,7 +205,7 @@ in
 
         loki = {
           type = "loki";
-          inputs = [ "add_metadata" "parse_fail2ban" ];
+          inputs = [ "add_metadata" "parse_fail2ban" "parse_nginx" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
 
