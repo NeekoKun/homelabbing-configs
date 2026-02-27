@@ -2,6 +2,8 @@
 
 {
   age.secrets.nextcloudAdminPassword.file = "${flakeRoot}/secrets/nextcloud-admin-password.age";
+  
+  services.nginx.enable = true;
 
   services.nextcloud = {
     enable = true;
@@ -17,6 +19,4 @@
       trusted_proxies = [ vars.network.internal.istanbul ];
     };
   };
-
-  services.nginx.enable = true;
 }
