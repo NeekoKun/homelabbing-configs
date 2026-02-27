@@ -15,7 +15,7 @@ in
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
-    logErr = "stderr debug";
+    logError = "stderr debug";
 
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
