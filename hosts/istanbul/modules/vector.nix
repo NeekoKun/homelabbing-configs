@@ -107,26 +107,28 @@ in
               type = "counter";
               name = "nginx_http_response_count_total";
               description = "Total HTTP requests";
-              field = "status";
-              method = "{{ request_method }}";
-              status = "{{ status }}";
-              path = "{{ request_uri }}";
+              tags.method = ".request_method";
+              tags.status = ".status";
+              tags.path = ".request_uri";
+              tags.instance = "\"${config.networking.hostName}\"";
             }
             {
-              type = "counter";
+              type = "gauge";
               name = "nginx_http_response_size_bytes";
               description = "Total bytes sent";
               field = "body_bytes_sent";
-              method = "{{ request_method }}";
-              status = "{{ status }}";
+              tags.method = ".request_method";
+              tags.status = ".status";
+              tags.instance = "\"${config.networking.hostName}\"";
             }
             {
               type = "histogram";
-              name = "nginx_http_request_time_seconds";
+              name = "nginx_http_response_time_seconds";
               description = "Request processing time in seconds";
               field = "request_time";
-              method = "{{ request_method }}";
-              status = "{{ status }}";
+              tags.method = ".request_method";
+              tags.status = ".status";
+              tags.instance = "\"${config.networking.hostName}\"";
             }
           ];
         };
