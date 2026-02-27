@@ -226,9 +226,23 @@ in
           out_of_order_action = "accept";
         };
 
-        debug_metrics = {
+        #debug_metrics = {
+        #  type = "console";
+        #  inputs = [ "add_hostname" ];
+        #  encoding.codec = "json";
+        #  target = "stdout";
+        #};
+
+        debug_nginx_raw = {
           type = "console";
-          inputs = [ "add_hostname" ];
+          inputs = [ "nginx_logs" ];
+          encoding.codec = "json";
+          target = "stdout";
+        };
+
+        debug_nginx_parsed = {
+          type = "console";
+          inputs = [ "parse_nginx" ];
           encoding.codec = "json";
           target = "stdout";
         };
