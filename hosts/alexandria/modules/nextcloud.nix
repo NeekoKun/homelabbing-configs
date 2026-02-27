@@ -8,5 +8,5 @@
     hostName = "localhost";
     config.adminPasswordFile = config.age.secrets.nextcloudAdminPassword.path;
     config.dbtype = "sqlite";
-  }
+  };
 }
