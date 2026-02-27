@@ -4,6 +4,10 @@
 {
   age.secrets.nextcloudAdminPassword.file = "${flakeRoot}/secrets/nextcloud-admin-password.age";
   
+  environment.systemPackages = with pkgs; [
+    nextcloud
+  ];
+
   services.nginx.enable = true;
 
   services.nextcloud = {
@@ -13,6 +17,8 @@
     config = {
       adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
       dbtype = "sqlite";
+      dbuser = "nextcloud";
+      dbname = "nextcloud";
     };
 
     settings = {
@@ -23,5 +29,22 @@
       ];
       trusted_proxies = [ vars.network.internal.istanbul ];
     };
+  };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "nextcloud" ];
+    ensureUsers = [
+      {
+        name = "nextcloud";
+        ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+      }
+    ];
+  };
+
+  # Ensure PostgreSQL is running before NextCloud setup
+  systemd.services."nextcloud-setup" = {
+    requires = [ "postgresql.service" ];
+    after = [ "postgresql.service" ];
   };
 }
