@@ -12,6 +12,9 @@
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
+
+    package = pkgs.nextcloud28;
+
     https = false;
     config = {
       adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
