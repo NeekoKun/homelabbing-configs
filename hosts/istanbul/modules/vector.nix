@@ -105,28 +105,28 @@ in
               name = "nginx_http_response_count_total";
               description = "Total HTTP requests";
               field = "count";
-              tags.method = ".request_method";
-              tags.status = ".status";
-              tags.path = ".request_uri";
-              tags.instance = "\"${config.networking.hostName}\"";
+              tags.method = "{{request_method}}";
+              tags.status = "{{status}}";
+              tags.path = "{{request_uri}}";
+              tags.instance = "${config.networking.hostName}";
             }
             {
               type = "gauge";
               name = "nginx_http_response_size_bytes";
               description = "Total bytes sent";
               field = "body_bytes_sent";
-              tags.method = ".request_method";
-              tags.status = ".status";
-              tags.instance = "\"${config.networking.hostName}\"";
+              tags.method = "{{request_method}}";
+              tags.status = "{{status}}";
+              tags.instance = "${config.networking.hostName}";
             }
             {
               type = "histogram";
               name = "nginx_http_response_time_seconds";
               description = "Request processing time in seconds";
               field = "request_time";
-              tags.method = ".request_method";
-              tags.status = ".status";
-              tags.instance = "\"${config.networking.hostName}\"";
+              tags.method = "{{request_method}}";
+              tags.status = "{{status}}";
+              tags.instance = "${config.networking.hostName}";
             }
           ];
         };
