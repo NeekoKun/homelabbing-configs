@@ -15,7 +15,7 @@ in
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
-    logError = "stderr debug";
+    logError = "stderr debug json_combined";
 
     appendHttpConfig = ''
       log_format json_combined escape=json
@@ -35,7 +35,6 @@ in
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
-      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.alexandria}";
@@ -51,7 +50,6 @@ in
     virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
-      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}/";
@@ -61,7 +59,6 @@ in
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
-      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
@@ -71,7 +68,6 @@ in
     virtualHosts."matrix.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
-      accessLog = "stderr json_combined";
 
       locations."/" = {
         proxyPass = "http://${vars.network.internal.babylon}:${toString vars.services.synapse.http_port}/";
@@ -88,7 +84,6 @@ in
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
-      accessLog = "stderr json_combined";
 
       locations."/.well-known/matrix/server" = {
         return = ''200 "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}"'';
