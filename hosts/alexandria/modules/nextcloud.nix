@@ -2,7 +2,10 @@
 
 
 {
-  age.secrets.nextcloudAdminPassword.file = "${flakeRoot}/secrets/nextcloud-admin-password.age";
+  age.secrets.nextcloudAdminPassword = {
+    file = "${flakeRoot}/secrets/nextcloud-admin-password.age";
+    owner = "nextcloud";
+  };
 
   services.nginx.enable = true;
 
@@ -25,6 +28,12 @@
       ];
       trusted_proxies = [ vars.network.internal.istanbul ];
     };
+
+    # Enable CalDAV and CardDAV
+    extraApps = {
+      inherit (pkgs.nextcloud32.apps) calendar contacts;
+    };
+    extraApps.enable = true;
   };
 
   services.postgresql = {
