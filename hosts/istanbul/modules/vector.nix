@@ -83,6 +83,7 @@ in
                 .request_uri = request_parts.uri
                 .request_protocol = request_parts.protocol
             }
+            .status = string!(.status)
                           
             .body_bytes_sent, err = if .body_bytes_sent == "" || .body_bytes_sent == null { 0 } else { to_int(.body_bytes_sent) }
             .request_method = if .request_method == "" || .request_method == null { "UNKNOWN" } else { .request_method }
