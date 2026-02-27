@@ -7,16 +7,6 @@
     owner = "nextcloud";
   };
 
-  age.secrets.nextcloudDatabasePassword = {
-    file = "${flakeRoot}/secrets/nextcloud-database-password.age";
-    owner = "nextcloud";
-  };
-
-  age.secrets.postgresqlPassword = {
-    file = "${flakeRoot}/secrets/nextcloud-database-password.age";
-    owner = "postgresql";
-  };
-
   services.nginx.enable = true;
 
   services.nextcloud = {
@@ -44,10 +34,10 @@
     };
 
     # Enable CalDAV and CardDAV
-    extraApps = {
-      inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
-    };
-    extraAppsEnable = true;
+    #extraApps = {
+    #  inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
+    #};
+    #extraAppsEnable = true;
   };
 
   services.postgresql = {
