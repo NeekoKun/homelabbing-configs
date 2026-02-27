@@ -51,7 +51,7 @@ in
               abort
             }
 
-            parsed_message = parse_json(.message)
+            parsed_message = parse_json!(.message)
 
             .time_local = parsed_message.time_local
             .remote_addr = parsed_message.remote_addr
