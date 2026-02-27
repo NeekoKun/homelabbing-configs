@@ -21,7 +21,7 @@ in
       forceSSL = true;
 
       locations."/" = {
-        proxyPass = "http://${vars.network.internal.alexandria}:80/";
+        proxyPass = "http://${vars.network.internal.alexandria}:80";
         extraConfig = ''
           proxy_set_header Host nextcloud.${net.DNS.domain}.${net.DNS.tld};
           proxy_set_header X-Real-IP $remote_addr;
