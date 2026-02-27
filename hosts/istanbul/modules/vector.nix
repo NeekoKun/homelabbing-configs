@@ -91,9 +91,9 @@ in
             .request_time, err = if .request_time == "" || .request_time == null { 0.0 } else { to_float(.request_time) }
             .count = 1
             .job = "nginx"
-            .level = "info"
+            .level = if starts_with(.status, "5") { "warn" } else { "info" }
             .host = "${config.networking.hostName}"
-          ''; # TODO: Change level depending on status code (e.g. warn for 5xx)
+          '';
         };
 
         extract_nginx_metrics = {
@@ -234,20 +234,6 @@ in
         #  encoding.codec = "json";
         #  target = "stdout";
         #};
-
-        debug_nginx_raw = {
-          type = "console";
-          inputs = [ "nginx_logs" ];
-          encoding.codec = "json";
-          target = "stdout";
-        };
-
-        debug_nginx_parsed = {
-          type = "console";
-          inputs = [ "parse_nginx" ];
-          encoding.codec = "json";
-          target = "stdout";
-        };
       };
     };
   };
