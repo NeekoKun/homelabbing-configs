@@ -242,7 +242,7 @@
       schemaVersion = 38;
       tags = [ "metrics" "alexandria" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "alexandria Metrics";
+      title = "Alexandria Metrics";
       uid = "alexandria-metrics";
       version = 0;
     };

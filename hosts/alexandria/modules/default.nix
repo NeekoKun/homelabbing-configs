@@ -4,5 +4,6 @@
     ./vector.nix
     ./openssh.nix
     ./navidrome.nix
+    ./nextcloud.nix
   ];
 }
