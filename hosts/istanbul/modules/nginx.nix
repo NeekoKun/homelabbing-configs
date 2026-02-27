@@ -15,7 +15,7 @@ in
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
-    logError = "stderr debug json_combined";
+    logError = "stderr debug";
 
     appendHttpConfig = ''
       log_format json_combined escape=json
@@ -30,6 +30,8 @@ in
           '"http_x_forwarded_for":"$http_x_forwarded_for",'
           '"request_time":$request_time'
         '}';
+
+      access_log /var/log/nginx/access.log json_combined;
     '';
 
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
