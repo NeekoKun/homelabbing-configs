@@ -6,7 +6,7 @@
   services.nextcloud = {
     enable = true;
     hostName = "localhost";
-    config.adminPasswordFile = config.age.secrets.nextcloudAdminPassword.path;
+    config.adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
     config.dbtype = "sqlite";
-  }
+  };
 }
