@@ -47,30 +47,15 @@ in
           type = "remap";
           inputs = [ "nginx_logs" ];
           source = ''
-            if !exists(.message) {
-                abort
-            }
-            cleaned, err = strip_whitespace(.message)
-
-            if err != null {
-                cleaned = .message
-            }
-
-            parsed, err = parse_json(cleaned)
-
-            if err != null {
-                abort
-            }
-                          
-            .time_local = parsed.time_local
-            .remote_addr = parsed.remote_addr
-            .request = parsed.request
-            .status = parsed.status
-            .body_bytes_sent = parsed.body_bytes_sent
-            .http_referer = parsed.http_referer
-            .http_user_agent = parsed.http_user_agent
-            .http_x_forwarded_for = parsed.http_x_forwarded_for
-            .request_time = parsed.request_time
+            .time_local = .time_local
+            .remote_addr = .remote_addr
+            .request = .request
+            .status = .status
+            .body_bytes_sent = .body_bytes_sent
+            .http_referer = .http_referer
+            .http_user_agent = .http_user_agent
+            .http_x_forwarded_for = .http_x_forwarded_for
+            .request_time = .request_time
                           
             request_parts, err = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
 
@@ -83,7 +68,8 @@ in
                 .request_uri = request_parts.uri
                 .request_protocol = request_parts.protocol
             }
-            .status = string!(.status)
+            
+            .status, err = to_string(.status)
                           
             .body_bytes_sent, err = if .body_bytes_sent == "" || .body_bytes_sent == null { 0 } else { to_int(.body_bytes_sent) }
             .request_method = if .request_method == "" || .request_method == null { "UNKNOWN" } else { .request_method }
