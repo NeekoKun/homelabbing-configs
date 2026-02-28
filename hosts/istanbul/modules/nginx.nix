@@ -34,6 +34,21 @@ in
       access_log /var/log/nginx/access.log json_combined;
     '';
 
+    virtualHosts."vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/" = {
+        proxyPass = "http://${vars.network.internal.alexandria}:${toString vars.services.vaultwarden.http_port}/";
+        extraConfig = ''
+          proxy_http_version 1.1;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
+    };
+
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;

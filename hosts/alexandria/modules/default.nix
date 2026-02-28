@@ -5,5 +5,6 @@
     ./openssh.nix
     ./navidrome.nix
     ./nextcloud.nix
+    ./vaultwarden.nix
   ];
 }

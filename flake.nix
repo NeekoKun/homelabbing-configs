@@ -39,6 +39,10 @@
             port = 3478;
             tls_port = 3480;
           };
+
+          vaultwarden = {
+            http_port = 8222;
+          };
         };
 
         network = {
