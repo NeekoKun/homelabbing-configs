@@ -33,7 +33,8 @@ in
       interfaces.${net.interfaces.lan} = {
         allowedTCPPorts = [
           22 # SSH from bastion
-          80 # For nextcloud, subject to change if reverse proxy is used
+          80 # For nextcloud
+          vars.server.services.vaultwarden.http_port
         ];
       };
     };
