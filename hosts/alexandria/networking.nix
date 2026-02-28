@@ -34,7 +34,7 @@ in
         allowedTCPPorts = [
           22 # SSH from bastion
           80 # For nextcloud
-          vars.server.services.vaultwarden.http_port
+          vars.services.vaultwarden.http_port
         ];
       };
     };
