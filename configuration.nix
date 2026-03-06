@@ -13,6 +13,28 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Cleanup old Generations
+  systemd.services.nix-delete-old = {
+    description = "Delete old Nix generations";
+    after = [ "nix-daemon.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.nix}/bin/nix-env --delete-older-than +5";
+    };
+  };
+
+  systemd.timers.nix-delete-old = {
+    description = "Timer for deleting old Nix generations";
+
+    wantedBy = [ "timers.target" ];
+
+    timerConfig = {
+      OnCalendar = "weekly";
+      Persistent = true;
+    };
+  };
+
   # Make user configuration immutable (forces password from hashedPasswordFile)
   users.mutableUsers = false;
 

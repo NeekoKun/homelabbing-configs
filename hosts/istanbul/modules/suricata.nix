@@ -28,14 +28,14 @@ in {
 
       outputs = [{
         eve-log = {
-          enable = true;
+          enable = "yes";
           filetype = "regular";
           filename = "/var/log/suricata/eve.json";
 
           types = [
             {
               alert = {
-                tagged-packets = true;
+                tagged-packets = "yes";
                 metadata = true;
               };
             }
@@ -47,8 +47,7 @@ in {
                 session-resumption = true;
               };
             }
-            { ssh = { enabled = true; }; } #TODO: enable when starting ssh
-
+            { ssh = { enabled = true; }; }
             {
               stats = {
                 totals = true;
