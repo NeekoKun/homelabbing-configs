@@ -7,6 +7,7 @@
 
     ./istanbul.nix
     ./nginx.nix
+    ./fail2ban.nix
 
     ./babylon.nix
     
