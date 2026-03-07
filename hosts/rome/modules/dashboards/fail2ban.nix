@@ -58,7 +58,7 @@
           };
           fieldConfig = {
             defaults = {
-              color.mode = "palette-classic";
+              color.mode = "thresholds";
               unit = "none";
               thresholds = {
                 mode = "absolute";
@@ -68,6 +68,7 @@
                   { color = "red"; value = 40; }
                 ];
               };
+              displayName = "Banned in the last 24h";
             };
           };
           gridPos = { h = 8; w = 5; x = 19; y = 0; };
