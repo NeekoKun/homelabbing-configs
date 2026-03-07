@@ -141,6 +141,9 @@ in
               abort
             }
 
+            del(.service_name)
+            del(.detected_level)
+
             .message = string!(.message)
             if contains(.message, "Ban") {
               .action = "ban"
