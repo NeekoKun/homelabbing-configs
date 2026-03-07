@@ -32,7 +32,7 @@
                 lineInterpolation = "linear";
                 lineWidth = 1;
                 pointSize = 3;
-                showPoints = "never";
+                showPoints = "always";
                 spanNulls = true;
                 gradientMode = "hue";
               };
@@ -43,7 +43,7 @@
           id = 1;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} |~ \"Ban\" [$__auto])";
+              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} | drop detected_level, level |~ \"Ban\" [$__auto])";
               legendFormat = "Banned IPs";
               refId = "A";
             }
@@ -66,7 +66,7 @@
           id = 2;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} |~ \"Ban\" [$__auto])";
+              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} | drop detected_level, level |~ \"Ban\" [$__auto])";
               legendFormat = "Banned IPs";
               refId = "A";
             }
@@ -91,7 +91,7 @@
                 lineInterpolation = "linear";
                 lineWidth = 1;
                 pointSize = 3;
-                showPoints = "never";
+                showPoints = "always";
                 spanNulls = true;
                 gradientMode = "hue";
               };
@@ -102,7 +102,7 @@
           id = 3;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} |~ \"Unban\" [$__auto])";
+              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} | drop detected_level, level |~ \"Unban\" [$__auto])";
               legendFormat = "Unbanned IPs";
               refId = "A";
             }
@@ -125,7 +125,7 @@
           id = 4;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} |~ \"Unban\" [$__auto])";
+              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} | drop detected_level, level |~ \"Unban\" [$__auto])";
               legendFormat = "Unbanned IPs";
               refId = "A";
             }
@@ -135,10 +135,10 @@
       ];
       refresh = "30s";
       schemaVersion = 38;
-      tags = [ "metrics" "fail2ban" "istanbul" ];
+      tags = [ "fail2ban" "istanbul" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "Fail2ban Metrics";
-      uid = "fail2ban-metrics";
+      title = "Fail2ban logs";
+      uid = "fail2ban-logs";
       version = 0;
     };
   };

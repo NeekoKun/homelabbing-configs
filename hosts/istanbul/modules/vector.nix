@@ -118,6 +118,14 @@ in
           ];
         };
 
+        nginx_geoip_enrich = {
+          type = "geoip";
+          inputs = [ "parse_nginx" ];
+          database_path = "/var/lib/geoip/GeoLite2-City.mmdb"; # TODO: Add to Nix store and reference with path from there
+          source_field = "remote_addr";
+          target_field = "geoip";
+        };
+
         parse_fail2ban = {
           type = "remap";
           inputs = [ "fail2ban" ];
@@ -146,6 +154,14 @@ in
             .jail = "sshd"
             .host = "${config.networking.hostName}"
           '';
+        };
+
+        fail2ban_geoip_enrich = {
+          type = "geoip";
+          inputs = [ "parse_fail2ban" ];
+          database_path = "/var/lib/geoip/GeoLite2-City.mmdb"; # TODO: Add to Nix store and reference with path from there
+          source_field = "ip";
+          target_field = "geoip";
         };
 
         add_hostname = {
@@ -193,9 +209,68 @@ in
           };
         };
 
-        loki = {
+        loki_fail2ban = {
           type = "loki";
-          inputs = [ "add_metadata" "parse_fail2ban" "parse_nginx" ];
+          inputs = [ "fail2ban_geoip_enrich" ];
+          endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
+          encoding.codec = "json";
+
+          labels = {
+            job = "fail2ban";
+            host = "{{ host }}";
+            level = "{{ level }}";
+            jail = "{{ jail }}";
+          };
+
+          structured_metadata = {
+            ip = "{{ ip }}";
+            country_name = "{{ geoip.country_name }}";
+            city_name = "{{ geoip.city_name }}";
+          };
+
+          remove_label_fields = true;
+
+          batch = {
+            max_bytes = 1048576;
+            timeout_secs = 1;
+          };
+
+          out_of_order_action = "accept";
+        };
+
+        loki_nginx = {
+          type = "loki";
+          inputs = [ "nginx_geoip_enrich" ];
+          endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
+          encoding.codec = "json";
+
+          labels = {
+            job = "nginx";
+            host = "{{ host }}";
+            level = "{{ level }}";
+          };
+
+          structured_metadata = {
+            method = "{{ request_method }}";
+            request_path = "{{ request_uri }}";
+            status = "{{ status }}";
+            country_name = "{{ geoip.country_name }}";
+            city_name = "{{ geoip.city_name }}";
+          };
+
+          remove_label_fields = true;
+
+          batch = {
+            max_bytes = 1048576;
+            timeout_secs = 1;
+          };
+
+          out_of_order_action = "accept";
+        };
+
+        loki_system = {
+          type = "loki";
+          inputs = [ "add_metadata" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
 

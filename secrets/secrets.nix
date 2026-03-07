@@ -11,6 +11,7 @@ in
 {
   "admin-password.age".publicKeys = allHosts;
   "cloudflare-env.age".publicKeys = [ admin istanbul ];
+  "maxmind-license-key.age".publicKeys = [ admin istanbul ];
   "coturn-secret.age".publicKeys = [ admin istanbul babylon ];
   "nextcloud-admin-password.age".publicKeys = [ admin alexandria ];
   "vaultwarden-env.age".publicKeys = [ admin alexandria ];
