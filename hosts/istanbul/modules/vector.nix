@@ -15,6 +15,13 @@ in
         address = "127.0.0.1:8686";
       };
 
+      enrichment_table = {
+        geoip_table = {
+          path = "/var/lib/geoip/GeoLite2-City.mmdb";
+          type = "geoip";
+        };
+      };
+
       sources = {
         fail2ban = {
           type = "journald";
@@ -119,11 +126,11 @@ in
         };
 
         nginx_geoip_enrich = {
-          type = "geoip";
+          type = "remap";
           inputs = [ "parse_nginx" ];
-          database_path = "/var/lib/geoip/GeoLite2-City.mmdb"; # TODO: Add to Nix store and reference with path from there
-          source_field = "remote_addr";
-          target_field = "geoip";
+          source = ''
+            .geoip = get_enrichment_table_record!("geoip_table", {"ip": .remote_addr})
+          '';
         };
 
         parse_fail2ban = {
@@ -159,9 +166,9 @@ in
         fail2ban_geoip_enrich = {
           type = "geoip";
           inputs = [ "parse_fail2ban" ];
-          database_path = "/var/lib/geoip/GeoLite2-City.mmdb"; # TODO: Add to Nix store and reference with path from there
-          source_field = "ip";
-          target_field = "geoip";
+          source = ''
+            .geoip = get_enrichment_table_record!("geoip_table", {"ip": .ip})
+          '';
         };
 
         add_hostname = {
