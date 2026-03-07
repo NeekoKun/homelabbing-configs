@@ -227,6 +227,7 @@ in
             host = "{{ host }}";
             level = "{{ level }}";
             jail = "{{ jail }}";
+            action = "{{ action }}";
           };
 
           structured_metadata = {
