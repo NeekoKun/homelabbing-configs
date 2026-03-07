@@ -63,11 +63,42 @@
             };
           };
           gridPos = { h = 24; w = 6; x = 6; y = 0; };
-          id = 1;
+          id = 2;
           targets = [
             {
               expr = "(host_memory_total_bytes - host_memory_available_bytes) / host_memory_total_bytes * 100";
-              legendFormat = "{{ hostname }}";
+              legendFormat = "{{ host }}";
+              refId = "A";
+            }
+          ];
+          type = "gauge";
+        }
+        {
+          title = "Disk Utilization by Host";
+          datasource = {
+            type = "prometheus";
+            uid = "Prometheus";
+          };
+          fieldConfig = {
+            defaults = {
+              color.mode = "thresholds";
+              unit = "percent";
+              thresholds = {
+                mode = "absolute";
+                steps = [
+                  { color = "green"; value = null; }
+                  { color = "yellow"; value = 70; }
+                  { color = "red"; value = 85; }
+                ];
+              };
+            };
+          };
+          gridPos = { h = 24; w = 6; x = 12; y = 0; };
+          id = 3;
+          targets = [
+            {
+              expr = "host_filesystem_used_bytes{filesystem=\"ext4\", mountpoint=\"/\"} / host_filesystem_free_bytes{filesystem=\"ext4\", mountpoint=\"/\"} * 100";
+              legendFormat = "{{ host }}";
               refId = "A";
             }
           ];
