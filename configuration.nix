@@ -83,6 +83,7 @@
     tshark
     dig
     mlocate
+    fio
     
     # Monitoring
     usbutils
