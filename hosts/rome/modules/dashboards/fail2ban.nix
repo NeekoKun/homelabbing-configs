@@ -112,7 +112,7 @@
           targets = [
             {
               expr = "sum by (jail) (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [$__auto]))";
-              legendFormat = "Unbanned IPs";
+              legendFormat = "{{ jail }}";
               refId = "A";
             }
           ];
@@ -136,7 +136,7 @@
           targets = [
             {
               expr = "sum (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [1d]))";
-              legendFormat = "{{ jail }}";
+              legendFormat = "Unbanned IPs";
               refId = "A";
             }
           ];
