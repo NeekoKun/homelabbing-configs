@@ -43,7 +43,7 @@
           id = 1;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"ban\"} [$__auto])";
+              expr = "sum by (jail) (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"ban\"} [$__auto]))";
               legendFormat = "Banned IPs";
               refId = "A";
             }
@@ -66,7 +66,7 @@
           id = 2;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"ban\"} [$__auto])";
+              expr = "sum (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"ban\"} [1d]))";
               legendFormat = "Banned IPs";
               refId = "A";
             }
@@ -102,7 +102,7 @@
           id = 3;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [$__auto])";
+              expr = "sum by (jail) (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [$__auto]))";
               legendFormat = "Unbanned IPs";
               refId = "A";
             }
@@ -125,7 +125,7 @@
           id = 4;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [$__auto])";
+              expr = "sum (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [1d]))";
               legendFormat = "Unbanned IPs";
               refId = "A";
             }
