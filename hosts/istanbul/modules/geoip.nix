@@ -3,7 +3,6 @@
 {
   age.secrets.maxmind-license-key = {
     file = "${flakeRoot}/secrets/maxmind-license-key.age";
-    owner = "geoip";
   };
 
   services.geoipupdate = {
