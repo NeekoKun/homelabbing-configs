@@ -162,7 +162,7 @@ in
 
             .level = if .action == "ban" { "warn" } else { "info" }
             .job = "fail2ban"
-            .jail = parse_regex(.message, r'^.*\[(?P<jail>[^\]]+)\].*$').jail
+            .jail, err = parse_regex(.message, r'^.*\[(?P<jail>[^\]]+)\].*$').jail
             .host = "${config.networking.hostName}"
           '';
         };
