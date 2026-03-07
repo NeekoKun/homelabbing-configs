@@ -15,7 +15,7 @@ in
         address = "127.0.0.1:8686";
       };
 
-      enrichment_table = {
+      enrichment_tables = {
         geoip_table = {
           path = "/var/lib/geoip/GeoLite2-City.mmdb";
           type = "geoip";
