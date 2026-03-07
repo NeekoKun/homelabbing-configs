@@ -1,4 +1,4 @@
-{ config, vars, ... }:
+{ config, vars, flakeRoot, ... }:
 
 let
   net = vars.network;

@@ -7,5 +7,6 @@
     ./nginx.nix
     ./ddns.nix
     ./coturn.nix
+    ./geoip.nix
   ];
 }
