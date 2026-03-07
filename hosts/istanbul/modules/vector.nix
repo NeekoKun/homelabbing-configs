@@ -225,7 +225,7 @@ in
           inputs = [ "fail2ban_geoip_enrich" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding = {
-            codec = "json";
+            codec = "text";
             only_fields = [ "message" ];
           };
 
