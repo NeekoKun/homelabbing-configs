@@ -164,7 +164,7 @@ in
         };
 
         fail2ban_geoip_enrich = {
-          type = "geoip";
+          type = "remap";
           inputs = [ "parse_fail2ban" ];
           source = ''
             .geoip = get_enrichment_table_record!("geoip_table", {"ip": .ip})
