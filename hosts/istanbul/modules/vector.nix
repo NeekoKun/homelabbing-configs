@@ -142,6 +142,7 @@ in
             }
 
             del(.service_name)
+            del(.SYSLOG_IDENTIFIER)
             del(.detected_level)
 
             .message = string!(.message)
@@ -223,7 +224,10 @@ in
           type = "loki";
           inputs = [ "fail2ban_geoip_enrich" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
-          encoding.codec = "json";
+          encoding = {
+            codec = "json";
+            only_fields = [ "message" ];
+          };
 
           labels = {
             job = "fail2ban";
