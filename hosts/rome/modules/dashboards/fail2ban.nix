@@ -66,7 +66,7 @@
           id = 2;
           targets = [
             {
-              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\"} | drop detected_level, level |~ \"Ban\" [$__auto])";
+              expr = "count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"ban\"} |~ \"Ban\" [$__auto])";
               legendFormat = "Banned IPs";
               refId = "A";
             }
