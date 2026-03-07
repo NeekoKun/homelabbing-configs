@@ -225,7 +225,7 @@ in
           inputs = [ "fail2ban_geoip_enrich" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding = {
-            codec = "text";
+            codec = "json";
           };
 
           labels = {
@@ -234,7 +234,6 @@ in
             level = "{{ level }}";
             jail = "{{ jail }}";
             action = "{{ action }}";
-            service_name = ""; # Remove service_name from labels since it's not useful and has high cardinality
           };
 
           structured_metadata = {
@@ -307,7 +306,7 @@ in
 
         debug_metrics = {
           type = "console";
-          inputs = [ "parse_nginx" ];
+          inputs = [ "fail2ban_geoip_enrich" ];
           encoding.codec = "json";
           target = "stdout";
         };
