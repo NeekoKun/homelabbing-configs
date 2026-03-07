@@ -11,7 +11,7 @@
 
     settings = {
       AccountID = 1309665;
-      LicenseKey = config.age.secrets.maxmind-license-key.file;
+      LicenseKey = config.age.secrets.maxmind-license-key.path;
       DatabaseDirectory = "/var/lib/geoip";
       EditionIDs = [ "GeoLite2-City" ];
     };
