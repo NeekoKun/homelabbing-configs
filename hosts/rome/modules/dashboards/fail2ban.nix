@@ -60,6 +60,14 @@
             defaults = {
               color.mode = "palette-classic";
               unit = "none";
+              thresholds = {
+                mode = "absolute";
+                steps = [
+                  { color = "green"; value = null; }
+                  { color = "yellow"; value = 10; }
+                  { color = "red"; value = 40; }
+                ];
+              };
             };
           };
           gridPos = { h = 8; w = 5; x = 19; y = 0; };
