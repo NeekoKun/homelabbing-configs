@@ -1,7 +1,11 @@
 { config, vars, flakeRoot, ... }:
 
 {
-  age.secrets.maxmind-license-key.file = "${flakeRoot}/secrets/maxmind-license-key.age";
+  age.secrets.maxmind-license-key = {
+    file = "${flakeRoot}/secrets/maxmind-license-key.age";
+    user = "geoip";
+    group = "geoip";
+  };
 
   services.geoipupdate = {
     enable = true;
