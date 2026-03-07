@@ -283,7 +283,7 @@ in
           encoding.codec = "json";
 
           labels = {
-            job = "{{ job }}";
+            job = "system";
             host = "{{ host }}";
             level = "{{ level }}";
           };
