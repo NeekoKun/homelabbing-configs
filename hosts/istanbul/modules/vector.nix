@@ -226,7 +226,6 @@ in
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding = {
             codec = "text";
-            only_fields = [ "message" ];
           };
 
           labels = {
