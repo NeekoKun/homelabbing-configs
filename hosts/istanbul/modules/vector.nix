@@ -231,6 +231,7 @@ in
             level = "{{ level }}";
             jail = "{{ jail }}";
             action = "{{ action }}";
+            service_name = ""; # Remove service_name from labels since it's not useful and has high cardinality
           };
 
           structured_metadata = {
