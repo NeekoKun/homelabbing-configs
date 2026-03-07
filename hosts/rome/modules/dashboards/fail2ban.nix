@@ -44,7 +44,7 @@
           targets = [
             {
               expr = "sum by (jail) (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"ban\"} [$__auto]))";
-              legendFormat = "Banned IPs";
+              legendFormat = "{{ jail }}";
               refId = "A";
             }
           ];
@@ -128,6 +128,7 @@
             defaults = {
               color.mode = "palette-classic";
               unit = "none";
+              displayName = "Unbanned in the last 24h";
             };
           };
           gridPos = { h = 8; w = 5; x = 19; y = 8; };
@@ -135,7 +136,7 @@
           targets = [
             {
               expr = "sum (count_over_time({job=\"fail2ban\", host=\"istanbul\", action=\"unban\"} [1d]))";
-              legendFormat = "Unbanned IPs";
+              legendFormat = "{{ jail }}";
               refId = "A";
             }
           ];
