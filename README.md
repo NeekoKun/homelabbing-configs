@@ -136,13 +136,12 @@ nixos-rebuild switch --flake .#hostname
 ### 4. Access Services
 
 After deployment, services are accessible via:
-- **Navidrome**: https://navidrome.local
-- **Nextcloud**: https://nextcloud.local
-- **Vaultwarden**: https://vault.local
-- **Synapse**: https://matrix.local (Matrix homeserver)
-- **Synapse Admin**: https://admin.local
-- **Grafana**: https://metrics.local
-- **Prometheus**: https://prometheus.local
+- **Navidrome**: https://navidrome.domain.tld
+- **Nextcloud**: https://nextcloud.domain.tld
+- **Vaultwarden**: https://vaultwarden.domain.tld
+- **Synapse**: https://matrix.domain.tld (Matrix homeserver)
+- **Synapse Admin**: https://localhost:8080 from **Babylon**, through port forwarding
+- **Grafana**: https://grafana.domain.tld
 
 ## Configuration Management
 
