@@ -1,3 +1,18 @@
+# Copyright (C) 2026 NeekoKun
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 { vars, ... }:
 
 {
@@ -85,6 +100,38 @@
               unit = "percent";
               thresholds = {
                 mode = "absolute";
+                steps = [
+                  { color = "green"; value = null; }
+                  { color = "yellow"; value = 70; }
+                  { color = "red"; value = 85; }
+                ];
+              };
+            };
+          };
+          gridPos = { h = 24; w = 6; x = 12; y = 0; };
+          id = 3;
+          targets = [
+            {
+              expr = "host_filesystem_used_bytes{filesystem=\"ext4\", mountpoint=\"/\"} / host_filesystem_free_bytes{filesystem=\"ext4\", mountpoint=\"/\"} * 100";
+              legendFormat = "{{ host }}";
+              refId = "A";
+            }
+          ];
+          type = "gauge";
+        }
+        {
+          title = "Disk Saturation by Host";
+          datasource = {
+            type = "prometheus";
+            uid = "Prometheus";
+          };
+          fieldConfig = {
+            defaults = {
+              color.mode = "thresholds";
+              unit = "percent";
+              thresholds = {
+                mode = "absolute";
+                min = 0;
                 steps = [
                   { color = "green"; value = null; }
                   { color = "yellow"; value = 70; }
