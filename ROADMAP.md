@@ -32,6 +32,10 @@ Enhance monitoring and visualization capabilities across all hosts.
   - [x] High disk usage alerts
   - [ ] Service downtime detection
   - [ ] Anomaly detection setup
+- [ ] Add dashboard showcase to (README.md)[README.md]
+  - [ ] Add main gauges showcase
+  - [ ] Add GeoIP tracking showcase
+  - [ ] Add custom .md file to showcase every dashboard
 
 #### Related Files
 - `hosts/rome/modules/grafana.nix`
