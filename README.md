@@ -24,7 +24,6 @@ babylon       - Messaging Platform
 istanbul      - Network Edge
 ├── Coturn         (TURN server for P2P)
 ├── DDNS           (Dynamic DNS)
-├── GeoIP          (Geolocation)
 ├── Nginx          (Reverse proxy)
 └── Suricata       (IDS/IPS)
 
@@ -106,7 +105,7 @@ rome          - Observability Stack
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/NeekoKun/homelabbing-configs.git
 cd homelabbing-configs
 ```
 
