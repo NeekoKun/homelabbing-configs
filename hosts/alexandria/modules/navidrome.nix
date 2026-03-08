@@ -38,8 +38,8 @@
       EnableUserEditing = true;
 
       ND_DEFAULTADMIN_USERNAME = "admin";
-      ND_DEFAULTADMIN_PASSWORD = "1234";
-    }; #TODO add Prometheus endpoint, add default admin user account
+      ND_DEFAULTADMIN_PASSWORD = "1234"; # Change this password once logged in for the first time
+    }; #TODO: add Prometheus endpoint
   };
 
   systemd.services.navidrome = {
