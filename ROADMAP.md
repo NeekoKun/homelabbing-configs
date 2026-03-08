@@ -4,6 +4,17 @@ Progress tracking and planned enhancements for the homelabbing infrastructure.
 
 ## Milestones
 
+### 0. Go Public
+
+**Status:** Current Focus
+
+Turn the github repo public
+
+- [ ] Cleanup history for old plaintext keys
+- [ ] Rotate every key
+- [ ] Change admin password to an actual password instead of 1234
+- [ ] Go public
+
 ### 1. Extending Grafana Dashboard
 
 **Status:** In Progress
