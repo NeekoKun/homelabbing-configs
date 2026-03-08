@@ -72,22 +72,26 @@ rome          - Observability Stack
 ## Services Overview
 
 ### Alexandria (Media & Cloud)
+
 - **Navidrome**: Self-hosted music streaming server
 - **Nextcloud**: Complete collaboration platform with file sync, calendar, contacts, and office apps
 - **Vaultwarden**: Lightweight Bitwarden-compatible password manager
 
 ### Babylon (Messaging)
+
 - **Synapse**: Matrix protocol homeserver for decentralized messaging
 - **Synapse Admin**: Web interface for server administration
 - **PostgreSQL**: Database backend for Synapse
 
 ### Istanbul (Network Edge)
+
 - **Coturn**: TURN/STUN server for NAT traversal and P2P connections
 - **DDNS**: Dynamic DNS client for dynamic IP management
 - **Nginx**: Reverse proxy and load balancer
 - **Suricata**: Network IDS/IPS for intrusion detection and prevention
 
 ### Rome (Observability)
+
 - **Prometheus**: Metrics collection and time-series database
 - **Loki**: Log aggregation system
 - **Grafana**: Metrics visualization and dashboard platform
@@ -121,6 +125,28 @@ To add or modify secrets:
 agenix -e secrets/secret-name.age
 ```
 
+#### Needed Secrets:
+
+Every secret can be inferred by the [secrets.nix](secrets/secrets.nix) file, but here is a comprehensive list with uses:
+
+- Password for admin account
+- Cloudflare API key and ZONE_ID, with zone:DNS:Edit and zone:DNS:Read permissions, formatted as follows:
+
+```bash
+CLOUDFLARE_API_KEY=<your_cloudflare_api_key>
+CLOUDFLARE_ZONE_ID=<your_cloudflare_zone_id>
+```
+
+- Coturn local secret, can be whatever
+- MaxMind license key for GeoIP tracking of banned IPs
+- Vaultwarden ADMIN token, needed to login as admin, formatted as follows:
+
+```bash
+ADMIN_TOKEN=<token_of_your_choice>
+```
+
+- NextCloud admin password.
+
 ### 3. Deploy to a Host
 
 Deploy using NixOS's nixos-rebuild:
@@ -136,6 +162,7 @@ nixos-rebuild switch --flake .#hostname
 ### 4. Access Services
 
 After deployment, services are accessible via:
+
 - **Navidrome**: https://navidrome.domain.tld
 - **Nextcloud**: https://nextcloud.domain.tld
 - **Vaultwarden**: https://vaultwarden.domain.tld
@@ -148,6 +175,7 @@ After deployment, services are accessible via:
 ### Secrets
 
 All sensitive data is stored in [secrets/](secrets/) using age encryption:
+
 - `admin-password.age` - Administrative credentials
 - `cloudflare-env.age` - Cloudflare API configuration
 - `coturn-secret.age` - TURN server secret
@@ -160,6 +188,7 @@ Secrets are declared in [secrets/secrets.nix](secrets/secrets.nix) and reference
 ### Common Modules
 
 Shared configurations across hosts:
+
 - **bash.nix**: Bash shell settings and aliases
 - **kmscon.nix**: Linux kernel mode setting console
 - **Vector**: Unified logging pipeline for all hosts
@@ -167,6 +196,7 @@ Shared configurations across hosts:
 ## Networking
 
 Each host has a dedicated `networking.nix` for:
+
 - Static IP configuration
 - Firewall rules
 - DNS settings
@@ -175,6 +205,7 @@ Each host has a dedicated `networking.nix` for:
 ## Monitoring & Logging
 
 All hosts forward logs to the Rome monitoring stack:
+
 - **Prometheus**: Scrapes metrics from host exporters
 - **Loki**: Aggregates logs from Vector agents
 - **Grafana**: Visualizes both metrics and logs with dashboard templates for each host
@@ -197,23 +228,30 @@ All hosts forward logs to the Rome monitoring stack:
 ## Troubleshooting
 
 ### Service Won't Start
+
 Check logs with `journalctl`
+
 ```bash
 journalctl -u service-name -n 50   # Last 50 lines
 journalctl -u service-name -f      # Follow logs
 ```
 
 ### Secrets Issues
+
 Verify secrets are correctly being decrypted by agenix
+
 ```bash
 sudo ls -la /run/agenix/
 sudo cat /run/agenix/<your_secret>
 ```
+
 - If the secrets appear correctly decrypted, the issue is in the provisioning configs
 - If the secrets are gibberish, the keys are wrong and have to be replaced, follow the [configuration](###2. Configure Secrets)
 
 ### Networking Issues
+
 Check host connectivity and firewall rules:
+
 ```bash
 ip addr show
 sudo nft list ruleset  # For nftables
@@ -222,13 +260,17 @@ sudo nft list ruleset  # For nftables
 ## Maintenance
 
 ### Regular Updates
+
 Update the flake periodically:
+
 ```bash
 nix flake update
 ```
 
 ### Backup Strategy
+
 Ensure critical data on Alexandria and Babylon is backed up regularly:
+
 - Nextcloud files
 - Vaultwarden database
 - Synapse database
