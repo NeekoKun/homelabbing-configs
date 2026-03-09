@@ -97,6 +97,9 @@ rome          - Observability Stack
 - **Grafana**: Metrics visualization and dashboard platform
 - **Host Dashboards**: Preconfigured dashboards for Alexandria, Babylon, Istanbul, Rome, Nginx, Fail2ban, and general host metrics
 
+## Roadmap
+See [ROADMAp.md](/ROADMAP.md) for informations on planned features
+
 ## Prerequisites
 
 - NixOS installed on target machines

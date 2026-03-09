@@ -41,7 +41,7 @@
                 expr: |
                   label_replace(vector(260920000), "host", "istanbul", "", "")
                   or
-                  label_replace(vector(150000000), "host", "rome", "", "")
+                  label_replace(vector(45582000), "host", "rome", "", "")
                   or
                   label_replace(vector(50000000),  "host", "babylon", "", "")
                   or
