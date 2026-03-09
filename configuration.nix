@@ -31,7 +31,7 @@
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.nix}/bin/nix-env --delete-generations +5 -p /nix/var/nix/profiles/system && sudo nix-collect-garbage -d";
+      ExecStart = "${pkgs.nix}/bin/nix-env --delete-generations +5 -p /nix/var/nix/profiles/system &&  ${pkgs.nix}/bin/nix-collect-garbage -d";
     };
   };
 
