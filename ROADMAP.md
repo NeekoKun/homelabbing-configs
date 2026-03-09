@@ -24,6 +24,7 @@ Enhance monitoring and visualization capabilities across all hosts.
 #### Tasks
 - [ ] Create host-specific performance dashboards
   - [x] CPU, Memory, Disk I/O utilization graphs
+    - [ ] Benchmark Babylon and Alexandria with ```fio```
   - [x] Network throughput and latency metrics
   - [ ] Temperature monitoring (if applicable)
 - [ ] Service-level dashboards
@@ -43,7 +44,7 @@ Enhance monitoring and visualization capabilities across all hosts.
   - [x] High disk usage alerts
   - [ ] Service downtime detection
   - [ ] Anomaly detection setup
-- [ ] Add dashboard showcase to (README.md)[README.md]
+- [ ] Add dashboard showcase to [README.md](/README.md)
   - [ ] Add main gauges showcase
   - [ ] Add GeoIP tracking showcase
   - [ ] Add custom .md file to showcase every dashboard

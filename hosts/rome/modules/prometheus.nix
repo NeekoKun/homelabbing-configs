@@ -22,26 +22,26 @@
 
     webExternalUrl = "http://0.0.0.0:${toString vars.services.prometheus.http_port}";
     listenAddress = "0.0.0.0";
-
-    rules = [
+    # Hack to inject manually max disk throughput values for each host 
+    rules = [ #TODO: Add manual values for Babylon and Alexandria
       ''
-        groups:
+        groups: 
           - name: disk_max_throughput
             rules:
-              - record: disk_max_read_bytes_per_second
+              - record: host_disk_max_read_bytes_per_second
                 expr: |
-                  label_replace(vector(133984000), "host", "istanbul", "", "")
+                  label_replace(vector(1339840), "host", "istanbul", "", "")
                   or
-                  label_replace(vector(80912000), "host", "rome", "", "")
+                  label_replace(vector(809120), "host", "rome", "", "")
                   or
-                  label_replace(vector(95000000),  "host", "babylon", "", "")
+                  label_replace(vector(950000),  "host", "babylon", "", "")
                   or
                   label_replace(vector(50000000),  "host", "alexandria", "", "")
-              - record: disk_max_write_bytes_per_second
+              - record: host_disk_max_write_bytes_per_second
                 expr: |
-                  label_replace(vector(260920000), "host", "istanbul", "", "")
+                  label_replace(vector(2609200), "host", "istanbul", "", "")
                   or
-                  label_replace(vector(45582000), "host", "rome", "", "")
+                  label_replace(vector(455820), "host", "rome", "", "")
                   or
                   label_replace(vector(50000000),  "host", "babylon", "", "")
                   or

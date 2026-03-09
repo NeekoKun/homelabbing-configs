@@ -134,17 +134,17 @@
                 min = 0;
                 steps = [
                   { color = "green"; value = null; }
-                  { color = "yellow"; value = 70; }
-                  { color = "red"; value = 85; }
+                  { color = "yellow"; value = 60; }
+                  { color = "red"; value = 80; }
                 ];
               };
             };
           };
-          gridPos = { h = 24; w = 6; x = 12; y = 0; };
-          id = 3;
+          gridPos = { h = 24; w = 6; x = 18; y = 0; };
+          id =4;
           targets = [
             {
-              expr = "host_filesystem_used_bytes{filesystem=\"ext4\", mountpoint=\"/\"} / host_filesystem_free_bytes{filesystem=\"ext4\", mountpoint=\"/\"} * 100";
+              expr = "(rate(host_disk_read_bytes_total{device=\"sda\"}[5m]) / on(host) host_disk_max_read_bytes_per_second + rate(host_disk_written_bytes_total{device=\"sda\"}[5m]) / on(host) host_disk_max_write_bytes_per_second ) / 2 * 100";
               legendFormat = "{{ host }}";
               refId = "A";
             }
