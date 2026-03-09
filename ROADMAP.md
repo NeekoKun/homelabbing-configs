@@ -13,7 +13,7 @@ Turn the github repo public
 - [ ] Cleanup history for old plaintext keys
 - [x] Rotate every key
 - [ ] Change admin password to an actual password instead of 1234
-- [ ] Go public
+- [x] Go public
 
 ### 1. Extending Grafana Dashboard
 

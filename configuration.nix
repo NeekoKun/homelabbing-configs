@@ -31,7 +31,7 @@
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.nix}/bin/nix-env --delete-older-than +5";
+      ExecStart = "${pkgs.nix}/bin/nix-env --delete-generations +5";
     };
   };
 
