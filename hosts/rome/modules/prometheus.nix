@@ -34,7 +34,7 @@
                   or
                   label_replace(vector(809120), "host", "rome", "", "")
                   or
-                  label_replace(vector(950000),  "host", "babylon", "", "")
+                  label_replace(vector(108136),  "host", "babylon", "", "")
                   or
                   label_replace(vector(50000000),  "host", "alexandria", "", "")
               - record: host_disk_max_write_bytes_per_second
@@ -43,7 +43,7 @@
                   or
                   label_replace(vector(455820), "host", "rome", "", "")
                   or
-                  label_replace(vector(50000000),  "host", "babylon", "", "")
+                  label_replace(vector(226004),  "host", "babylon", "", "")
                   or
                   label_replace(vector(30000000),  "host", "alexandria", "", "")
       ''
