@@ -23,8 +23,8 @@ Enhance monitoring and visualization capabilities across all hosts.
 
 #### Tasks
 - [ ] Create host-specific performance dashboards
-  - [x] CPU, Memory, Disk I/O utilization graphs
-    - [ ] Benchmark Babylon and Alexandria with ```fio```
+  - [ ] CPU, Memory, Disk I/O utilization graphs
+    - [ ] Benchmark ~~Babylon and~~ Alexandria with ```fio```
   - [x] Network throughput and latency metrics
   - [ ] Temperature monitoring (if applicable)
 - [ ] Service-level dashboards

@@ -75,9 +75,9 @@
             defaults = {
               color.mode = "thresholds";
               unit = "none";
+              min = 0;
               thresholds = {
                 mode = "absolute";
-                min = 0;
                 steps = [
                   { color = "green"; value = null; }
                   { color = "yellow"; value = 10; }
@@ -164,7 +164,7 @@
       schemaVersion = 38;
       tags = [ "fail2ban" "istanbul" ];
       time = { from = "now-6h"; to = "now"; };
-      title = "Fail2ban logs";
+      title = "Fail2ban Logs";
       uid = "fail2ban-logs";
       version = 0;
     };
