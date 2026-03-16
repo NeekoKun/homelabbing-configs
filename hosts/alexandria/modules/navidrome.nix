@@ -40,7 +40,7 @@
       ND_DEFAULTADMIN_USERNAME = "admin";
       ND_DEFAULTADMIN_PASSWORD = "1234"; # Change this password once logged in for the first time
 
-      ND_PROMETHEUS_ENABLE = true;
+      ND_PROMETHEUS_ENABLED = true;
     };
   };
 
