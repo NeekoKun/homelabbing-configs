@@ -39,7 +39,10 @@
 
       ND_DEFAULTADMIN_USERNAME = "admin";
       ND_DEFAULTADMIN_PASSWORD = "1234"; # Change this password once logged in for the first time
-    }; #TODO: add Prometheus endpoint
+
+      ND_PROMETHEUS_ENABLE = true;
+      ND_PROMETHEUS_METRICSPATH = "/metrics_navidrome";
+    };
   };
 
   systemd.services.navidrome = {
