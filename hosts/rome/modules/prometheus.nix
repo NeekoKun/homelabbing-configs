@@ -52,6 +52,7 @@
     scrapeConfigs = [
       {
         job_name = "navidrome";
+        scheme = "http";
         static_configs = [
           {
             targets = [ "${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}" ];
