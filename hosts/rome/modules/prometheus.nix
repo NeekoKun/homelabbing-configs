@@ -49,6 +49,18 @@
       ''
     ];
 
+    scrapeConfigs = [
+      {
+        job_name = "navidrome";
+        static_configs = [
+          {
+            targets = [ "${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}" ];
+          }
+        ];
+        metrics_path = "/metrics_navidrome";
+      }
+    ];
+
     extraFlags = [
       "--web.enable-remote-write-receiver"
       "--storage.tsdb.retention.time=30d"
