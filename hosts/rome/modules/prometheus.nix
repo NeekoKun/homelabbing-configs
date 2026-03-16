@@ -58,7 +58,6 @@
             targets = [ "${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}" ];
           }
         ];
-        metrics_path = "/metrics_navidrome";
       }
     ];
 
