@@ -32,6 +32,7 @@ Enhance monitoring and visualization capabilities across all hosts.
   - [ ] Nextcloud: storage usage and user metrics
   - [ ] Synapse: room activity and federation metrics
   - [x] Nginx: request rates, error codes, response times
+    - [ ] IP GeoMap for various subdomains
 - [ ] SLA and uptime tracking
   - [ ] Service availability graphs
   - [ ] Downtime incident tracking

@@ -100,6 +100,7 @@
     dig
     mlocate
     fio
+    sqlite
     
     # Monitoring
     usbutils
