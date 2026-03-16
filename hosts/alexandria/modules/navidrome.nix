@@ -37,11 +37,8 @@
       EnableStarRating = true;
       EnableUserEditing = true;
 
-      ND_DEFAULTADMIN_USERNAME = "admin";
-      ND_DEFAULTADMIN_PASSWORD = "1234"; # Change this password once logged in for the first time
-
-      ND_PROMETHEUS_ENABLED = true;
-      ND_PROMETHEUS_METRICSPATH = "/metrics";
+      Prometheus.Enabled = true;
+      Prometheus.MetricsPath = "/metrics";
     };
   };
 
