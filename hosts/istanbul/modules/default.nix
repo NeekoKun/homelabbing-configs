@@ -19,7 +19,7 @@
     ./vector.nix
     ./openssh.nix
     ./suricata.nix
-    ./nginx.nix
+    ./caddy.nix
     ./ddns.nix
     ./coturn.nix
     ./geoip.nix

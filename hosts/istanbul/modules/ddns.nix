@@ -20,12 +20,6 @@ let
   
   domains = [
     "neekokun.com"
-    "grafana.neekokun.com"
-    "navidrome.neekokun.com"
-    "matrix.neekokun.com"
-    "turn.neekokun.com"
-    "nextcloud.neekokun.com"
-    "vaultwarden.neekokun.com"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''
