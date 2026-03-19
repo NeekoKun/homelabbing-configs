@@ -31,7 +31,7 @@ Enhance monitoring and visualization capabilities across all hosts.
   - [ ] Navidrome: playback statistics and user activity
   - [ ] Nextcloud: storage usage and user metrics
   - [ ] Synapse: room activity and federation metrics
-  - [x] Nginx: request rates, error codes, response times
+  - [ ] Caddy: request rates, error codes, response times
 - [ ] SLA and uptime tracking
   - [ ] Service availability graphs
   - [ ] Downtime incident tracking
