@@ -47,7 +47,7 @@ in
 
         caddy_metrics = {
           type = "prometheus_scrape";
-          endpoints = [ "http://${net.internal.istanbul}:2019/metrics" ];
+          endpoints = [ "http://127.0.0.1:2019/metrics" ];
           scrape_interval_secs = 15;
         };
 
