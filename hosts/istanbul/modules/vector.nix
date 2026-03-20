@@ -45,9 +45,17 @@ in
           };
         };
 
-        nginx_logs = {
+        caddy_metrics = {
+          type = "prometheus_scrape";
+          endpoints = [ "http://${net.internal.istanbul}:2019/metrics" ];
+          scrape_interval_secs = 15;
+        };
+
+        caddy_logs = {
           type = "file";
-          include = [ "/var/log/nginx/access.log" ];
+          include = [
+            "/var/log/caddy/access-*.log"
+          ];
         };
 
         journald = {
@@ -65,9 +73,9 @@ in
       };
 
       transforms = {
-        parse_nginx = {
+        parse_caddy = {
           type = "remap";
-          inputs = [ "nginx_logs" ];
+          inputs = [ "caddy_logs" ];
           source = ''
             if .message == "" || .message == null {
               abort
@@ -75,43 +83,36 @@ in
 
             parsed_message = parse_json!(.message)
 
-            .time_local = parsed_message.time_local
-            .remote_addr = parsed_message.remote_addr
-            .request = parsed_message.request
+            .remote_addr = parsed_message.request.remote_addr
+            .request = parsed_message.request.
             .status = parsed_message.status
-            .body_bytes_sent = parsed_message.body_bytes_sent
-            .http_referer = parsed_message.http_referer
-            .http_user_agent = parsed_message.http_user_agent
-            .http_x_forwarded_for = parsed_message.http_x_forwarded_for
-            .request_time = parsed_message.request_time
-                          
-            request_parts, err = parse_regex(.request, r'^(?P<method>\S+) (?P<uri>[^\s]+) (?P<protocol>[^"]+)$')
+            .http_user_agent = parsed_message.request.headers.User-Agent[0]
+            .request_time = parsed_message.duration
 
-            .request_method = request_parts.method
-            .request_uri = request_parts.uri
-            .request_protocol = request_parts.protocol
+            .request_method = parsed_message.request.method
+            .request_uri = parsed_message.request.uri
+            .request_protocol = parsed_message.request.proto
             
             .status, err = to_string(.status)
                           
-            .body_bytes_sent, err = if .body_bytes_sent == "" || .body_bytes_sent == null { 0 } else { to_int(.body_bytes_sent) }
             .request_method = if .request_method == "" || .request_method == null { "UNKNOWN" } else { .request_method }
             .status = if .status == "" || .status == null { "000" } else { .status }
             .request_uri = if .request_uri == "" || .request_uri == null { "/" } else { .request_uri }
             .request_time, err = if .request_time == "" || .request_time == null { 0.0 } else { to_float(.request_time) }
             .count = 1
-            .job = "nginx"
+            .job = "caddy"
             .level = if starts_with(.status, "5") { "warn" } else { "info" }
             .host = "${config.networking.hostName}"
           '';
         };
 
-        extract_nginx_metrics = {
+        extract_caddy_metrics = {
           type = "log_to_metric";
-          inputs = [ "parse_nginx" ];
+          inputs = [ "parse_caddy" ];
           metrics = [
             {
               type = "counter";
-              name = "nginx_http_response_count_total";
+              name = "caddy_http_response_count_total";
               description = "Total HTTP requests";
               field = "count";
               tags.method = "{{request_method}}";
@@ -121,7 +122,7 @@ in
             }
             {
               type = "gauge";
-              name = "nginx_http_response_size_bytes";
+              name = "caddy_http_response_size_bytes";
               description = "Total bytes sent";
               field = "body_bytes_sent";
               tags.method = "{{request_method}}";
@@ -130,7 +131,7 @@ in
             }
             {
               type = "histogram";
-              name = "nginx_http_response_time_seconds";
+              name = "caddy_http_response_time_seconds";
               description = "Request processing time in seconds";
               field = "request_time";
               tags.method = "{{request_method}}";
@@ -140,9 +141,9 @@ in
           ];
         };
 
-        nginx_geoip_enrich = {
+        caddy_geoip_enrich = {
           type = "remap";
-          inputs = [ "parse_nginx" ];
+          inputs = [ "parse_caddy" ];
           source = ''
             .geoip = get_enrichment_table_record!("geoip_table", {"ip": .remote_addr})
           '';
@@ -219,7 +220,7 @@ in
       sinks = {
         prometheus = {
           type = "prometheus_remote_write";
-          inputs = [ "add_hostname" "extract_nginx_metrics" ];
+          inputs = [ "add_hostname" "extract_caddy_metrics" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.prometheus.http_port}/api/v1/write";
 
           healthcheck.enabled = true;
@@ -267,14 +268,14 @@ in
           out_of_order_action = "accept";
         };
 
-        loki_nginx = {
+        loki_caddy = {
           type = "loki";
-          inputs = [ "nginx_geoip_enrich" ];
+          inputs = [ "caddy_geoip_enrich" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.loki.http_port}";
           encoding.codec = "json";
 
           labels = {
-            job = "nginx";
+            job = "caddy";
             host = "{{ host }}";
             level = "{{ level }}";
           };
@@ -335,7 +336,6 @@ in
     };
 
     serviceConfig = {
-      SupplementaryGroups = [ "nginx" ];
       LogRateLimitIntervalSec = 0;
       LogRateLimitBurst = 0;
     };

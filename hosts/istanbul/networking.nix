@@ -62,7 +62,6 @@ in
         80      # HTTP
         443     # HTTPS
         4343    # SSH
-        2019    # Caddy metrics
         vars.services.coturn.port
         vars.services.coturn.tls_port
       ];
