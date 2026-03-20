@@ -51,7 +51,7 @@ in
           scrape_interval_secs = 15;
         };
 
-        caddy_logs = {
+        caddy_access_logs = {
           type = "file";
           include = [
             "/var/log/caddy/access-*.log"
