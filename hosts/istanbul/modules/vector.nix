@@ -87,6 +87,7 @@ in
             .status = parsed_message.status
             .http_user_agent = parsed_message.request.headers."User-Agent"[0]
             .request_time = parsed_message.duration
+            .requested_service, err = split(parsed_message.request.host, ".")[0]
 
             .request_method = parsed_message.request.method
             .request_uri = parsed_message.request.uri
@@ -101,7 +102,6 @@ in
             .count = 1
             .job = "caddy"
             .level = if starts_with(.status, "5") { "warn" } else { "info" }
-            .host = "${config.networking.hostName}"
           '';
         };
 
@@ -277,6 +277,7 @@ in
             job = "caddy";
             host = "{{ host }}";
             level = "{{ level }}";
+            service = "{{ requested_service }}";
           };
 
           structured_metadata = {
