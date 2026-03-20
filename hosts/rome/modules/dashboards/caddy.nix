@@ -119,7 +119,7 @@ in
               hide = false;
               legendFormat = "2**";
               queryType = "range";
-              refId = "A";
+              refId = "B";
             }
             {
               datasource = {
@@ -132,7 +132,7 @@ in
               hide = false;
               legendFormat = "3**";
               queryType = "range";
-              refId = "B";
+              refId = "C";
             }
             {
               datasource = {
@@ -145,7 +145,7 @@ in
               hide = false;
               legendFormat = "4**";
               queryType = "range";
-              refId = "C";
+              refId = "D";
             }
             {
               datasource = {
@@ -158,7 +158,7 @@ in
               hide = false;
               legendFormat = "5**";
               queryType = "range";
-              refId = "D";
+              refId = "E";
             }
           ];
           title = "Percentage Ratio of status codes to all status codes";
