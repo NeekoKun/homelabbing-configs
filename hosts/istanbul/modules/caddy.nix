@@ -48,7 +48,6 @@ in
     };
 
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
-      serverAddresses = [ ":443" ];
       extraConfig = ''
         reverse_proxy http://${vars.network.internal.alexandria} {
           header_up X-Real-IP {http.request.remote.host}
