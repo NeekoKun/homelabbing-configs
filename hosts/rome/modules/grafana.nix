@@ -57,7 +57,7 @@ in
         apiVersion = 1;
         providers = [
           {
-            name = "default";
+            name = "Miscelaneus";
             orgId = 1;
             folder = "Misc";
             type = "file";
@@ -68,7 +68,7 @@ in
             };
           }
           {
-            name = "default";
+            name = "Hosts Dashboards";
             orgId = 2;
             folder = "Hosts";
             type = "file";
@@ -79,7 +79,7 @@ in
             };
           }
           {
-            name = "default";
+            name = "Services Dashboards";
             orgId = 3;
             folder = "Services";
             type = "file";
