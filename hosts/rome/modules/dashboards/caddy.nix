@@ -624,34 +624,11 @@ in
       ];
       refresh = "5s";
       schemaVersion = 40;
-      tags = [ "nginx" "istanbul" ];
-      templating.list = [
-        {
-          current = {};
-          datasource = {
-            type = "prometheus";
-            uid = "Prometheus";
-          };
-          definition = "label_values(nginx_http_response_count_total,instance)";
-          includeAll = false;
-          label = "Host:";
-          name = "host";
-          options = [];
-          query = {
-            query = "label_values(nginx_http_response_count_total,instance)";
-            refId = "StandardVariableQuery";
-          };
-          refresh = 1;
-          regex = "";
-          sort = 1;
-          type = "query";
-        }
-      ];
+      tags = [ "caddy" "istanbul" ];
       time = { from = "now-15m"; to = "now"; };
       timepicker = {};
       timezone = "";
-      title = "NGINX Logs";
-      uid = "Qa1U27CTEb";
+      title = "Caddy Metrics";
       version = 1;
       weekStart = "";
       gnetId = 23059;
