@@ -335,6 +335,7 @@ in
     };
 
     serviceConfig = {
+      SupplementaryGroups = [ "caddy" ];
       LogRateLimitIntervalSec = 0;
       LogRateLimitBurst = 0;
     };
