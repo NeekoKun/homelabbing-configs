@@ -83,6 +83,13 @@ in
       '';
     };
 
+    virtualHosts."www.${net.DNS.domain}.${net.DNS.tld}" = {
+      extraConfig = ''
+        tls internal
+        redirect https://${net.DNS.domain}.${net.DNS.tld}
+      '';
+    };
+
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
         tls internal
