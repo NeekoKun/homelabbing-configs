@@ -102,7 +102,7 @@ in
               };
               direction = "backward";
               editorMode = "code";
-              expr = "sum(rate({job="caddy"} | status=~"2.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
+              expr = "sum(rate({job=\"caddy\"} | status=~"2.." [24h]))/sum(rate({job=\"caddy\"}[24h])) * 100";
               hide = false;
               legendFormat = "2**";
               queryType = "range";
@@ -115,7 +115,7 @@ in
               };
               direction = "backward";
               editorMode = "code";
-              expr = "sum(rate({job="caddy"} | status=~"3.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
+              expr = "sum(rate({job=\"caddy\"} | status=~"3.." [24h]))/sum(rate({job=\"caddy\"}[24h])) * 100";
               hide = false;
               legendFormat = "3**";
               queryType = "range";
@@ -128,7 +128,7 @@ in
               };
               direction = "backward";
               editorMode = "code";
-              expr = "sum(rate({job="caddy"} | status=~"4.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
+              expr = "sum(rate({job=\"caddy\"} | status=~"4.." [24h]))/sum(rate({job=\"caddy\"}[24h])) * 100";
               hide = false;
               legendFormat = "4**";
               queryType = "range";
@@ -141,7 +141,7 @@ in
               };
               direction = "backward";
               editorMode = "code";
-              expr = "sum(rate({job="caddy"} | status=~"5.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
+              expr = "sum(rate({job=\"caddy\"} | status=~"5.." [24h]))/sum(rate({job=\"caddy\"}[24h])) * 100";
               hide = false;
               legendFormat = "5**";
               queryType = "range";
