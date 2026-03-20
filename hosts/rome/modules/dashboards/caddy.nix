@@ -78,7 +78,7 @@ in
           type = "dashboard";
         }
       ];
-      description = "NGINX metrics with Prometheus for custom log parser. Vector example. Should also work with https://github.com/martin-helmich/prometheus-nginxlog-exporter\r\nDashboard is based on 15947.";
+      description = "NGINX metrics with Prometheus for custom log parser.";
       editable = true;
       fiscalYearStartMonth = 0;
       graphTooltip = 0;
@@ -87,36 +87,46 @@ in
       panels = [
         {
           datasource = {
-            type = "prometheus";
-            uid = "Prometheus";
+            type = "loki";
+            uid = "Loki";
           };
           fieldConfig = {
             defaults = {
-              color.mode = "continuous-GrYlRd";
-              mappings = [];
+              color = {
+                mode = "thresholds";
+              };
+              mappings = [
+
+              ];
+              max = 100;
               thresholds = {
                 mode = "percentage";
                 steps = [
                   {
                     color = "green";
-                    value = null;
-                  }
-                  {
-                    color = "red";
-                    value = 5;
+                    value = 0;
                   }
                 ];
               };
               unit = "percent";
             };
-            overrides = [];
+            overrides = [
+
+            ];
           };
-          gridPos = { h = 8; w = 11; x = 0; y = 0; };
+          gridPos = {
+            h = 8;
+            w = 11;
+            x = 0;
+            y = 0;
+          };
           id = 12;
           options = {
             displayMode = "lcd";
             legend = {
-              calcs = [];
+              calcs = [
+
+              ];
               displayMode = "list";
               placement = "bottom";
               showLegend = false;
@@ -127,51 +137,72 @@ in
             namePlacement = "auto";
             orientation = "horizontal";
             reduceOptions = {
-              calcs = [ "lastNotNull" ];
+              calcs = [
+                "lastNotNull"
+              ];
               fields = "";
               values = false;
             };
             showUnfilled = true;
             sizing = "auto";
-            text = {};
+            text = {
+
+            };
             valueMode = "color";
           };
-          pluginVersion = "11.5.2";
+          pluginVersion = "12.3.0";
           targets = [
             {
               datasource = {
-                type = "prometheus";
-                uid = "Prometheus";
+                type = "loki";
+                uid = "P8E80F9AEF21F6940";
               };
-              exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{status=~\"^2..\",instance=\"\$host\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[\$__rate_interval])) * 100";
+              direction = "backward";
+              editorMode = "code";
+              expr = "sum(rate({job="caddy"} | status=~"2.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
               hide = false;
-              interval = "";
-              legendFormat = "2** status codes";
-              refId = "C";
-            }
-            {
-              datasource = {
-                type = "prometheus";
-                uid = "Prometheus";
-              };
-              exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{status=~\"^4..\",instance=\"\$host\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[\$__rate_interval])) * 100";
-              interval = "";
-              legendFormat = "4** status codes";
+              legendFormat = "2**";
+              queryType = "range";
               refId = "A";
             }
             {
               datasource = {
-                type = "prometheus";
-                uid = "Prometheus";
+                type = "loki";
+                uid = "P8E80F9AEF21F6940";
               };
-              exemplar = true;
-              expr = "sum(rate(nginx_http_response_count_total{status=~\"^5..\",instance=\"\$host\"}[\$__rate_interval])) / sum(rate(nginx_http_response_count_total{instance=\"\$host\"}[\$__rate_interval])) * 100";
+              direction = "backward";
+              editorMode = "code";
+              expr = "sum(rate({job="caddy"} | status=~"3.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
               hide = false;
-              interval = "";
-              legendFormat = "5** status codes";
+              legendFormat = "3**";
+              queryType = "range";
               refId = "B";
+            }
+            {
+              datasource = {
+                type = "loki";
+                uid = "P8E80F9AEF21F6940";
+              };
+              direction = "backward";
+              editorMode = "code";
+              expr = "sum(rate({job="caddy"} | status=~"4.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
+              hide = false;
+              legendFormat = "4**";
+              queryType = "range";
+              refId = "C";
+            }
+            {
+              datasource = {
+                type = "loki";
+                uid = "P8E80F9AEF21F6940";
+              };
+              direction = "backward";
+              editorMode = "code";
+              expr = "sum(rate({job="caddy"} | status=~"5.." [24h]))/sum(rate({job="caddy"}[24h])) * 100";
+              hide = false;
+              legendFormat = "5**";
+              queryType = "range";
+              refId = "D";
             }
           ];
           title = "Percentage Ratio of status codes to all status codes";
