@@ -322,7 +322,7 @@ in
 
         debug_metrics = {
           type = "console";
-          inputs = [ "extract_caddy_metrics" ];
+          inputs = [ "caddy_metrics" ];
           encoding.codec = "json";
           target = "stdout";
         };
