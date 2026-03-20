@@ -27,15 +27,15 @@ in
     enable = true;
     email = "neekokun@proton.me";
 
-    globalConfig = ''
-      log {
-        output file /var/log/caddy/access.log {
-          roll_size 100mb
-          roll_keep 10
-        }
-        format json
-      }
-    '';
+    #globalConfig = ''
+    #  log {
+    #    output file /var/log/caddy/access.log {
+    #      roll_size 100mb
+    #      roll_keep 10
+    #    }
+    #    format json
+    #  }
+    #'';
 
     virtualHosts."vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
