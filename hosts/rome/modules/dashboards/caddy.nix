@@ -629,6 +629,7 @@ in
       timepicker = {};
       timezone = "";
       title = "Caddy Metrics";
+      id = "caddy-metrics";
       version = 1;
       weekStart = "";
       gnetId = 23059;
