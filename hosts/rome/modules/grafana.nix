@@ -69,7 +69,7 @@ in
           }
           {
             name = "Hosts Dashboards";
-            orgId = 2;
+            orgId = 1;
             folder = "Hosts";
             type = "file";
             disableDeletion = true;
@@ -80,7 +80,7 @@ in
           }
           {
             name = "Services Dashboards";
-            orgId = 3;
+            orgId = 1;
             folder = "Services";
             type = "file";
             disableDeletion = true;
