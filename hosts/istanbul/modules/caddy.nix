@@ -34,7 +34,7 @@ in
     '';
 
     logFormat = ''
-      output /var/log/caddy/access.log {
+      output file /var/log/caddy/access.log {
         mode 0640
       }
     '';
