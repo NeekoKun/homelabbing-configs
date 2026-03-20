@@ -31,13 +31,6 @@ in
       servers {
         metrics
       }
-      log {
-        output file /var/log/caddy/caddy_main.log {
-          roll_size 10MiB
-          roll_keep 5
-          roll_keep_for 720h
-        }
-      }
     '';
 
     virtualHosts."vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
