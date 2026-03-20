@@ -20,7 +20,7 @@
 
   # This dashboard shows CPU, memory usage, network saturation percentage, network received and transmitted in LAN
   # and disk saturation percentage for alexandria.
-  environment.etc."grafana-dashboards/alexandria-metrics.json" = {
+  environment.etc."grafana-dashboards/hosts/alexandria-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;

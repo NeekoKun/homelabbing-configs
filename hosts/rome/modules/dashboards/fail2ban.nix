@@ -20,7 +20,7 @@
 
   # This dashboard shows fail2ban banned IPs count and unbanned IPs count,
   # as well as a global heatmap of banned IPs by geolocation
-  environment.etc."grafana-dashboards/fail2ban.json" = {
+  environment.etc."grafana-dashboards/services/fail2ban.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;

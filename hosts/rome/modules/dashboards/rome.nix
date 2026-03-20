@@ -20,7 +20,7 @@
 
   # This dashboard shows CPU, memory usage, network saturation percentage, network received and transmitted in LAN
   # and disk saturation percentage for Rome.
-  environment.etc."grafana-dashboards/rome-metrics.json" = {
+  environment.etc."grafana-dashboards/hosts/rome-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;

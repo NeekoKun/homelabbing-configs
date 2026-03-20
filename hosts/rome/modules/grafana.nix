@@ -59,12 +59,23 @@ in
           {
             name = "default";
             orgId = 1;
-            folder = "";
+            folder = "Hosts";
             type = "file";
             disableDeletion = false;
             editable = true;
             options = {
-              path = "/etc/grafana-dashboards";
+              path = "/etc/grafana-dashboards/hosts";
+            };
+          }
+          {
+            name = "default";
+            orgId = 1;
+            folder = "Services";
+            type = "file";
+            disableDeletion = false;
+            editable = true;
+            options = {
+              path = "/etc/grafana-dashboards/services";
             };
           }
         ];

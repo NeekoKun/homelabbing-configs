@@ -20,7 +20,7 @@
 
   # This dashboard shows CPU, memory usage, network saturation percentage, network received and transmitted in LAN
   # and disk saturation percentage for Babylon.
-  environment.etc."grafana-dashboards/babylon-metrics.json" = {
+  environment.etc."grafana-dashboards/hosts/babylon-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;

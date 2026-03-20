@@ -17,7 +17,7 @@
 
 {
   # Hosts status dashboard
-  environment.etc."grafana-dashboards/hosts-status.json" = {
+  environment.etc."grafana-dashboards/hosts/hosts-status.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       editable = true;

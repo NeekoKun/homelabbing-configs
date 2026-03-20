@@ -19,7 +19,7 @@ let
   net = vars.network;
 in
 {
-  environment.etc."grafana-dashboards/caddy-metrics.json" = {
+  environment.etc."grafana-dashboards/services/caddy-metrics.json" = {
     text = builtins.toJSON {
       annotations.list = [];
       description = "Caddy metrics with Loki for custom log parser.";
@@ -36,34 +36,16 @@ in
           fieldConfig = {
             defaults = {
               color = {
-                mode = "thresholds";
+                mode = "classic";
               };
-              mappings = [
-
-              ];
+              mappings = [];
               max = 100;
-              thresholds = {
-                mode = "percentage";
-                steps = [
-                  {
-                    color = "green";
-                    value = 0;
-                  }
-                ];
-              };
               unit = "percent";
             };
-            overrides = [
-
-            ];
+            overrides = [];
           };
-          gridPos = {
-            h = 8;
-            w = 11;
-            x = 0;
-            y = 0;
-          };
-          id = 12;
+          gridPos = { h = 8; w = 12; x = 0; y = 0; };
+          id = 1;
           options = {
             displayMode = "lcd";
             legend = {
@@ -161,7 +143,7 @@ in
               refId = "E";
             }
           ];
-          title = "Percentage Ratio of status codes to all status codes";
+          title = "Percentage Ratio of status codes (24h)";
           transparent = true;
           type = "bargauge";
         }
