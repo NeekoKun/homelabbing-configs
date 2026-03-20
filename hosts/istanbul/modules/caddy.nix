@@ -86,6 +86,8 @@ in
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
         tls internal
+        respond "'Sup?" 200
+
         handle /.well-known/matrix/server {
           header Content-Type application/json
           respond "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}" 200
