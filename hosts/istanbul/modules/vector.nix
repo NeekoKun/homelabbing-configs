@@ -75,7 +75,7 @@ in
       transforms = {
         parse_caddy = {
           type = "remap";
-          inputs = [ "caddy_logs" ];
+          inputs = [ "caddy_access_logs" ];
           source = ''
             if .message == "" || .message == null {
               abort
