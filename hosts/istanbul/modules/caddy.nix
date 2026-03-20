@@ -75,7 +75,6 @@ in
           header_up X-Forwarded-For {http.request.remote.host}
           header_up X-Forwarded-Proto {http.request.proto}
           header_up Host {http.request.host}
-          request_body 50mb
         }
       '';
     };
