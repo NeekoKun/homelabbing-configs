@@ -39,6 +39,7 @@ in
 
     virtualHosts."vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
+        tls internal
         reverse_proxy http://${vars.network.internal.alexandria}:${toString vars.services.vaultwarden.http_port} {
           header_up X-Real-IP {http.request.remote.host}
           header_up X-Forwarded-For {http.request.remote.host}
@@ -49,6 +50,7 @@ in
 
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
+        tls internal
         reverse_proxy http://${vars.network.internal.alexandria} {
           header_up X-Real-IP {http.request.remote.host}
           header_up X-Forwarded-For {http.request.remote.host}
@@ -59,12 +61,14 @@ in
 
     virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
+        tls internal
         reverse_proxy http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}
       '';
     };
 
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
+        tls internal
         reverse_proxy http://${vars.network.internal.rome}:${toString vars.services.grafana.port}
       '';
     };
@@ -81,6 +85,7 @@ in
 
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
+        tls internal
         handle /.well-known/matrix/server {
           header Content-Type application/json
           respond "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}" 200
