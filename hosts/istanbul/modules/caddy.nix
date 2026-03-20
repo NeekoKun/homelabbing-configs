@@ -38,7 +38,6 @@ in
     '';
 
     virtualHosts."vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
-      serverAddresses = [ ":443" ];
       extraConfig = ''
         reverse_proxy http://${vars.network.internal.alexandria}:${toString vars.services.vaultwarden.http_port} {
           header_up X-Real-IP {http.request.remote.host}
@@ -60,21 +59,18 @@ in
     };
 
     virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
-      serverAddresses = [ ":443" ];
       extraConfig = ''
         reverse_proxy http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}
       '';
     };
 
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
-      serverAddresses = [ ":443" ];
       extraConfig = ''
         reverse_proxy http://${vars.network.internal.rome}:${toString vars.services.grafana.port}
       '';
     };
 
     virtualHosts."matrix.${net.DNS.domain}.${net.DNS.tld}" = {
-      serverAddresses = [ ":443" ];
       extraConfig = ''
         reverse_proxy http://${vars.network.internal.babylon}:${toString vars.services.synapse.http_port} {
           header_up X-Forwarded-For {http.request.remote.host}
@@ -86,7 +82,6 @@ in
     };
 
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
-      serverAddresses = [ ":443" ];
       extraConfig = ''
         handle /.well-known/matrix/server {
           header Content-Type application/json
