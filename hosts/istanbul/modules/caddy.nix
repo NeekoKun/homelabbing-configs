@@ -48,6 +48,12 @@ in
           header_up X-Forwarded-Proto {http.request.proto}
         }
       '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-vaultwarden.log {
+          mode 0640
+        }
+      '';
     };
 
     virtualHosts."nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
@@ -59,6 +65,12 @@ in
           header_up X-Forwarded-Proto {http.request.proto}
         }
       '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-nextcloud.log {
+          mode 0640
+        }
+      '';
     };
 
     virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
@@ -66,12 +78,24 @@ in
         tls internal
         reverse_proxy http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}
       '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-navidrome.log {
+          mode 0640
+        }
+      '';
     };
 
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
         tls internal
         reverse_proxy http://${vars.network.internal.rome}:${toString vars.services.grafana.port}
+      '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-grafana.log {
+          mode 0640
+        }
       '';
     };
 
@@ -83,12 +107,24 @@ in
           header_up Host {http.request.host}
         }
       '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-matrix.log {
+          mode 0640
+        }
+      '';
     };
 
     virtualHosts."www.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
         tls internal
         redir https://${net.DNS.domain}.${net.DNS.tld} permanent
+      '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-www.log {
+          mode 0640
+        }
       '';
     };
 
@@ -106,6 +142,12 @@ in
           header Content-Type application/json
           header Access-Control-Allow-Origin "*"
           respond "{\"m.homeserver\": {\"base_url\": \"https://matrix.${net.DNS.domain}.${net.DNS.tld}\"}}" 200
+        }
+      '';
+
+      logFormat = ''
+        output file /var/log/caddy/access-root.log {
+          mode 0640
         }
       '';
     };
