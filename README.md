@@ -24,7 +24,7 @@ babylon       - Messaging Platform
 istanbul      - Network Edge
 ├── Coturn         (TURN server for P2P)
 ├── DDNS           (Dynamic DNS)
-├── Nginx          (Reverse proxy)
+├── Caddy          (Reverse proxy)
 └── Suricata       (IDS/IPS)
 
 rome          - Observability Stack
@@ -87,7 +87,7 @@ rome          - Observability Stack
 
 - **Coturn**: TURN/STUN server for NAT traversal and P2P connections
 - **DDNS**: Dynamic DNS client for dynamic IP management
-- **Nginx**: Reverse proxy and load balancer
+- **Caddy**: Reverse proxy
 - **Suricata**: Network IDS/IPS for intrusion detection and prevention
 
 ### Rome (Observability)
@@ -95,7 +95,7 @@ rome          - Observability Stack
 - **Prometheus**: Metrics collection and time-series database
 - **Loki**: Log aggregation system
 - **Grafana**: Metrics visualization and dashboard platform
-- **Host Dashboards**: Preconfigured dashboards for Alexandria, Babylon, Istanbul, Rome, Nginx, Fail2ban, and general host metrics
+- **Host Dashboards**: Preconfigured dashboards for Alexandria, Babylon, Istanbul, Rome, Caddy, Fail2ban, and general host metrics
 
 ## Roadmap
 See [ROADMAP.md](/ROADMAP.md) for informations on planned features

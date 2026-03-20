@@ -36,7 +36,7 @@ in
           fieldConfig = {
             defaults = {
               color = {
-                mode = "classic";
+                mode = "palette-classic";
               };
               mappings = [];
               max = 100;
