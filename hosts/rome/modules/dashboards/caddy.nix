@@ -21,31 +21,11 @@ in
 {
   environment.etc."grafana-dashboards/caddy-metrics.json" = {
     text = builtins.toJSON {
-      annotations.list = [
-        {
-          builtIn = 1;
-          datasource = {
-            type = "datasource";
-            uid = "grafana";
-          };
-          enable = true;
-          hide = true;
-          iconColor = "rgba(0, 211, 255, 1)";
-          name = "Annotations & Alerts";
-          target = {
-            limit = 100;
-            matchAny = false;
-            tags = [];
-            type = "dashboard";
-          };
-          type = "dashboard";
-        }
-      ];
+      annotations.list = [];
       description = "Caddy metrics with Loki for custom log parser.";
       editable = true;
       fiscalYearStartMonth = 0;
-      graphTooltip = 0;
-      id = null;
+      graphTooltip = 1;
       links = [];
       panels = [
         {
@@ -626,13 +606,9 @@ in
       schemaVersion = 40;
       tags = [ "caddy" "istanbul" ];
       time = { from = "now-15m"; to = "now"; };
-      timepicker = {};
-      timezone = "";
       title = "Caddy Metrics";
-      id = "caddy-metrics";
+      uid = "caddy-metrics";
       version = 1;
-      weekStart = "";
-      gnetId = 23059;
     };
   };
 }
