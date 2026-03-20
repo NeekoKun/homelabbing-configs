@@ -61,7 +61,7 @@ in
             orgId = 1;
             folder = "Misc";
             type = "file";
-            disableDeletion = false;
+            disableDeletion = true;
             editable = true;
             options = {
               path = "/etc/grafana-dashboards";
@@ -69,10 +69,10 @@ in
           }
           {
             name = "default";
-            orgId = 1;
+            orgId = 2;
             folder = "Hosts";
             type = "file";
-            disableDeletion = false;
+            disableDeletion = true;
             editable = true;
             options = {
               path = "/etc/grafana-dashboards/hosts";
@@ -80,10 +80,10 @@ in
           }
           {
             name = "default";
-            orgId = 1;
+            orgId = 3;
             folder = "Services";
             type = "file";
-            disableDeletion = false;
+            disableDeletion = true;
             editable = true;
             options = {
               path = "/etc/grafana-dashboards/services";
