@@ -277,7 +277,7 @@ in
             job = "caddy";
             host = "{{ host }}";
             level = "{{ level }}";
-            service = "{{ requested_service }}";
+            service_name = "{{ requested_service }}";
           };
 
           structured_metadata = {
