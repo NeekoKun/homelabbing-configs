@@ -321,7 +321,7 @@ in
 
         debug_metrics = {
           type = "console";
-          inputs = [ "fail2ban_geoip_enrich" ];
+          inputs = [ "parse_caddy" ];
           encoding.codec = "json";
           target = "stdout";
         };
