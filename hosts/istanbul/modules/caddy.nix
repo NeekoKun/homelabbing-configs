@@ -34,7 +34,9 @@ in
     '';
 
     logFormat = ''
-      mode 0640
+      output /var/log/caddy/access.log {
+        mode 0640
+      }
     '';
 
     virtualHosts."vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
@@ -45,10 +47,6 @@ in
           header_up X-Forwarded-For {http.request.remote.host}
           header_up X-Forwarded-Proto {http.request.proto}
         }
-      '';
-
-      logFormat = ''
-        mode 0640
       '';
     };
 
@@ -61,10 +59,6 @@ in
           header_up X-Forwarded-Proto {http.request.proto}
         }
       '';
-
-      logFormat = ''
-        mode 0640
-      '';
     };
 
     virtualHosts."navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
@@ -72,20 +66,12 @@ in
         tls internal
         reverse_proxy http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}
       '';
-
-      logFormat = ''
-        mode 0640
-      '';
     };
 
     virtualHosts."grafana.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
         tls internal
         reverse_proxy http://${vars.network.internal.rome}:${toString vars.services.grafana.port}
-      '';
-
-      logFormat = ''
-        mode 0640
       '';
     };
 
@@ -97,20 +83,12 @@ in
           header_up Host {http.request.host}
         }
       '';
-
-      logFormat = ''
-        mode 0640
-      '';
     };
 
     virtualHosts."www.${net.DNS.domain}.${net.DNS.tld}" = {
       extraConfig = ''
         tls internal
         redir https://${net.DNS.domain}.${net.DNS.tld} permanent
-      '';
-
-      logFormat = ''
-        mode 0640
       '';
     };
 
@@ -129,10 +107,6 @@ in
           header Access-Control-Allow-Origin "*"
           respond "{\"m.homeserver\": {\"base_url\": \"https://matrix.${net.DNS.domain}.${net.DNS.tld}\"}}" 200
         }
-      '';
-
-      logFormat = ''
-        mode 0640
       '';
     };
   };
