@@ -19,45 +19,8 @@ let
   net = vars.network;
 in
 {
-  environment.etc."grafana-dashboards/nginx-metrics.json" = {
+  environment.etc."grafana-dashboards/caddy-metrics.json" = {
     text = builtins.toJSON {
-      __inputs = [
-        {
-          name = "DS_PROMETHEUS";
-          label = "Prometheus";
-          description = "";
-          type = "datasource";
-          pluginId = "prometheus";
-          pluginName = "Prometheus";
-        }
-      ];
-      __elements = {};
-      __requires = [
-        {
-          type = "panel";
-          id = "bargauge";
-          name = "Bar gauge";
-          version = "";
-        }
-        {
-          type = "grafana";
-          id = "grafana";
-          name = "Grafana";
-          version = "11.5.2";
-        }
-        {
-          type = "datasource";
-          id = "prometheus";
-          name = "Prometheus";
-          version = "1.0.0";
-        }
-        {
-          type = "panel";
-          id = "timeseries";
-          name = "Time series";
-          version = "";
-        }
-      ];
       annotations.list = [
         {
           builtIn = 1;
@@ -78,7 +41,7 @@ in
           type = "dashboard";
         }
       ];
-      description = "NGINX metrics with Prometheus for custom log parser.";
+      description = "Caddy metrics with Loki for custom log parser.";
       editable = true;
       fiscalYearStartMonth = 0;
       graphTooltip = 0;

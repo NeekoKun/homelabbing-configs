@@ -21,7 +21,7 @@
     ./rome.nix
 
     ./istanbul.nix
-    ./nginx.nix
+    ./caddy.nix
     ./fail2ban.nix
 
     ./babylon.nix
