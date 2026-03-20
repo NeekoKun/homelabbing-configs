@@ -219,7 +219,7 @@ in
       sinks = {
         prometheus = {
           type = "prometheus_remote_write";
-          inputs = [ "add_hostname" "extract_caddy_metrics" ];
+          inputs = [ "add_hostname" "caddy_metrics" ];
           endpoint = "http://${net.internal.rome}:${toString vars.services.prometheus.http_port}/api/v1/write";
 
           healthcheck.enabled = true;
