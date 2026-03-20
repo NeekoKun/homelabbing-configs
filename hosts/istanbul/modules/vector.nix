@@ -85,7 +85,7 @@ in
 
             .remote_addr = parsed_message.request.remote_addr
             .status = parsed_message.status
-            .http_user_agent = parsed_message.request.headers.User-Agent[0]
+            .http_user_agent = parsed_message.request.headers."User-Agent"[0]
             .request_time = parsed_message.duration
 
             .request_method = parsed_message.request.method
