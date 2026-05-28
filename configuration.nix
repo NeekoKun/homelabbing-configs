@@ -57,7 +57,6 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "video=1920x1200" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -75,9 +74,10 @@
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    hashedPasswordFile = config.age.secrets.adminPassword.path;
+    password = "1234";
+    #hashedPasswordFile = config.age.secrets.adminPassword.path;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPrhbe8Ow3i9PXPcBqI/X/MAv4tcJd0io7kA3Ku4AKkF neeko@arch"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILYKnzKLSoIorAZE0gkxL/PmQ2VXx+I4rSopN2hU+nbc neeko@artix"
     ];
   };
 

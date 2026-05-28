@@ -68,7 +68,7 @@
           };
 
           interfaces = {
-            wan = "enp0s9";
+            wan = "wlp2s0";
             lan = "enp0s3";
           };
 

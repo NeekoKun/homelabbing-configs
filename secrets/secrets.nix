@@ -14,9 +14,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 let
-  admin    = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfzL8Ntzf3gn7hbnn1ddOng+cQJd5nRl7HqWASW3Rcw admin@istanbul";
+  admin    = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICumwFAjmBqoPr4G/A4vxOi5ZpGp0wwj6LfUuPXqLokQ admin@nixos";
   
-  istanbul = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCBrszJ63yn00uV3kTjNXp9EfezBLXCD8agN4neVUAz root@istanbul";
+  istanbul = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFjIhpusglMegUL9iXr1uaDLwpNkrJAAYocVs7zkjzN0 root@nixos";
   rome     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC0yYswP+ivHjRZmM25CIhgN0AsDz+qJfRzuQdPZ6Q5Q root@rome";
   babylon  = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGEz/MWFcawlr329O1dCeuQo/fDWXLwbybgJRZAaaOXi root@babylon";
   alexandria   = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFKu+epULjNWFQRLVqMWb9+O0QNbLimHu648QvPM6Vn root@alexandria";

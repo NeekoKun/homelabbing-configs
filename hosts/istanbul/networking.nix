@@ -32,6 +32,17 @@ in
     };
 
     hostName = "istanbul";
+
+    wireless = {
+      enable = true;
+
+      networks = {
+        "Vodafone-C00200224" = {
+          psk = "36AAq3MXfqFTJGyL";
+        };
+      };
+    };
+
     interfaces = {
       ${net.interfaces.lan} = {
         ipv4.addresses = [{
