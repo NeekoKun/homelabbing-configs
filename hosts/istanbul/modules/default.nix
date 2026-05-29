@@ -16,7 +16,7 @@
 {
   imports = [
     ./kmscon.nix
-    ./vector.nix
+    #./vector.nix
     ./openssh.nix
     #./suricata.nix
     ./nginx.nix
