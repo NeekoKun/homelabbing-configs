@@ -15,7 +15,7 @@
 
 {
   imports = [
-    ./kmscon.nix
+    #./kmscon.nix
     ./bash.nix
   ];
 }
