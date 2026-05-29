@@ -19,11 +19,11 @@
   programs.bash = {
     enable = true;
 
-    #loginShellInit = ''
-    #  if [ -z "$TMUX" ] && [ -n "KMSCON" ]; then
-    #    exec tmux
-    #  fi
-    #'';
+    loginShellInit = ''
+      if [ -z "$TMUX" ] && command -v tmux &>/dev/null && [ -n "$SSH_CONNECTION" ]; then
+        exec tmux new-session -A -s main
+      fi
+    '';
   };
 
   environment.etc.inputrc.text = ''
