@@ -10,23 +10,26 @@ Progress tracking and planned enhancements for the homelabbing infrastructure.
 
 Turn the github repo public
 
+#### Tasks
+
 - [ ] Cleanup history for old plaintext keys
 - [x] Rotate every key
 - [ ] Change admin password to an actual password instead of 1234
 - [x] Go public
 
-### 1. Extending Grafana Dashboard
+### 1. Setup for single server rack
+- [ ] Unify configs for a single host
+  - [ ] Unify grafana dashboards for single host
+- [ ] Add NetBox Service
 
-**Status:** In Progress
+
+### 2. Extending Grafana Dashboard
+
+**Status:** Staged
 
 Enhance monitoring and visualization capabilities across all hosts.
 
 #### Tasks
-- [ ] Create host-specific performance dashboards
-  - [ ] CPU, Memory, Disk I/O utilization graphs
-    - [ ] Benchmark ~~Babylon and~~ Alexandria with ```fio```
-  - [x] Network throughput and latency metrics
-  - [ ] Temperature monitoring (if applicable)
 - [ ] Service-level dashboards
   - [ ] Navidrome: playback statistics and user activity
   - [ ] Nextcloud: storage usage and user metrics
@@ -59,9 +62,9 @@ Enhance monitoring and visualization capabilities across all hosts.
 
 ---
 
-### 2. Extending Matrix to Support Element Calls
+### 3. Extending Matrix to Support Element Calls
 
-**Status:** Planned
+**Status:** Staged
 
 Implement VoIP/video calling capabilities for the Matrix homeserver using Element Call and Coturn.
 
@@ -94,9 +97,9 @@ Implement VoIP/video calling capabilities for the Matrix homeserver using Elemen
 
 ---
 
-### 3. Setting Up Nextcloud
+### 4. Setting Up Nextcloud
 
-**Status:** Partially Complete
+**Status:** Partially Complete, Staged
 
 Complete Nextcloud deployment and configuration for file synchronization and collaboration.
 
@@ -145,9 +148,9 @@ Complete Nextcloud deployment and configuration for file synchronization and col
 
 ---
 
-### 4. Setting Up Vaultwarden
+### 5. Setting Up Vaultwarden
 
-**Status:** Partially Complete
+**Status:** Partially Complete, Staged
 
 Deploy and configure Vaultwarden for secure password and secret management.
 
@@ -193,17 +196,17 @@ Deploy and configure Vaultwarden for secure password and secret management.
 
 ---
 
-### 5. Deploying to Bare Metal
+### 6. Deploying to Bare Metal
 
-**Status:** Planned
+**Status:** Staged
 
 Transition from virtual machines to bare metal deployments for improved performance.
 
 #### Phase 1: Planning & Preparation
-- [ ] Hardware selection and procurement
-  - [ ] Define performance requirements per host
-  - [ ] Select appropriate hardware
-  - [ ] Plan network topology
+- [x] Hardware selection and procurement
+  - [x] Define performance requirements per host
+  - [x] Select appropriate hardware
+  - [x] Plan network topology
 - [ ] Network planning
   - [ ] IP address scheme
   - [ ] VLAN configuration (if needed)
