@@ -26,22 +26,12 @@ in
 
   networking = {
     hosts = {
-      ${net.internal.rome}    = [ "rome" ];
-      ${net.internal.babylon} = [ "babylon" ];
+      ${net.internal.rome}        = [ "rome" ];
+      ${net.internal.babylon}     = [ "babylon" ];
       ${net.internal.alexandria}  = [ "alexandria" ];
     };
 
     hostName = "istanbul";
-
-    wireless = {
-      enable = true;
-
-      networks = {
-        "Vodafone-C00200224" = {
-          psk = "36AAq3MXfqFTJGyL";
-        };
-      };
-    };
 
     interfaces = {
       ${net.interfaces.lan} = {
