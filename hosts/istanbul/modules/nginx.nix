@@ -116,6 +116,7 @@ in
     virtualHosts."${net.DNS.domain}.${net.DNS.tld}" = {
       enableACME = true;
       forceSSL = true;
+      default = true;
 
       locations."/.well-known/matrix/server" = {
         return = ''200 "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}"'';

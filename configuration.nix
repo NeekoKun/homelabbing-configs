@@ -78,7 +78,7 @@
     password = "1234";
     #hashedPasswordFile = config.age.secrets.adminPassword.path;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILYKnzKLSoIorAZE0gkxL/PmQ2VXx+I4rSopN2hU+nbc neeko@artix"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP1SORqrVF2xg0MlOIi9xT82lBal98BPipIuHZIpQMfN neeko@gremlin"
     ];
   };
 
