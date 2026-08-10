@@ -23,5 +23,6 @@
     ./ddns.nix
     #./coturn.nix
     ./geoip.nix
+    ./navidrome.nix
   ];
 }

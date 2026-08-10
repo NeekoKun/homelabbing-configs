@@ -84,7 +84,7 @@ in
       forceSSL = true;
 
       locations."/" = {
-        proxyPass = "http://${vars.network.internal.alexandria}:${toString vars.services.navidrome.http_port}/";
+        proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
       };
     };
 
