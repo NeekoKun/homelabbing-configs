@@ -101,6 +101,7 @@
     dig
     mlocate
     fio
+    net-tools
     
     # Monitoring
     usbutils

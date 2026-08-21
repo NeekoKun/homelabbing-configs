@@ -16,19 +16,31 @@
 { config, vars, ... }:
 
 {
-  # Mount Music drive (/dev/sdb)
-  #TOCHANGE
-  fileSystems."/mnt/music" = {
-    device = "/dev/sdb";
+  # Mount music drive (MUSIC-labelled) to /data/music
+  fileSystems."/data/music" = {
+    device = "/dev/disk/by-label/MUSIC";
     fsType = "ext4";
-    options = [ "defaults" ];
+    options = [
+      "nofail"
+    ];
   };
+
+  users.groups.music = { };
+
+  users.users.music = {
+    isSystemUser = true;
+    group = "music";
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /data/music 2750 music music -"
+  ];
 
   services.navidrome = {
     enable = true;
 
     settings = {
-      MusicFolder = "/mnt/music";
+      MusicFolder = "/data/music";
       DataFolder = "/var/lib/navidrome";
       Address = "0.0.0.0";
       Port = vars.services.navidrome.http_port;
@@ -43,7 +55,8 @@
   };
 
   systemd.services.navidrome = {
-    after = [ "mnt-music.mount" ];
-    requires = [ "mnt-music.mount" ];
+    serviceConfig.supplementaryGroups = [ "music" ];
+    after = [ "data-music.mount" ];
+    requires = [ "data-music.mount" ];
   };
 }

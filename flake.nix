@@ -46,6 +46,14 @@
             http_port = 4533;
           };
 
+          lidarr = {
+            http_port = 8686;
+          };
+
+          qbittorrent = {
+            http_port = 8181;
+          };
+
           synapse = {
             http_port = 8008;
           };

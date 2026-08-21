@@ -13,19 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{
-  imports = [
-    ./kmscon.nix
-    #./vector.nix
-    ./openssh.nix
-    #./suricata.nix
-    ./nginx.nix
-    ./ddns.nix
-    #./coturn.nix
-    ./geoip.nix
+{ config, vars, ... }:
 
-    ./navidrome.nix
-    ./lidarr.nix
-    ./qbittorrent.nix
-  ];
+{
+    services.lidarr = {
+        enable = true;
+        user = "music";
+        group = "music";
+
+        settings.server.port = vars.services.lidarr.http_port;
+    };
 }
