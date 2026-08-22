@@ -13,17 +13,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{
-  imports = [
-    ./kmscon.nix
-    #./vector.nix
-    ./openssh.nix
-    #./suricata.nix
-    ./nginx.nix
-    ./ddns.nix
-    #./coturn.nix
-    ./geoip.nix
+{ config, vars, ... }:
 
-    ./music.nix
-  ];
+{
+    # Need user and group, mound MUSIC label to /data/music, create /tmp/music for downloads
+    users.groups.music = { };
+
+    users.users.music = {
+        isSystemUser = true;
+        group = "music";
+    }
+
+    fileSystems."/data/music" = {
+        device = "/dev/disk/by-label/MUSIC";
+        fsType = "ext4";
+        options = [
+            "nofail"
+        ];
+    };
+
+    systemd.tmpfiles.rules = [
+      "d /data/music 02750 music music - -"
+      "d /tmp/music  02770 music music - -"
+    ];
+
+    import = [
+        ./navidrome.nix
+        ./lidarr.nix
+        ./qbittorrent.nix
+    ];
 }

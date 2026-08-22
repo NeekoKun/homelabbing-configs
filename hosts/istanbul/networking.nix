@@ -33,12 +33,6 @@ in
 
         hostName = "istanbul";
 
-        wg-quick = {
-            interfaces.wg0 = {
-                configFile = "/etc/nixos/wireguard/wg0.conf";
-            };
-        };
-
         interfaces = {
             ${net.interfaces.lan} = {
                 ipv4.addresses = [{

@@ -13,10 +13,40 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, ... }:
+{ config, pkgs, vars, ... }:
 
 {
     services.qbittorrent = {
-        enable = false;
+        enable = true;
+        webuiPort = vars.services.qbittorrent.http_port;
+        group = "music";
+
+        serverConfig = {
+            LegalNotice.Accepted = true;
+
+            Connections = {
+                Interface = "wg0";
+            }
+
+            Preferences.WebUI = {
+                Username = "admin";
+                Password_PBKDF2 = "@ByteArray(NHi5AAPykw4cOpJ4fctgEw==:9DLBx2tzfJavcnMtvZZBvkBtovlDmnTgyzM+S+bLkRoc3iih5l7MGLJu4+kXTgtL/523szRigVs+xLAtMSNlXA==)";
+            };
+
+            Categories = {
+                lidarr = "/tmp/music";
+            }
+        };
+    };
+
+    networking.wg-quick = {
+        interfaces.wg0 = {
+            configFile = "/etc/nixos/wireguard/wg0.conf";
+        };
+    };
+
+    systemd.services.qbittorrent = {
+        requires = [ "wg-quick-wg0.service" ];
+        after = [ "wg-quick-wg0.service" ];
     };
 }

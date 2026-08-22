@@ -16,26 +16,6 @@
 { config, vars, ... }:
 
 {
-  # Mount music drive (MUSIC-labelled) to /data/music
-  fileSystems."/data/music" = {
-    device = "/dev/disk/by-label/MUSIC";
-    fsType = "ext4";
-    options = [
-      "nofail"
-    ];
-  };
-
-  users.groups.music = { };
-
-  users.users.music = {
-    isSystemUser = true;
-    group = "music";
-  };
-
-  systemd.tmpfiles.rules = [
-    "d /data/music 2750 music music -"
-  ];
-
   services.navidrome = {
     enable = true;
 
