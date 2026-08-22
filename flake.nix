@@ -46,6 +46,10 @@
             http_port = 4533;
           };
 
+          prowlarr = {
+            http_port = 9696;
+          };
+
           lidarr = {
             http_port = 8686;
           };

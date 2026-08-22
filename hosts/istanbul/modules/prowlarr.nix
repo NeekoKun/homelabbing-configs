@@ -13,34 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, ... }:
+{ config, vars, lib, ... }:
 
 {
-    # Need user and group, mound MUSIC label to /data/music, create /tmp/music for downloads
-    users.groups.music = { };
-
-    users.users.music = {
-        isSystemUser = true;
-        group = "music";
+    services.prowlarr = {
+        enable = true;
+        settings = {
+            server.port = vars.services.prowlarr.http_port;
+        }
     };
-
-    fileSystems."/data/music" = {
-        device = "/dev/disk/by-label/MUSIC";
-        fsType = "ext4";
-        options = [
-            "nofail"
-        ];
-    };
-
-    systemd.tmpfiles.rules = [
-      "d /data/music 02750 music music - -"
-      "d /tmp/music  02770 music music - -"
-    ];
-
-    imports = [
-        ./navidrome.nix
-        ./lidarr.nix
-        ./prowlarr.nix
-        ./qbittorrent.nix
-    ];
 }

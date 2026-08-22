@@ -24,20 +24,35 @@
         serverConfig = {
             LegalNotice.Accepted = true;
 
-            Connections = {
-                Interface = "wg0";
-            }
-
-            Preferences.WebUI = {
-                Username = "admin";
-                Password_PBKDF2 = "@ByteArray(NHi5AAPykw4cOpJ4fctgEw==:9DLBx2tzfJavcnMtvZZBvkBtovlDmnTgyzM+S+bLkRoc3iih5l7MGLJu4+kXTgtL/523szRigVs+xLAtMSNlXA==)";
+            BitTorrent = {
+                Session = {
+                    Interface = "wg0";
+                    InterfaceAddress = "10.2.0.2";
+                    InterfaceName = "wg0";
+                };
             };
 
-            Categories = {
-                lidarr = "/tmp/music";
-            }
+            Preferences = {
+                Connection = {
+                    Interface = "wg0";
+                };
+
+
+                WebUI = {
+                    Username = "admin";
+                    Password_PBKDF2 = "@ByteArray(NHi5AAPykw4cOpJ4fctgEw==:9DLBx2tzfJavcnMtvZZBvkBtovlDmnTgyzM+S+bLkRoc3iih5l7MGLJu4+kXTgtL/523szRigVs+xLAtMSNlXA==)";
+                };
+            };
         };
     };
+
+    environment.etc."qbittorrent/categories.json".text = builtins.toJSON {
+        lidarr.save_path = "/tmp/music";
+    };
+
+    systemd.tmpfiles.rules = [
+        "C /var/lib/qBittorrent/qBittorrent/config/categories.json - - - - /etc/qbittorrent/categories.json"
+    ];
 
     networking.wg-quick = {
         interfaces.wg0 = {
