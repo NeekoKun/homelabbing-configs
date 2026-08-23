@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, pkgs, vars, ... }:
+{ flakeRoot, config, pkgs, vars, ... }:
 
 {
     services.qbittorrent = {
@@ -53,12 +53,6 @@
     systemd.tmpfiles.rules = [
         "C /var/lib/qBittorrent/qBittorrent/config/categories.json - - - - /etc/qbittorrent/categories.json"
     ];
-
-    networking.wg-quick = {
-        interfaces.wg0 = {
-            configFile = "/etc/nixos/wireguard/wg0.conf";
-        };
-    };
 
     systemd.services.qbittorrent = {
         requires = [ "wg-quick-wg0.service" ];

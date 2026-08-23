@@ -109,6 +109,8 @@
     btop
     htop
     fastfetch
+    duf
+    tcpdump
   ];
   system.stateVersion = "25.11";
 }

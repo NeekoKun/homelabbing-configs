@@ -17,6 +17,7 @@
 
 let
   cloudflareEmail = "neekokun@proton.me";
+  wanInterface = vars.network.interfaces.wan;
   
   domains = [
     "neekokun.com"
@@ -55,29 +56,42 @@ let
   '';
 in
 {
-  age.secrets.cloudflareEnv.file = "${flakeRoot}/secrets/cloudflare-env.age";
-
-  systemd.services.cloudflare-ddns = {
-    description = "Cloudflare Dynamic DNS Update";
-
-    after = [ "network.target" ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      EnvironmentFile = config.age.secrets.cloudflareEnv.path;
-      ExecStart = "${updateScript}";
+    users.groups.ddns = { };
+    users.users.ddns = {
+        isSystemUser = true;
+        group = "ddns";
     };
-  };
 
-  systemd.timers.cloudflare-ddns = {
-    description = "Update Cloudflare DDNS Every 5 Minutes";
-
-    wantedBy = [ "timers.target" ];
-
-    timerConfig = {
-      OnBootSec = "1min";
-      OnUnitActiveSec = "5min";
-      Persistent = true;
+    age.secrets.cloudflareEnv = {
+        file = "${flakeRoot}/secrets/cloudflare-env.age";
+        owner = "ddns";
+        group = "ddns";
+        mode = "0400";
     };
-  };
+
+    systemd.services.cloudflare-ddns = {
+        description = "Cloudflare Dynamic DNS Update";
+
+        after = [ "network.target" ];
+
+        serviceConfig = {
+            User = "ddns";
+            Group = "ddns";
+            Type = "oneshot";
+            EnvironmentFile = config.age.secrets.cloudflareEnv.path;
+            ExecStart = "${updateScript}";
+        };
+    };
+
+    systemd.timers.cloudflare-ddns = {
+        description = "Update Cloudflare DDNS Every 5 Minutes";
+
+        wantedBy = [ "timers.target" ];
+
+        timerConfig = {
+            OnBootSec = "1min";
+            OnUnitActiveSec = "5min";
+            Persistent = true;
+        };
+    };
 }

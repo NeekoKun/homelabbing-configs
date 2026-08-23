@@ -46,6 +46,10 @@
             http_port = 4533;
           };
 
+          flaresolverr = {
+            http_port = 8191;
+          };
+
           prowlarr = {
             http_port = 9696;
           };
@@ -77,6 +81,11 @@
             domain = "neekokun";
             tld = "com";
             token = "9c347773-7657-4258-88e1-5ff06eab805e";
+          };
+
+          netns = {
+            isolated-vpn = "isolated-vpn";
+            main = "isolated-vpn-host";
           };
 
           interfaces = {

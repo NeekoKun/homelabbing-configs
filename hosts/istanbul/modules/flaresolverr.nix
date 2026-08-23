@@ -13,13 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, lib, ... }:
+{ config, vars, ... }:
 
 {
-    services.prowlarr = {
+    services.flaresolverr = {
         enable = true;
-        settings = {
-            server.port = vars.services.prowlarr.http_port;
-        };
+        port = vars.services.flaresolverr.http_port;
     };
 }

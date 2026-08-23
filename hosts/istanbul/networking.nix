@@ -65,6 +65,7 @@ in
                 4343    # SSH
                 vars.services.coturn.port
                 vars.services.coturn.tls_port
+                vars.services.navidrome.http_port
             ];
 
             allowedUDPPorts = [

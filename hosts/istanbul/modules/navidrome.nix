@@ -35,7 +35,7 @@
   };
 
   systemd.services.navidrome = {
-    serviceConfig.supplementaryGroups = [ "music" ];
+    serviceConfig.SupplementaryGroups = [ "music" ];
     after = [ "data-music.mount" ];
     requires = [ "data-music.mount" ];
   };

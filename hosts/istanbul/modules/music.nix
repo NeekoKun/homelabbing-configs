@@ -33,14 +33,17 @@
     };
 
     systemd.tmpfiles.rules = [
-      "d /data/music 02750 music music - -"
-      "d /tmp/music  02770 music music - -"
+      "d /data/music 02750 music music - -" # Final music destination dir
+      "d /tmp/music  02770 music music - -" # Torrent download dir
     ];
 
     imports = [
         ./navidrome.nix
         ./lidarr.nix
         ./prowlarr.nix
+        ./flaresolverr.nix
         ./qbittorrent.nix
+        ./netns.nix
+        ./vpn.nix
     ];
 }
