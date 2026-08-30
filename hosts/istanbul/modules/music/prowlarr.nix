@@ -22,4 +22,23 @@
             server.port = vars.services.prowlarr.http_port;
         };
     };
+
+    systemd.services.prowlarr = {
+        requires = [ "wireguard-wg0.service" "netns-${vars.network.netns.media-isolated-vpn}.service" ];
+        after = [ "wireguard-wg0.service" "netns-${vars.network.netns.media-isolated-vpn}.service" ];
+
+        serviceConfig = {
+            NetworkNamespacePath = "/run/netns/${vars.network.netns.media-isolated-vpn}";
+            
+            BindReadOnlyPaths = [
+                "/etc/netns/${vars.network.netns.media-isolated-vpn}/resolv.conf:/etc/resolv.conf"
+            ];
+
+            InaccessiblePaths = [
+                "-/run/systemd/resolve" # Block resolved
+                "-/run/nscd"            # Block nscd
+                "-/var/run/nscd"        # Block nscd - usuallly a symlink to /run/nscd
+            ];
+        };
+    };
 }

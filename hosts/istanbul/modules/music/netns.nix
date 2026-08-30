@@ -16,10 +16,10 @@
 { config, lib, vars, pkgs, ... }:
 
 let
-  namespace = vars.network.netns.isolated-vpn;
+  namespace = vars.network.netns.media-isolated-vpn;
 
-  hostInterface = vars.network.netns.main;
-  namespaceInterface = vars.network.netns.isolated-vpn;
+  hostInterface = vars.network.netns.media-isolated-vpn-host;
+  namespaceInterface = vars.network.netns.media-isolated-vpn;
 
   hostAddress = "10.200.0.1/30";
   namespaceAddress = "10.200.0.2/30";
@@ -80,4 +80,9 @@ in
         2>/dev/null || true
     '';
   };
+
+  environment.etc."netns/${namespace}/resolv.conf".text = ''
+    nameserver 10.2.0.1
+    nameserver 2a07:b944::2:1
+  '';
 }

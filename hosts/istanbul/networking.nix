@@ -60,6 +60,7 @@ in
             trustedInterfaces = [ net.interfaces.lan ];
 
             allowedTCPPorts = [
+                53      # DNS
                 80      # HTTP
                 443     # HTTPS
                 4343    # SSH
@@ -69,6 +70,7 @@ in
             ];
 
             allowedUDPPorts = [
+                53      # DNS
                 vars.services.coturn.port
                 vars.services.coturn.tls_port
             ];
@@ -86,14 +88,5 @@ in
             '';
         };
         
-    };
-
-    # DNS Service
-    services.dnsmasq = {
-        enable = true;
-        settings = {
-            server = [ "8.8.8.8" "1.1.1.1" ];
-            interface = net.interfaces.lan;
-        };
     };
 }

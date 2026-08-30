@@ -23,4 +23,13 @@
 
         settings.server.port = vars.services.lidarr.http_port;
     };
+
+    systemd.services.lidarr = {
+        requires = [ "wireguard-wg0.service" "netns-${vars.network.netns.media-isolated-vpn}.service" ];
+        after = [ "wireguard-wg0.service" "netns-${vars.network.netns.media-isolated-vpn}.service" ];
+
+        serviceConfig = {
+            NetworkNamespacePath = "/run/netns/${vars.network.netns.media-isolated-vpn}";
+        };
+    };
 }

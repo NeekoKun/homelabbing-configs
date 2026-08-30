@@ -17,7 +17,7 @@
   description = "NixOS configuration for my homeserver";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -84,8 +84,8 @@
           };
 
           netns = {
-            isolated-vpn = "isolated-vpn";
-            main = "isolated-vpn-host";
+            media-isolated-vpn = "media-vpn";
+            media-isolated-vpn-host = "media-vpn-host";
           };
 
           interfaces = {

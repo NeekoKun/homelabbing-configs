@@ -23,7 +23,8 @@
     ./ddns.nix
     #./coturn.nix
     ./geoip.nix
+    ./dns.nix
 
-    ./music.nix
+    ./music/default.nix
   ];
 }
