@@ -63,16 +63,15 @@ in
                 53      # DNS
                 80      # HTTP
                 443     # HTTPS
-                4343    # SSH
-                vars.services.coturn.port
-                vars.services.coturn.tls_port
-                vars.services.navidrome.http_port
+                #vars.services.coturn.port
+                #vars.services.coturn.tls_port
+                #vars.services.navidrome.http_port
             ];
 
             allowedUDPPorts = [
                 53      # DNS
-                vars.services.coturn.port
-                vars.services.coturn.tls_port
+                #vars.services.coturn.port
+                #vars.services.coturn.tls_port
             ];
 
             allowedUDPPortRanges = [
