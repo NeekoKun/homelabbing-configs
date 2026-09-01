@@ -21,7 +21,6 @@ let
   
   domains = [
     "neekokun.com"
-    "contacts.neekokun.com"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''

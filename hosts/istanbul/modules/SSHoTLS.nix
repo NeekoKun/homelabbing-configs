@@ -38,8 +38,8 @@ in
 
     settings = {
       protocols = [
-        { name = "ssh"; host = "localhost"; port = 22; }
-        { name = "tls"; host = "localhost"; port = 8222; }
+        { name = "ssh"; host = "localhost"; port = "22"; }
+        { name = "tls"; host = "localhost"; port = "8222"; }
       ];
     };
   };

@@ -63,22 +63,6 @@ in
     '';
 
     virtualHosts = {
-      "contacts.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
-
-        locations."/" = {
-          root = "/var/www/contacts";
-          extraConfig = ''
-            proxy_http_version 1.1;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-      };
-
       "vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
         enableACME = true;
         forceSSL = true;
@@ -148,8 +132,28 @@ in
         };
       };
 
+      "contacts.${net.DNS.domain}.${net.DNS.tld}-http" = {
+        serverName = "contacts.${net.DNS.domain}.${net.DNS.tld}";
+        enableACME = true;
+        listen = [
+          { addr = "0.0.0.0"; port = 80; }
+          { addr = "[::]"; port = 80; }
+        ];
+        locations."/" = {
+          return = "301 https://contacts.${net.DNS.domain}.${net.DNS.tld}$request_uri";
+        };
+      };
+
+      "contacts.${net.DNS.domain}.${net.DNS.tld}" = {
+        listen = [ { addr = "127.0.0.1"; port = 8222; } ];
+        locations."/" = {
+          return = "302 https://${net.DNS.domain}.${net.DNS.tld}/contacts";
+          #root = "/var/www/contacts.${net.DNS.domain}.${net.DNS.tld}";
+        };
+      };
+
       "ssh-fallback" = {
-        listen = [ { addr = "127.0.0.1"; port = 8222; ssl = true; } ];
+        listen = [ { addr = "127.0.0.1"; port = 8222; ssl = false;} ];
         locations."/" = {
           return = "302 https://${net.DNS.domain}.${net.DNS.tld}/contacts";
         };

@@ -19,7 +19,6 @@
     #./vector.nix
     
     ./openssh.nix
-    ./stunnel.nix
     ./SSHoTLS.nix
     
     #./suricata.nix
