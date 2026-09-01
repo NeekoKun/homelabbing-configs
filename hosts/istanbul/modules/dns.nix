@@ -27,6 +27,12 @@
                 }
             }
 
+            station.:53 {
+                hosts {
+                    192.168.1.1 vodafone.station
+                }
+            }
+
             .:53 {
 
                 hosts /var/lib/coredns/ad-blocklist.hosts {

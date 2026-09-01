@@ -13,22 +13,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{
-  imports = [
-    ./kmscon.nix
-    #./vector.nix
-    
-    ./openssh.nix
-    ./stunnel.nix
-    ./SSHoTLS.nix
-    
-    #./suricata.nix
-    ./nginx.nix
-    ./ddns.nix
-    #./coturn.nix
-    ./geoip.nix
-    ./dns.nix
+{ config, pkgs, vars, ... }:
 
-    ./music/default.nix
-  ];
+let
+    net = vars.network;
+in
+{
+  services.stunnel = {
+    enable = true;
+
+    servers.ssh = {
+        accept =  "127.0.0.1:8022";
+        connect = "127.0.0.1:2222";
+        cert    = "/var/lib/acme/contacts.${net.DNS.domain}.${net.DNS.tld}/fullchain.pem";
+        key     = "/var/lib/acme/contacts.${net.DNS.domain}.${net.DNS.tld}/key.pem";
+    };
+  };
+
+  services.sslh = {
+    enable = true;
+
+    listenAddresses = [ "127.0.0.1" ];
+    port = 2222;
+
+    settings = {
+      protocols = [
+        { name = "ssh"; host = "localhost"; port = 22; }
+        { name = "tls"; host = "localhost"; port = 8222; }
+      ];
+    };
+  };
 }
