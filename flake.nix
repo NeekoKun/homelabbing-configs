@@ -19,6 +19,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    wikiContent = {
+      url = "path:./wiki";
+      flake = false;
+    };
+
+    myWiki = {
+      url = "git+https://codeberg.org/NeekoKun02/homelab-wiki.git";
+      #inputs.contents.follows = "wikiContent";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -104,33 +114,33 @@
         };
       };
 
-      mkHost = name: nixpkgs.lib.nixosSystem {
+      mkHost = name: extraModules: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
-          inherit vars;
+          inherit vars inputs;
           flakeRoot = ./.;
         };
         modules = [
           agenix.nixosModules.default
           ./configuration.nix
           ./hosts/${name}/default.nix
-        ];
+        ] ++ extraModules;
       };
     in
     {
       nixosConfigurations = {
 
         # Gateway Configs
-        istanbul = mkHost "istanbul";
+        istanbul = mkHost "istanbul" [];
 
         # Data Aggregation Configs
-        rome = mkHost "rome";
+        rome = mkHost "rome" [];
 
         # Synapse Configs
-        babylon = mkHost "babylon";
+        babylon = mkHost "babylon" [];
 
         # Navidrome + Nextcloud + Vaultwarden Configs
-        alexandria = mkHost "alexandria";
+        alexandria = mkHost "alexandria" [];
       };
     };
 }

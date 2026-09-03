@@ -90,6 +90,7 @@
     tmux
     git
     pastel
+    nodejs_26
 
     # Tools
     python3

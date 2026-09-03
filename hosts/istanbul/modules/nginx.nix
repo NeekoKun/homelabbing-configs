@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ pkgs, vars, ... }:
+{ pkgs, vars, inputs, ... }:
 
 let
   net = vars.network;
@@ -105,6 +105,18 @@ in
         };
       };
 
+      "wiki.${net.DNS.domain}.${net.DNS.tld}" = {
+        enableACME = true;
+        forceSSL = true;
+        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+        root = inputs.myWiki.packages.x86_64-linux.wiki;
+
+        locations."/" = {
+          tryFiles = "$uri $uri/ $uri.html =404";
+          index = "index.html";
+        };
+      };
+
       "grafana.${net.DNS.domain}.${net.DNS.tld}" = {
         enableACME = true;
         forceSSL = true;
@@ -149,6 +161,17 @@ in
         locations."/" = {
           return = "302 https://${net.DNS.domain}.${net.DNS.tld}/contacts";
           #root = "/var/www/contacts.${net.DNS.domain}.${net.DNS.tld}";
+        };
+      };
+
+      "wiki.${net.DNS.domain}.${net.DNS.tld}-http" = {
+        serverName = "wiki.${net.DNS.domain}.${net.DNS.tld}";
+        listen = [
+          { addr = "0.0.0.0"; port = 80; }
+          { addr = "[::]"; port = 80; }
+        ];
+        locations."/" = {
+          return = "301 https://wiki.${net.DNS.domain}.${net.DNS.tld}$request_uri";
         };
       };
 

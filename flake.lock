@@ -23,6 +23,19 @@
         "type": "github"
       }
     },
+    "contents": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788387881,
+        "narHash": "sha256-r2adyd20n34JQJzOU+OG+hXtHVkhsNVmh5eXoZr2FrE=",
+        "path": "/home/admin/homelabbing-configs/wiki",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/admin/homelabbing-configs/wiki",
+        "type": "path"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -66,7 +79,42 @@
         "type": "github"
       }
     },
+    "myWiki": {
+      "inputs": {
+        "contents": "contents",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1788389724,
+        "narHash": "sha256-w6U720MJ0ezSLyZvoAz2C0C9Yf32HHHgIqafSCO04Es=",
+        "ref": "refs/heads/v5",
+        "rev": "8984b6b5d45b2b6aa1daaec75c8c3d42a8f9c498",
+        "revCount": 1928,
+        "type": "git",
+        "url": "https://codeberg.org/NeekoKun02/homelab-wiki.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/NeekoKun02/homelab-wiki.git"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1788179007,
+        "narHash": "sha256-hn1oU2rue2SYK8dAr8+WNZWtbsz1S2W5mnHlSEuh3bo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1787414105,
         "narHash": "sha256-WncT27+3BOkgTaJZLnCsf3LcYf9RXMuR9ONSN4rzQ7s=",
@@ -85,7 +133,9 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "nixpkgs": "nixpkgs"
+        "myWiki": "myWiki",
+        "nixpkgs": "nixpkgs_2",
+        "wikiContent": "wikiContent"
       }
     },
     "systems": {
@@ -102,6 +152,18 @@
         "repo": "default",
         "type": "github"
       }
+    },
+    "wikiContent": {
+      "flake": false,
+      "locked": {
+        "path": "./wiki",
+        "type": "path"
+      },
+      "original": {
+        "path": "./wiki",
+        "type": "path"
+      },
+      "parent": []
     }
   },
   "root": "root",
