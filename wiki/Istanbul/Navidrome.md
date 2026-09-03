@@ -17,6 +17,6 @@ The `MUSIC` filesystem is mounted at `/data/music`; the library is `02750` and o
 
 ## Access
 
-Public access is through `navidrome.neekokun.com` and [[Istanbul Nginx]].
+Public access is through `navidrome.neekokun.com` and [[Nginx]].
 
 [^source]: `hosts/istanbul/modules/music/navidrome.nix`, `hosts/istanbul/modules/music/default.nix`

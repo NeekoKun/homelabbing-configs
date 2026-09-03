@@ -9,14 +9,14 @@
 | --- | --- | --- | --- |
 | [[Fleet Kmscon]] | Active | Local console | Console service |
 | [[Fleet OpenSSH]] | Active | Host SSH | Administrative access |
-| [[Babylon PostgreSQL]] | Active | Local database socket | Matrix database |
-| [[Babylon Synapse]] | Active | `0.0.0.0:8008` | Matrix client and federation API |
-| [[Babylon Synapse Admin]] | Active | `127.0.0.1:8080` | Static admin frontend via darkhttpd |
-| [[Babylon Vector]] | Active | Vector API as configured | Logs and host metrics to Rome |
+| [[PostgreSQL]] | Active | Local database socket | Matrix database |
+| [[Synapse]] | Active | `0.0.0.0:8008` | Matrix client and federation API |
+| [[Synapse Admin]] | Active | `127.0.0.1:8080` | Static admin frontend via darkhttpd |
+| [[Babylon/Vector]] | Active | Vector API as configured | Logs and host metrics to Rome |
 
 ## Network
 
-Babylon is `192.168.2.3/24`, with Istanbul as gateway and DNS. LAN TCP `22` and `8008`, plus UDP `3478`, are allowed. Public access is expected through `matrix.neekokun.com`; see [[Istanbul Nginx]].
+Babylon is `192.168.2.3/24`, with Istanbul as gateway and DNS. LAN TCP `22` and `8008`, plus UDP `3478`, are allowed. Public access is expected through `matrix.neekokun.com`; see [[Nginx]].
 
 ## Matrix dependencies
 

@@ -5,6 +5,6 @@
 
 ## Dependencies
 
-Requires reachability to [[Rome Prometheus]] and [[Rome Loki]]. Matrix and PostgreSQL logs should remain identifiable in labels used by [[Rome Dashboards]].
+Requires reachability to [[Prometheus]] and [[Loki]]. Matrix and PostgreSQL logs should remain identifiable in labels used by [[Dashboards]].
 
 [^source]: `hosts/babylon/modules/vector.nix`, `hosts/rome/modules/prometheus.nix`, `hosts/rome/modules/loki.nix`

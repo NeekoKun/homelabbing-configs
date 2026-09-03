@@ -8,11 +8,11 @@
 - Listens on `192.168.2.2:2342`.
 - Public domain: `grafana.neekokun.com`.
 - Provisions Prometheus and Loki datasources.
-- Imports dashboards from [[Rome Dashboards]].
+- Imports dashboards from [[Dashboards]].
 
 ## Dependencies
 
-Requires [[Rome Prometheus]], [[Rome Loki]], and Istanbul Nginx for public TLS ingress. Dashboard queries are configuration-level assumptions until verified against live data.
+Requires [[Prometheus]], [[Loki]], and Istanbul Nginx for public TLS ingress. Dashboard queries are configuration-level assumptions until verified against live data.
 
 ## Operations
 

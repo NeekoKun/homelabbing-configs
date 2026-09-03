@@ -12,6 +12,6 @@
 
 ## Dependencies
 
-Prowlarr supplies indexer results to [[Istanbul Lidarr]] and must retain access to the VPN namespace for its network requests.
+Prowlarr supplies indexer results to [[Lidarr]] and must retain access to the VPN namespace for its network requests.
 
 [^source]: `hosts/istanbul/modules/music/prowlarr.nix`, `hosts/istanbul/modules/music/netns.nix`

@@ -12,6 +12,6 @@
 
 ## Dependencies
 
-[[Babylon Synapse]] must start after database initialization. Backups and disk capacity are operational responsibilities not expressed by the current module.
+[[Synapse]] must start after database initialization. Backups and disk capacity are operational responsibilities not expressed by the current module.
 
 [^source]: `hosts/babylon/modules/postgresql.nix`, `hosts/babylon/modules/synapse.nix`

@@ -11,6 +11,6 @@ The module exists but is not imported on Istanbul. Nginx JSON access logs are al
 
 - [ ] Import the module.
 - [ ] Confirm Nginx log permissions and source paths.
-- [ ] Validate destinations on [[Rome Prometheus]] and [[Rome Loki]].
+- [ ] Validate destinations on [[Prometheus]] and [[Loki]].
 
 [^source]: `hosts/istanbul/modules/vector.nix`, `hosts/istanbul/modules/default.nix`

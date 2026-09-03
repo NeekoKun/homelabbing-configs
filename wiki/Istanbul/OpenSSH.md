@@ -12,7 +12,7 @@
 
 ## Dependencies
 
-The public access path depends on [[Istanbul SSH-over-TLS]]. LAN administration depends on firewall reachability and the configured admin key.
+The public access path depends on [[SSH-over-TLS]]. LAN administration depends on firewall reachability and the configured admin key.
 
 ## Operations
 

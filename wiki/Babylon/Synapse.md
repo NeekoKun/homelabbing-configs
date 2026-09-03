@@ -10,14 +10,14 @@
 - Public URL: `matrix.neekokun.com`.
 - Client and federation resources are enabled.
 - Registration is enabled but requires a token.
-- Uses PostgreSQL through [[Babylon PostgreSQL]].
+- Uses PostgreSQL through [[PostgreSQL]].
 
 ## TURN
 
 TURN URIs reference `turn.neekokun.com:3478` and `:3480`. The shared secret is generated from `coturn-secret.age`; the configured TURN shared secret and registration secret remain literal TODO values and should be moved to age-managed inputs.
 
 > [!warning] Current dependency gap
-> [[Istanbul Coturn]] is disabled, so Matrix calling and relay behavior are not confirmed by the evaluated configuration.
+> [[Coturn]] is disabled, so Matrix calling and relay behavior are not confirmed by the evaluated configuration.
 
 ## Access
 

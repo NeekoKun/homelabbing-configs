@@ -13,6 +13,6 @@
 
 ## Dependencies
 
-[[Rome Vector]] sends journald logs. Grafana reads Loki as a provisioned datasource. Disk capacity under `/var/lib/loki` is the primary persistence concern.
+[[Rome/Vector]] sends journald logs. Grafana reads Loki as a provisioned datasource. Disk capacity under `/var/lib/loki` is the primary persistence concern.
 
 [^source]: `hosts/rome/modules/loki.nix`, `hosts/rome/modules/grafana.nix`

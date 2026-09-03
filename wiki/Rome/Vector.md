@@ -6,8 +6,8 @@
 ## Configuration
 
 - Collects journald entries and host metrics.
-- Sends metrics to [[Rome Prometheus]].
-- Sends logs to [[Rome Loki]].
+- Sends metrics to [[Prometheus]].
+- Sends logs to [[Loki]].
 - Exposes an API on localhost `:8686`.
 
 ## Consumers

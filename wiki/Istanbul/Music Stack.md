@@ -12,7 +12,7 @@
 
 ## Services
 
-Detailed service notes: [[Istanbul Navidrome]], [[Istanbul Lidarr]], [[Istanbul Prowlarr]], [[Istanbul FlareSolverr]], and [[Istanbul qBittorrent]]. Network isolation is documented in [[Istanbul Music Namespace]] and [[Istanbul WireGuard]].
+Detailed service notes: [[Istanbul/Navidrome]], [[Lidarr]], [[Prowlarr]], [[FlareSolverr]], and [[qBittorrent]]. Network isolation is documented in [[Music Namespace]] and [[WireGuard]].
 
 | Service | Port | Key behavior |
 | --- | ---: | --- |

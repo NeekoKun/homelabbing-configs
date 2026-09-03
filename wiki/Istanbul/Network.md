@@ -19,6 +19,6 @@
 - LAN interface is trusted.
 
 > [!warning] Configuration mismatch
-> The Coturn UDP range remains open while [[Istanbul Coturn]] is disabled. Reconcile this before tightening or auditing the firewall.
+> The Coturn UDP range remains open while [[Coturn]] is disabled. Reconcile this before tightening or auditing the firewall.
 
 [^source]: `hosts/istanbul/networking.nix`, `flake.nix`

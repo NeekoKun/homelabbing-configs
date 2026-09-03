@@ -13,7 +13,7 @@
 
 ## Dependencies
 
-Requires [[Istanbul Music Namespace]], [[Istanbul WireGuard]], and [[Istanbul Lidarr]]. The Lidarr category must continue pointing at `/tmp/music`.
+Requires [[Music Namespace]], [[WireGuard]], and [[Lidarr]]. The Lidarr category must continue pointing at `/tmp/music`.
 
 > [!warning] Fail-closed expectation
 > If `media-vpn` or `wg0` is unavailable, torrent traffic should not silently use the host's ordinary route.

@@ -13,7 +13,7 @@
 
 ## Dependencies
 
-Requires the Nextcloud PostgreSQL database and the agenix secret. Public TLS and hostname handling belong to [[Istanbul Nginx]].
+Requires the Nextcloud PostgreSQL database and the agenix secret. Public TLS and hostname handling belong to [[Nginx]].
 
 ## Operations
 

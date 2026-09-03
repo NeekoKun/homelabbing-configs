@@ -26,7 +26,7 @@
 
 ## Dependencies
 
-Nginx depends on ACME certificate issuance and the upstream service being reachable on the LAN. Its `contacts` stream path cooperates with [[Istanbul SSH-over-TLS]].
+Nginx depends on ACME certificate issuance and the upstream service being reachable on the LAN. Its `contacts` stream path cooperates with [[SSH-over-TLS]].
 
 > [!note] Documentation packaging
 > The wiki vhost serves the external `myWiki` flake input. Local `wiki/` edits are not automatically the public package until that input is updated.

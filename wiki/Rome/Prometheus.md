@@ -12,7 +12,7 @@
 
 ## Dependencies
 
-[[Rome Vector]] sends host metrics. Grafana reads this service as a provisioned datasource. The firewall permits LAN access to `9696`.
+[[Rome/Vector]] sends host metrics. Grafana reads this service as a provisioned datasource. The firewall permits LAN access to `9696`.
 
 ## Operations
 

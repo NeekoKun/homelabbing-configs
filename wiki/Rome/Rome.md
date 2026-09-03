@@ -9,11 +9,11 @@
 | --- | --- | --- | --- |
 | [[Fleet Kmscon]] | Active | Local console | Console service |
 | [[Fleet OpenSSH]] | Active | Host SSH | Administrative access |
-| [[Rome Prometheus]] | Active | `0.0.0.0:9696` | Metrics and remote-write receiver |
-| [[Rome Loki]] | Active | HTTP `:3100`, gRPC `:9096` | Single-node log storage |
-| [[Rome Grafana]] | Active | `192.168.2.2:2342` | Dashboards and provisioned data sources |
-| [[Rome Vector]] | Active | API on localhost `:8686` | Journald and host metrics pipeline |
-| [[Rome Dashboards]] | Active | Grafana resources | Fleet and Nginx dashboards |
+| [[Prometheus]] | Active | `0.0.0.0:9696` | Metrics and remote-write receiver |
+| [[Loki]] | Active | HTTP `:3100`, gRPC `:9096` | Single-node log storage |
+| [[Grafana]] | Active | `192.168.2.2:2342` | Dashboards and provisioned data sources |
+| [[Rome/Vector]] | Active | API on localhost `:8686` | Journald and host metrics pipeline |
+| [[Dashboards]] | Active | Grafana resources | Fleet and Nginx dashboards |
 
 ## Network
 

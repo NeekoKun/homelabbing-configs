@@ -15,7 +15,7 @@
 - `ddns.nix`
 - `geoip.nix`
 - `dns.nix`
-- `music/default.nix`, which imports the complete [[Istanbul Music Stack|music stack]]
+- `music/default.nix`, which imports the complete [[Music Stack|music stack]]
 
 ### Present but disabled
 

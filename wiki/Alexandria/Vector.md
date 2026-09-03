@@ -9,6 +9,6 @@ The module is active with the host's standard Vector pipeline. Destinations are 
 
 ## Dependencies
 
-Requires network reachability to [[Rome Prometheus]] and [[Rome Loki]]. Changes to ports or labels should be checked against Rome dashboards.
+Requires network reachability to [[Prometheus]] and [[Loki]]. Changes to ports or labels should be checked against Rome dashboards.
 
 [^source]: `hosts/alexandria/modules/vector.nix`, `hosts/rome/modules/prometheus.nix`, `hosts/rome/modules/loki.nix`
