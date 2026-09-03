@@ -1,4 +1,4 @@
-# Istanbul - Music Stack
+#host/istanbul #area/music #status/active
 
 > [!summary] Purpose
 > The music stack downloads and organizes music through a dedicated network namespace and WireGuard peer, while Navidrome serves the resulting library.
@@ -11,6 +11,8 @@
 - `/tmp/music` is the download directory (`02770`, `music:music`).
 
 ## Services
+
+Detailed service notes: [[Istanbul Navidrome]], [[Istanbul Lidarr]], [[Istanbul Prowlarr]], [[Istanbul FlareSolverr]], and [[Istanbul qBittorrent]]. Network isolation is documented in [[Istanbul Music Namespace]] and [[Istanbul WireGuard]].
 
 | Service | Port | Key behavior |
 | --- | ---: | --- |

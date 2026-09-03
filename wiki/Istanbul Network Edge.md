@@ -1,5 +1,4 @@
-# Istanbul - Network Edge
-
+#host/istanbul #area/network #status/active
 > [!abstract] Role
 > Istanbul is the LAN gateway and public ingress point. It forwards traffic between `enp0s3` (LAN) and `enp0s20u3c2` (WAN), hosts DNS and HTTP/TLS entry points, and provides an isolated network path for the music automation stack.
 
@@ -16,7 +15,7 @@
 - `ddns.nix`
 - `geoip.nix`
 - `dns.nix`
-- `music/default.nix`, which imports the complete [[Istanbul - Music Stack|music stack]]
+- `music/default.nix`, which imports the complete [[Istanbul Music Stack|music stack]]
 
 ### Present but disabled
 
@@ -59,8 +58,4 @@ flowchart LR
     VPN[WireGuard wg0] --> MUSIC[Music namespace]
 ```
 
-## Source anchors
-
-- `hosts/istanbul/networking.nix` - forwarding, host records, NAT, and firewall.
-- `hosts/istanbul/modules/default.nix` - activation boundary.
-- `flake.nix` - shared addresses, interfaces, and ports.
+[^source]: `hosts/istanbul/networking.nix` - forwarding, host records, NAT, and firewall; `hosts/istanbul/modules/default.nix` - activation boundary; `flake.nix` - shared addresses, interfaces, and ports.

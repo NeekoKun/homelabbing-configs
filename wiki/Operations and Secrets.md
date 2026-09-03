@@ -1,3 +1,5 @@
+#area/operations #status/active
+
 # Operations and Secrets
 
 ## Encrypted secret model
@@ -16,6 +18,8 @@ Secrets use [age](https://github.com/FiloSottile/age) and agenix. `secrets/secre
 
 > [!danger] Handling rule
 > Only filenames, owners, and purpose belong in the wiki. Keep decrypted values outside version control and avoid displaying them in command output.
+
+See [[Secret Inventory]] for the service-oriented secret map.
 
 ## Safe change loop
 

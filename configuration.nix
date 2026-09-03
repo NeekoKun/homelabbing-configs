@@ -76,7 +76,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     password = "1234";
-    #hashedPasswordFile = config.age.secrets.adminPassword.path;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP1SORqrVF2xg0MlOIi9xT82lBal98BPipIuHZIpQMfN neeko@gremlin"
     ];

@@ -1,4 +1,4 @@
-# Istanbul - Edge Services
+#host/istanbul #area/edge #status/active
 
 ## CoreDNS
 

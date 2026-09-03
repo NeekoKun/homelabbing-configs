@@ -1,4 +1,4 @@
-# Project Overview
+#area/overview #status/active
 
 > [!abstract] In one sentence
 > This repository is a declarative NixOS homelab configuration for a small multi-host environment: an edge gateway, media and cloud services, Matrix messaging, and observability.
@@ -14,7 +14,7 @@ The README describes four purpose-built hosts:
 | `babylon` | Messaging | Synapse, Synapse Admin, PostgreSQL |
 | `rome` | Observability | Prometheus, Loki, Grafana, dashboards |
 
-Only `istanbul` is expanded in this wiki. See [[Istanbul - Network Edge|Istanbul]] for the current module reality: several README services exist as files but are disabled in the active import list.
+Only `istanbul` is expanded in this wiki. See [[Istanbul Network Edge|Istanbul]] for the current module reality: several README services exist as files but are disabled in the active import list.
 
 ## Repository layout
 
@@ -51,7 +51,7 @@ nixos-rebuild switch --flake .#istanbul --target-host user@istanbul
 
 ## Service access
 
-The README uses the `*.neekokun.com` domain shape for public service URLs. Istanbul's Nginx configuration currently provisions routes for the wiki, media, cloud, Matrix, Grafana, and the default site; see [[Istanbul - Edge Services|Edge services]].
+The README uses the `*.neekokun.com` domain shape for public service URLs. Istanbul's Nginx configuration currently provisions routes for the wiki, media, cloud, Matrix, Grafana, and the default site; see [[Istanbul Edge Services|Edge services]].
 
 ## Development loop
 
