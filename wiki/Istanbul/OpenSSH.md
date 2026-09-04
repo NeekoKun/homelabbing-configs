@@ -5,7 +5,9 @@
 
 ## Configuration
 
-- Listens on `127.0.0.1:22`.
+- Listens on `127.0.0.1:22` and `0.0.0.0:4343`
+    - To access ssh through `0.0.0.0:4343` an fwknop knock is required
+    - To access ssh through `127.0.0.1:22` the connection has to be proxied from HTTPS packets with `SNI=contacts.neekokun.com`
 - Password authentication is disabled.
 - Root password login is prohibited.
 - Fail2ban protects the SSH jail on port `4343`, with five retries and a one-hour initial ban; the ban can grow to seven days.

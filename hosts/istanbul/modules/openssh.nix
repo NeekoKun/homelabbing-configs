@@ -18,15 +18,21 @@
 {
   services.openssh = {
     enable = true;
+    openFirewall = false;
     listenAddresses = [
       {
         addr = "127.0.0.1";
         port = 22;
       }
+      {
+        addr = "0.0.0.0";
+        port = 4343;
+      }
     ];
 
     settings = {
       PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
       PermitRootLogin = "prohibit-password";
     };
 
@@ -37,38 +43,28 @@
     '';
   };
 
-  services.fail2ban = {
-    enable = true;
+  # fwknop
+  environment.systemPackages = [ pkgs.fwknop ];
 
-    bantime-increment = {
-      enable = true;
-      formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
-      maxtime = "168h";
-      overalljails = true;
-    };
+  environment.etc."fwknop/fwknopd.conf".text = ''
+    PCAP_INTF           ${vars.network.interfaces.wan};
+  '';
 
-    jails = {
-      apache-nohome-iptables.settings = {
-        # Block an IP address if it accesses a non-existent
-        # home directory more than 5 times in 10 minutes,
-        # since that indicates that it's scanning.
-        filter = "apache-nohome";
-        action = ''iptables-multiport[name=HTTP, port="http,https"]'';
-        logpath = "/var/log/httpd/error_log*";
-        backend = "systemd";
-        findtime = 600;
-        bantime  = 600;
-        maxretry = 5;
-      };
+  environment.etc."fwknop/access.conf".text = ''
+    SOURCE                     ANY
+    OPEN_PORTS                 tcp/4343
+    REQUIRE_SOURCE_ADDRESS     Y
+    KEY_BASE64:                gqaTtYZo0dcpqzCGoi2UcN+3pXFsFjXY+UX1zWyo8gg=
+    HMAC_KEY_BASE64:           ox1wj7xySrYSV/Y+BgEBCc9zuEEjITzy0gdHJKjgypUjI5xJ+skbr9OX+LnOGTD1BbYACQz4O89aYURHfhglfQ==
+  '';
 
-      sshd.settings = {
-        enabled = true;
-        port = "4343";
-        backend = "systemd";
-        filter = "sshd";
-        maxretry = 5;
-        bantime = "1h";
-      };
+  systemd.services.fwknopd = {
+    description = "fwknopd SPA daemon";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.fwknop}/bin/fwknopd --conf /etc/fwknop/fwknopd.conf --foreground";
+      Restart = "on-failure";
     };
   };
 }
