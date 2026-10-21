@@ -71,13 +71,14 @@ in
 
             allowedUDPPorts = [
                 53      # DNS
+                62201   # Fwknop
                 #vars.services.coturn.port
                 #vars.services.coturn.tls_port
             ];
 
-            allowedUDPPortRanges = [
-                { from = 49152; to = 65535; } # CoTURN
-            ];
+            #allowedUDPPortRanges = [
+            #    { from = 49152; to = 65535; } # CoTURN
+            #];
 
             extraCommands = ''
                 # Clear any existing NAT rules to ensure a clean slate (optional)

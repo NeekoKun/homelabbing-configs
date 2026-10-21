@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Rome/Vector.md",
+                "file": "Istanbul/OpenSSH.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Vector"
+              "title": "OpenSSH"
             }
           },
           {
@@ -229,6 +229,7 @@
   },
   "active": "d0fdc7c5b1aefedb",
   "lastOpenFiles": [
+    "Rome/Vector.md",
     "Rome/Prometheus.md",
     "Rome/Loki.md",
     "Rome/Grafana.md",
@@ -254,7 +255,6 @@
     "Istanbul/DDNS.md",
     "Istanbul/Coturn.md",
     "Istanbul/Istanbul.md",
-    "Istanbul/CoreDNS.md",
     "Rome",
     "Istanbul",
     "Alexandria",
