@@ -36,7 +36,7 @@
 
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
-    }
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, agenix, ... }:
