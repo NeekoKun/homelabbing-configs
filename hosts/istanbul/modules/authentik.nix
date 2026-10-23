@@ -18,5 +18,17 @@
 {
     services.authentik = {
         enable = true;
+        
+        settings = {
+            disable_startup_analytics = true;
+            avatars = "initials";
+        };
+
+        nginx = {
+            enable = true;
+
+            enableACME = true;
+            host = "auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}"
+        };
     };
 }
