@@ -26,6 +26,7 @@ in
 {
   "admin-password.age".publicKeys = allHosts;
   "cloudflare-env.age".publicKeys = [ admin istanbul ];
+  "cloudflare-acme.age".publicKeys = [ admin istanbul ];
   "authentik-secrets.age".publicKeys = [ admin istanbul ];
   "proton-private-key.age".publicKeys = [ admin istanbul ];
   "maxmind-license-key.age".publicKeys = [ admin istanbul ];
