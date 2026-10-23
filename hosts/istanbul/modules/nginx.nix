@@ -226,7 +226,9 @@ in
       domain = "*.${net.DNS.domain}.${net.DNS.tld}";
       extraDomainNames = [ "${net.DNS.domain}.${net.DNS.tld}" ];
       dnsProvider = "cloudflare";
-      credentialsFile = config.age.secrets.cloudflareAcme.path;
+      credentialFiles = {
+        CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflareAcme.path;
+      };
       group = "nginx";
     };
 
