@@ -226,6 +226,8 @@ in
       domain = "*.${net.DNS.domain}.${net.DNS.tld}";
       extraDomainNames = [ "${net.DNS.domain}.${net.DNS.tld}" ];
       dnsProvider = "cloudflare";
+      dnsPropagationCheck = false;
+      extraLegoFlags = [ "--dns.propagation-wait" "60s" ];
       credentialFiles = {
         CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflareAcme.path;
       };
