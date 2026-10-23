@@ -63,37 +63,49 @@ in
     '';
 
     virtualHosts = {
-      "vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
+      "auth.${net.DNS.domain}.${net.DNS.tld}" = {
         enableACME = true;
         forceSSL = true;
         listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
 
         locations."/" = {
-          proxyPass = "http://${vars.network.internal.alexandria}:${toString vars.services.vaultwarden.http_port}/";
-          extraConfig = ''
-            proxy_http_version 1.1;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
+          proxyPass = "http://127.0.0.1:9000";
+          proxyWebsockets = true;
+          recommendedProxySettings = true;
         };
       };
 
-      "nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+      #"vaultwarden.${net.DNS.domain}.${net.DNS.tld}" = {
+      #  enableACME = true;
+      #  forceSSL = true;
+      #  listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+#
+      #  locations."/" = {
+      #    proxyPass = "http://${vars.network.internal.alexandria}:${toString vars.services.vaultwarden.http_port}/";
+      #    extraConfig = ''
+      #      proxy_http_version 1.1;
+      #      proxy_set_header X-Real-IP $remote_addr;
+      #      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      #      proxy_set_header X-Forwarded-Proto $scheme;
+      #    '';
+      #  };
+      #};
 
-        locations."/" = {
-          proxyPass = "http://${vars.network.internal.alexandria}";
-          extraConfig = ''
-            proxy_http_version 1.1;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-      };
+      #"nextcloud.${net.DNS.domain}.${net.DNS.tld}" = {
+      #  enableACME = true;
+      #  forceSSL = true;
+      #  listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+#
+      #  locations."/" = {
+      #    proxyPass = "http://${vars.network.internal.alexandria}";
+      #    extraConfig = ''
+      #      proxy_http_version 1.1;
+      #      proxy_set_header X-Real-IP $remote_addr;
+      #      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      #      proxy_set_header X-Forwarded-Proto $scheme;
+      #    '';
+      #  };
+      #};
 
       "navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
         enableACME = true;
@@ -117,32 +129,32 @@ in
         };
       };
 
-      "grafana.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+      #"grafana.${net.DNS.domain}.${net.DNS.tld}" = {
+      #  enableACME = true;
+      #  forceSSL = true;
+      #  listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+#
+      #  locations."/" = {
+      #    proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
+      #  };
+      #};
 
-        locations."/" = {
-          proxyPass = "http://${vars.network.internal.rome}:${toString vars.services.grafana.port}/";
-        };
-      };
-
-      "matrix.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
-
-        locations."/" = {
-          proxyPass = "http://${vars.network.internal.babylon}:${toString vars.services.synapse.http_port}/";
-          proxyWebsockets = true;
-          extraConfig = ''
-            proxy_set_header X-Forwarded-For $remote_addr;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header Host $host;
-            client_max_body_size 50M;
-          '';
-        };
-      };
+      #"matrix.${net.DNS.domain}.${net.DNS.tld}" = {
+      #  enableACME = true;
+      #  forceSSL = true;
+      #  listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+#
+      #  locations."/" = {
+      #    proxyPass = "http://${vars.network.internal.babylon}:${toString vars.services.synapse.http_port}/";
+      #    proxyWebsockets = true;
+      #    extraConfig = ''
+      #      proxy_set_header X-Forwarded-For $remote_addr;
+      #      proxy_set_header X-Forwarded-Proto $scheme;
+      #      proxy_set_header Host $host;
+      #      client_max_body_size 50M;
+      #    '';
+      #  };
+      #};
 
       "contacts.${net.DNS.domain}.${net.DNS.tld}-http" = {
         serverName = "contacts.${net.DNS.domain}.${net.DNS.tld}";
