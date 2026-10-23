@@ -28,7 +28,7 @@
             enable = true;
 
             enableACME = true;
-            host = "auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}"
+            host = "auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
         };
     };
 }
