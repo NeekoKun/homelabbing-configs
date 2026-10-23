@@ -13,12 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ vars, ...}:
+{ config, vars, flakeRoot, ...}:
 
 {
+    age.secrets.authentikSecrets.file = "${flakeRoot}/secrets/vaultwarden-env.age";
+
     services.authentik = {
         enable = true;
         
+        environmentFile = config.age.secrets.authentikSecrets.path;
+
         settings = {
             disable_startup_analytics = true;
             avatars = "initials";
