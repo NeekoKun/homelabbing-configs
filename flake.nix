@@ -39,7 +39,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, agenix, ... }:
+  outputs = inputs@{ self, nixpkgs, agenix, authentik-nix, ... }:
     let
       vars = {
         services = {
