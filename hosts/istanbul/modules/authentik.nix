@@ -16,7 +16,7 @@
 { config, vars, flakeRoot, ...}:
 
 {
-    age.secrets.authentikSecrets.file = "${flakeRoot}/secrets/vaultwarden-env.age";
+    age.secrets.authentikSecrets.file = "${flakeRoot}/secrets/authentik-secrets.age";
 
     services.authentik = {
         enable = true;
