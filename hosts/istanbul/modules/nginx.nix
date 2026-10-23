@@ -13,13 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ pkgs, vars, inputs, ... }:
+{ config, pkgs, vars, inputs, flakeRoot, ... }:
 
 let
   net = vars.network;
 
   commonVHost = {
-    enableACME = true;
+    useACMEHost = "neekokun.com";
     forceSSL = true;
     listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
   };
@@ -63,11 +63,7 @@ in
     '';
 
     virtualHosts = {
-      "auth.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
-
+      "auth.${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
         locations."/" = {
           proxyPass = "http://127.0.0.1:9000";
           proxyWebsockets = true;
@@ -107,20 +103,13 @@ in
       #  };
       #};
 
-      "navidrome.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
-
+      "navidrome.${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
         };
       };
 
-      "wiki.${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+      "wiki.${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
         root = inputs.myWiki.packages.x86_64-linux.wiki;
 
         locations."/" = {
@@ -156,18 +145,6 @@ in
       #  };
       #};
 
-      "contacts.${net.DNS.domain}.${net.DNS.tld}-http" = {
-        serverName = "contacts.${net.DNS.domain}.${net.DNS.tld}";
-        enableACME = true;
-        listen = [
-          { addr = "0.0.0.0"; port = 80; }
-          { addr = "[::]"; port = 80; }
-        ];
-        locations."/" = {
-          return = "301 https://contacts.${net.DNS.domain}.${net.DNS.tld}$request_uri";
-        };
-      };
-
       "contacts.${net.DNS.domain}.${net.DNS.tld}" = {
         listen = [ { addr = "127.0.0.1"; port = 8222; } ];
         locations."/" = {
@@ -189,18 +166,11 @@ in
           { addr = "0.0.0.0"; port = 80; }
           { addr = "[::]"; port = 80; }
         ];
-        locations."/.well-known/acme-challenge/" = {
-          root = "/var/lib/acme/acme-challenge";
-          extraConfig = "auth_basic off; auth_request off;";
-        };
         locations."/".return = "301 https://$host$request_uri";
       };
 
-      "${net.DNS.domain}.${net.DNS.tld}" = {
-        enableACME = true;
-        forceSSL = true;
+      "${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
         default = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
 
         locations."/.well-known/matrix/server" = {
           return = ''200 "{\"m.server\": \"matrix.${net.DNS.domain}.${net.DNS.tld}:443\"}"'';
@@ -246,9 +216,20 @@ in
     StartLimitIntervalSec = 0; # Avoid STUPID crash due to restarts
   };
 
+  age.secrets.cloudflareAcme.file = "${flakeRoot}/secrets/cloudflare-acme.age";
+
   security.acme = {
     acceptTerms = true;
     defaults.email = "neekokun@proton.me";
-    #defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+
+    certs."${net.DNS.domain}.${net.DNS.tld}" = {
+      domain = "*.${net.DNS.domain}.${net.DNS.tld}";
+      extraDomainNames = [ "${net.DNS.domain}.${net.DNS.tld}" ];
+      dnsProvider = "cloudflare";
+      credentialsFile = config.age.secrets.cloudflareAcme.path;
+      group = "nginx";
+    };
+
+    defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
   };
 }
