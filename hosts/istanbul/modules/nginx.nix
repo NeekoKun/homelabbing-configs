@@ -249,6 +249,6 @@ in
   security.acme = {
     acceptTerms = true;
     defaults.email = "neekokun@proton.me";
-    defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+    #defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
   };
 }
