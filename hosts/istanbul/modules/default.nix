@@ -28,6 +28,8 @@
     ./geoip.nix
     ./dns.nix
 
+    ./authentik.nix
+
     ./music/default.nix
   ];
 }
