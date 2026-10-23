@@ -176,22 +176,24 @@ in
         };
       };
 
-      "wiki.${net.DNS.domain}.${net.DNS.tld}-http" = {
-        serverName = "wiki.${net.DNS.domain}.${net.DNS.tld}";
-        listen = [
-          { addr = "0.0.0.0"; port = 80; }
-          { addr = "[::]"; port = 80; }
-        ];
-        locations."/" = {
-          return = "301 https://wiki.${net.DNS.domain}.${net.DNS.tld}$request_uri";
-        };
-      };
-
       "ssh-fallback" = {
         listen = [ { addr = "127.0.0.1"; port = 8222; ssl = false;} ];
         locations."/" = {
           return = "302 https://${net.DNS.domain}.${net.DNS.tld}/contacts";
         };
+      };
+
+      "http-catchall" = { # Since with the streamConfig trick nginx doesn't automatically serve this
+        default = true;
+        listen = [
+          { addr = "0.0.0.0"; port = 80; }
+          { addr = "[::]"; port = 80; }
+        ];
+        locations."/.well-known/acme-challenge" = {
+          root = "/var/lib/acme/.challenges";
+          extraConfig = "auth_basic off; auth_request off;";
+        };
+        locations."/".return = "301 https://$host$request_uri";
       };
 
       "${net.DNS.domain}.${net.DNS.tld}" = {
