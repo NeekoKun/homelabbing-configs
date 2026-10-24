@@ -220,6 +220,7 @@ in
 
   security.acme = {
     acceptTerms = true;
+    
     defaults = {
       email = "neekokun@proton.me";
       dnsProvider = "cloudflare";
@@ -227,7 +228,7 @@ in
       credentialFiles = {
         CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflareAcme.path;
       };
-    }
+    };
 
     certs."${net.DNS.domain}.${net.DNS.tld}" = {
       domain = "*.${net.DNS.domain}.${net.DNS.tld}";
