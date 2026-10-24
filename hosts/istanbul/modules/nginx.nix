@@ -233,6 +233,6 @@ in
       group = "nginx";
     };
 
-    defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+    #defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
   };
 }
