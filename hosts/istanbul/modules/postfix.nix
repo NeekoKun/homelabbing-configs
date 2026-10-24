@@ -14,8 +14,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 { config, vars, pkgs, ... }:
+
 let
-    mailHost = "mail.${net.DNS.domain}.${net.DNS.tld}";
+    mailHost = "mail.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
     certDir = config.security.acme.certs.${mailHost}.directory;
 in
 {
@@ -28,7 +29,7 @@ in
         enableSubmissions = true;
 
         hostname = mailHost;
-        domain = "${vars.network.DNS.domain}.${vars.}";
+        domain = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
 
         sslCert = "${certDir}/fullchain.pem";
         sslKey = "${certDir}/key.pem";
