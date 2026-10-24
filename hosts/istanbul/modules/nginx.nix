@@ -220,7 +220,7 @@ in
 
   security.acme = {
     acceptTerms = true;
-    
+
     defaults = {
       email = "neekokun@proton.me";
       dnsProvider = "cloudflare";
@@ -240,7 +240,7 @@ in
       domain = "mail.${net.DNS.domain}.${net.DNS.tld}";
       group = "mailcerts";
 
-      reloadServices = [ "postfix.service" "dovecot2.service" ];
+      reloadServices = [ "postfix.service" ];
     };
 
     #defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";

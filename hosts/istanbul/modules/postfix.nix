@@ -28,10 +28,11 @@ in
         enableSubmission = true;
         enableSubmissions = true;
 
-        hostname = mailHost;
-        domain = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
-
-        settings.main.smtpd_tls_chain_files = [ "${certDir}/fullchain.pem" "${certDir}/key.pem" ];
+        settings.main = {
+            myhostname = mailHost;
+            mydomain = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
+            smtpd_tls_chain_files = [ "${certDir}/fullchain.pem" "${certDir}/key.pem" ];
+        };
     };
 
     systemd.services.postfix = {
