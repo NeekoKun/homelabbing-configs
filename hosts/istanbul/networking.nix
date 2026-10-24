@@ -63,7 +63,9 @@ in
                 53      # DNS
                 80      # HTTP
                 443     # HTTPS
-                8080    
+                8080
+                25      # SMTP
+                465     # SMTPS
                 #vars.services.coturn.port
                 #vars.services.coturn.tls_port
                 #vars.services.navidrome.http_port

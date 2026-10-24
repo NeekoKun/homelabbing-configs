@@ -28,6 +28,8 @@
     ./geoip.nix
     ./dns.nix
 
+    ./postfix.nix
+
     ./authentik/default.nix
     ./music/default.nix
   ];
