@@ -25,7 +25,7 @@ in
 
     services.postfix = {
         enable = true;
-        enableSubmission = true;
+        enableSubmission = false;
         enableSubmissions = true;
 
         settings.main = {
@@ -41,6 +41,7 @@ in
             smtp_tls_mandatory_protocols = ">=TLSv1.2";
 
             # Ciphers
+            tls_high_cipherlist = "ECDHE+AESGCM:ECDHE+CHACHA20"; # No obsolete CBC Ciphers
             smtpd_tls_ciphers = "high";
             smtpd_tls_mandatory_ciphers = "high";
             smtp_tls_ciphers = "high";
@@ -81,19 +82,6 @@ in
             smtpd_error_sleep_time = "5s";
 
             inet_protocols = "ipv4";  # until AAAA/PTR/SPF cover IPv6
-        };
-
-        submissionOptions = {
-            syslog_name = "postfix/submission";
-            milter_macro_daemon_name = "ORIGINATING";
-            smtpd_tls_security_level = "encrypt";
-            smtpd_tls_auth_only = "yes";
-            smtpd_tls_mandatory_protocols = ">=TLSv1.3";
-            smtpd_sasl_auth_enable = "yes";
-            smtpd_sasl_security_options = "noanonymous";
-            smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-            smtpd_relay_restrictions = "permit_sasl_authenticated,reject";
-            smtpd_etrn_restrictions = "reject";
         };
 
         submissionsOptions = {
