@@ -160,8 +160,8 @@ in
         };
       };
 
-      "https-catchall" = commonVHost // { # To only allow existing 
-      
+      # Doesn't work T.T
+      "https-catchall" = commonVHost // { # To only allow existing vhosts
         locations."/" = {
           return = "301 https://${net.DNS.domain}.${net.DNS.tld}";
         };
