@@ -31,6 +31,7 @@ in
         settings.main = {
             myhostname = mailHost;
             mydomain = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
+            mydestination = [ "${vars.netwok.DNS.domain}.${vars.netowkr.DNS.tld}" "localhost" ];
             smtpd_tls_chain_files = [ "${certDir}/fullchain.pem" "${certDir}/key.pem" ];
         };
     };
