@@ -164,8 +164,8 @@ in
       
         locations."/" = {
           return = "301 https://${net.DNS.domain}.${net.DNS.tld}";
-        }
-      }
+        };
+      };
 
       "http-catchall" = { # Since with the streamConfig trick nginx doesn't automatically serve this
         default = true;
