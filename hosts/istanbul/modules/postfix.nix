@@ -99,6 +99,12 @@ in
         };
     };
 
+    security.acme.certs."mail.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
+        group = "mailcerts";
+        reloadServices = [ "postfix.service" ];
+        extraLegoRenewFlags = [ "--reuse-key" ];
+    };
+
     systemd.services.postfix = {
         wants = [ "acme-finished-${mailHost}.target" ];
         after = [ "acme-finished-${mailHost}.target" ];
