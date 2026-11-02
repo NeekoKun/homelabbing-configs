@@ -15,7 +15,17 @@ Turn the github repo public
 - [ ] Change admin password to an actual password instead of 1234
 - [x] Go public
 
-### 1. Extending Grafana Dashboard
+### Setting up Mail Server
+- [x] Setup postfix
+  - [ ] Set SPF record
+  - [ ] Enable DANE
+  - [ ] Enable secure signing keys
+  - [ ] Setup DMARC policies
+  - [ ] Pass internet.nl
+- [ ] Setup dovecot2
+- [ ] Setup rspamd
+
+### Extending Grafana Dashboard
 
 **Status:** In Progress
 
@@ -59,7 +69,7 @@ Enhance monitoring and visualization capabilities across all hosts.
 
 ---
 
-### 2. Extending Matrix to Support Element Calls
+### Extending Matrix to Support Element Calls
 
 **Status:** Planned
 
@@ -94,7 +104,7 @@ Implement VoIP/video calling capabilities for the Matrix homeserver using Elemen
 
 ---
 
-### 3. Setting Up Nextcloud
+### Setting Up Nextcloud
 
 **Status:** Partially Complete
 
@@ -145,7 +155,7 @@ Complete Nextcloud deployment and configuration for file synchronization and col
 
 ---
 
-### 4. Setting Up Vaultwarden
+### Setting Up Vaultwarden
 
 **Status:** Partially Complete
 
@@ -193,7 +203,7 @@ Deploy and configure Vaultwarden for secure password and secret management.
 
 ---
 
-### 5. Deploying to Bare Metal
+### Deploying to Bare Metal
 
 **Status:** Planned
 
