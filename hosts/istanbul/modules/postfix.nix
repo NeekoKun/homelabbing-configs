@@ -34,6 +34,21 @@ in
             mydestination = [ "$mydomain" "localhost" ];
             smtpd_tls_chain_files = [ "${certDir}/key.pem" "${certDir}/fullchain.pem" ];
 
+            tls_config_file = "${pkgs.writeText "postfix-openssl.cnf" ''
+                openssl_conf = openssl_init
+
+                [openssl_init]
+                ssl_conf = ssl_sect
+
+                [ssl_sect]
+                postfix = postfix_tls
+
+                [postfix_tls]
+                MinProtocol = TLSv1.2
+                SignatureAlgorithms = ECDSA+SHA256:ECDSA+SHA384:ECDSA+SHA512:ed25519:RSA-PSS+SHA256:RSA-PSS+SHA384:RSA-PSS+SHA512:RSA+SHA256:RSA+SHA384:RSA+SHA512
+            ''}";
+            tls_config_name = "postfix";
+
             # Protocols
             smtpd_tls_protocols = ">=TLSv1.2";
             smtpd_tls_mandatory_protocols = ">=TLSv1.2";
