@@ -25,6 +25,7 @@ in
 
     services.postfix = {
         enable = true;
+        package = pkgs.postfix.override { withPgSQL = true; };
         enableSubmission = false;
         enableSubmissions = true;
 

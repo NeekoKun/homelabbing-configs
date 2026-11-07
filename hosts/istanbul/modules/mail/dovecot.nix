@@ -54,7 +54,7 @@ in
             ssl = "required";
             ssl_server_cert_file = "${certDir}/fullchain.pem";
             ssl_server_key_file = "${certDir}/key.pem";
-            ssl_min_protocol = "TLSv1.2";
+            ssl_min_protocol = "TLSv1.3";
 
             mail_uid = "vmail";
             mail_gid = "vmail";
