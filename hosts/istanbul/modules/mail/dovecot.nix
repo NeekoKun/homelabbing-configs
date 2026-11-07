@@ -42,10 +42,11 @@ in
 
     services.dovecot2 = {
         enable = true;
+        package = pkgs.dovecot;
         enablePAM = false;
-        protocols = [ "imap" "lmtp" ];
 
         settings = {
+            protocols = [ "imap" "lmtp" ];
             dovecot_config_version = "2.4.0";
             dovecot_storage_version = "2.4.0"; # Could change to 2.4.5
 
