@@ -42,7 +42,7 @@ in
 
     services.dovecot2 = {
         enable = true;
-        package = pkgs.dovecot.override { withPgSQL = true; };;
+        package = pkgs.dovecot.override { withPgSQL = true; };
         enablePAM = false;
 
         settings = {
