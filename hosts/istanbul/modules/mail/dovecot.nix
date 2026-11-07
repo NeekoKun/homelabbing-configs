@@ -36,7 +36,7 @@ in
         ensureUsers = [ { name = "dovecot2"; } { name = "postfix"; } ];
     };
 
-    systemd.services.postgresql.postStart = lib.mkAfter ''
+    systemd.services.postgresql-setup.postStart = lib.mkAfter ''
         psql -d mail -v ON_ERROR_STOP=1 -f ${./schema.sql}
     '';
 
