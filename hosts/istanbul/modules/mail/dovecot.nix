@@ -71,19 +71,11 @@ in
             };
             
             "passdb sql" = {
-                query = ''
-                    SELECT localpart AS username, domain, password_hash AS password
-                    FROM users
-                    WHERE localpart = '%{user | username}' AND domain = '%{user | domain}' AND enabled
-                '';
+                query = "SELECT localpart AS username, domain, password_hash AS password FROM users WHERE localpart = '%{user | username}' AND domain = '%{user | domain}' AND enabled";
             };
 
             "userdb sql" = {
-                query = ''
-                    SELECT '/var/spool/mail/vmail' || domain || '/' || localpart AS home
-                    FROM users
-                    WHERE localpart = '%{user | username}' AND domain = '%{user | domain}' AND enabled
-                '';
+                query = "SELECT '/var/spool/mail/vmail' || domain || '/' || localpart AS home FROM users WHERE localpart = '%{user | username}' AND domain = '%{user | domain}' AND enabled";
                 iterate_query = "SELECT localpart AS username, domain FROM users WHERE enabled";
             };
 
@@ -102,6 +94,7 @@ in
                     mode = "0660";
                 };
             };
+
             "service lmtp" = {
                 "unix_listener ${postfixQueue}/private/dovecot-lmtp" = {
                     user = "postfix";
