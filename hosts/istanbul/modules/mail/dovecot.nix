@@ -38,6 +38,7 @@ in
 
     systemd.services.postgresql-setup.postStart = lib.mkAfter ''
         psql -d mail -v ON_ERROR_STOP=1 -f ${./schema.sql}
+        psql mail -c "INSERT INTO domains VALUES ('${vars.network.DNS.domain}.${vars.network.DNS.tld}');"
     '';
 
     services.dovecot2 = {
