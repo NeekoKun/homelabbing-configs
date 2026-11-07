@@ -17,5 +17,6 @@
   imports = [
     ./postfix.nix
     ./dovecot.nix
+    ./mailuser.nix
   ];
 }
