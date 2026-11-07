@@ -115,6 +115,33 @@ in
         };
     };
 
+    environment.etc = {
+        "postfix/pgsql/domains.cf".text = ''
+            hosts = unix:/run/postgresql
+            dbname = mail
+            user = postfix
+            query = SELECT 1 FROM domains WHERE name = '%s'
+        '';
+        "postfix/pgsql/mailboxes.cf".text = ''
+            hosts = unix:/run/postgresql
+            dbname = mail
+            user = postfix
+            query = SELECT 1 FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled
+        '';
+        "postfix/pgsql/aliases.cf".text = ''
+            hosts = unix:/run/postgresql
+            dbname = mail
+            user = postfix
+            query = SELECT destination FROM aliases WHERE source = '%s' AND enabled
+        '';
+        "postfix/pgsql/senders.cf".text = ''
+            hosts = unix:/run/postgresql
+            dbname = mail
+            user = postfix
+            query = SELECT localpart || '@' || domain FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled UNION SELECT destination FROM aliases WHERE source = '%s' AND enabled
+        '';
+    };
+
     security.acme.certs."mail.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
         group = "mailcerts";
         reloadServices = [ "postfix.service" ];
