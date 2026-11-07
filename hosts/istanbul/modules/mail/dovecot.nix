@@ -63,7 +63,7 @@ in
             auth_mechanisms = [ "plain" "login" ];
             auth_username_format = "%{user | lower}";
             sql_driver = "psql";
-            "psql /run/postgresql" = {
+            "pgsql /run/postgresql" = {
                 parameters = {
                     dbname = "mail";
                     user = "dovecot2";
