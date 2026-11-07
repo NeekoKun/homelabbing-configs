@@ -76,7 +76,7 @@ in
             };
 
             "userdb sql" = {
-                query = "SELECT '/var/spool/mail/vmail' || domain || '/' || localpart AS home FROM users WHERE localpart = '%{user | username}' AND domain = '%{user | domain}' AND enabled";
+                query = "SELECT '/var/spool/mail/vmail/' || domain || '/' || localpart AS home FROM users WHERE localpart = '%{user | username}' AND domain = '%{user | domain}' AND enabled";
                 iterate_query = "SELECT localpart AS username, domain FROM users WHERE enabled";
             };
 
