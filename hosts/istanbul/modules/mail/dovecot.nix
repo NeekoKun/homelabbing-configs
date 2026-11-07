@@ -60,7 +60,7 @@ in
             mail_driver = "maildir";
             mail_path = "~/Maildir";
 
-            auth_mechanism = [ "plain" "login" ];
+            auth_mechanisms = [ "plain" "login" ];
             auth_username_format = "%{user | lower}";
             sql_driver = "psql";
             "psql /run/postgresql" = {
