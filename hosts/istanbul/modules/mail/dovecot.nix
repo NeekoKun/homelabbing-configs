@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, pkgs, ... }:
+{ config, lib, vars, pkgs, ... }:
 
 let 
     certDir = "/var/lib/acme/mail.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
