@@ -247,7 +247,7 @@ in
       domain = "mail.${net.DNS.domain}.${net.DNS.tld}";
       group = "mailcerts";
 
-      reloadServices = [ "postfix.service" ];
+      reloadServices = [ "postfix.service" "dovecot2.service" ];
     };
 
     #defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";

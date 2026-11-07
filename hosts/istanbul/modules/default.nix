@@ -28,7 +28,7 @@
     ./geoip.nix
     ./dns.nix
 
-    ./postfix.nix
+    ./mail/default.nix
 
     ./authentik/default.nix
     ./music/default.nix

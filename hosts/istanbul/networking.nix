@@ -66,6 +66,7 @@ in
                 8080
                 25      # SMTP
                 465     # SMTPS
+                993     # IMAP
                 #vars.services.coturn.port
                 #vars.services.coturn.tls_port
                 #vars.services.navidrome.http_port
