@@ -16,11 +16,8 @@
 { flakeRoot, config, vars, pkgs, ... }:
 
 let
-  cloudflareEmail = "neekokun@proton.me";
-  wanInterface = vars.network.interfaces.wan;
-  
   domains = [
-    "neekokun.com"
+    "${vars.network.DNS.tld}.${vars.network.DNS.tld}"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''

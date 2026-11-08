@@ -13,28 +13,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ ... }:
+{ config, ... }:
 
 {
     services.redis.servers.rspamd = {
         enable = true;
-        user = "rspamd";
+        user = config.services.rspamd.user;
+        port = 0;
     };
 
     services.rspamd = {
         enable = true;
         postfix.enable = true;
-        locals."dkim_signing.conf".text = ''
-            path = "/var/lib/rspamd/dkim/$domain.$selector.key";
-            selector = "202611";
-            allow_username_mismatch = true;
-            use_esld = true;
-            sign_authenticated = true;
-            sign_local = true;
-        '';
 
-        locals."redis.conf".text = ''
-            servers = "/run/redis-rspamd/redis.sock";
-        '';
+        locals = {
+            "redis.conf".text = ''
+                servers = "/run/redis-rspamd/redis.sock";
+            '';
+
+            "dkim_signing.conf".text = ''
+                path = "/var/lib/rspamd/dkim/$domain.$selector.key";
+                selector = "s2026";
+                allow_username_mismatch = true;
+                sign_authenticated = true;
+                sign_local = true;
+            '';
+        };
     };
 }
