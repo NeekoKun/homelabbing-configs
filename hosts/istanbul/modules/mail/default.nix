@@ -18,5 +18,6 @@
     ./postfix.nix
     ./dovecot.nix
     ./mailuser.nix
+    ./rspamd.nix
   ];
 }
