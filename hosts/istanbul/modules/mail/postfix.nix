@@ -44,7 +44,9 @@ in
             virtual_mailbox_domains   = "proxy:pgsql:${pg "domains"   "SELECT 1 FROM domains WHERE name = '%s'"}";
             virtual_mailbox_maps      = "proxy:pgsql:${pg "mailboxes" "SELECT 1 FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled"}";
             virtual_alias_maps        = "proxy:pgsql:${pg "aliases"   "SELECT destination FROM aliases WHERE source = '%s' AND enabled"}";
-            virtual_sender_login_maps = "proxy:pgsql:${pg "senders"   "SELECT localpart || '@' || domain FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled UNION SELECT destination FROM aliases WHERE source = '%s' AND enabled"}";
+            smtpd_sender_login_maps   = "proxy:pgsql:${pg "senders"   "SELECT localpart || '@' || domain FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled UNION SELECT destination FROM aliases WHERE source = '%s' AND enabled"}";
+            virtual_transport         = "lmtp:unix:private/dovecot-lmtp";
+
 
             tls_config_file = "${pkgs.writeText "postfix-openssl.cnf" ''
                 openssl_conf = openssl_init
@@ -120,9 +122,12 @@ in
             smtpd_tls_mandatory_protocols = ">=TLSv1.3";
             smtpd_sasl_auth_enable = "yes";
             smtpd_sasl_security_options = "noanonymous";
+            smtpd_sasl_type = "dovecot";
+            smtpd_sasl_path = "private/auth";
             smtpd_client_restrictions = "permit_sasl_authenticated,reject";
             smtpd_relay_restrictions = "permit_sasl_authenticated,reject";
             smtpd_etrn_restrictions = "reject";
+            smtpd_sender_restrictions = "reject_sender_login_mismatch,reject_non_fqdn_sender,reject_unknown_sender_domain";
         };
     };
 
