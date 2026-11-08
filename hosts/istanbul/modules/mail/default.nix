@@ -13,11 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+{ pkgs, ... }:
+
 {
-  imports = [
-    ./postfix.nix
-    ./dovecot.nix
-    ./mailuser.nix
-    ./rspamd.nix
-  ];
+    imports = [
+        ./postfix.nix
+        ./dovecot.nix
+        ./mailuser.nix
+        ./rspamd.nix
+    ];
+
+    environment.systemPackages = with pkgs; [
+        rspamd
+        swaks
+    ];
 }

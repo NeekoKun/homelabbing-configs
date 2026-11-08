@@ -40,8 +40,4 @@
             '';
         };
     };
-
-    environment.systemPackages = with pkgs; [
-        rspamd
-    ];
 }

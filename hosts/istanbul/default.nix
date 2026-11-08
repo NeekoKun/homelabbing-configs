@@ -13,9 +13,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+{ pkgs, ... }:
+
 {
-  imports = [
-    ./networking.nix
-    ./modules/default.nix
-  ];
+    imports = [
+        ./networking.nix
+        ./modules/default.nix
+    ];
+    
+    environment.systemPackages = with pkgs; [
+        openssl
+    ];
 }
