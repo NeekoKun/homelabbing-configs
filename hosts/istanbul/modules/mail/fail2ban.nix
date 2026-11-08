@@ -16,6 +16,8 @@
 { ... }:
 
 {
+    imports = [ "../fail2ban.nix" ];
+
     services.fail2ban = {
         enable = true;
 
