@@ -18,6 +18,12 @@
 let
     mailHost = "mail.${vars.network.DNS.domain}.${vars.network.DNS.tld}";
     certDir = config.security.acme.certs.${mailHost}.directory;
+    pg = name: query: pkgs.writeText "postfix-${name}.cf" ''
+        hosts = unix:/run/postgresql
+        dbname = mail
+        user = postfix
+        query = ${query}
+    '';
 in
 {
     users.groups.mailcerts = {};
@@ -34,6 +40,11 @@ in
             mydomain = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
             mydestination = [ "$mydomain" "localhost" ];
             smtpd_tls_chain_files = [ "${certDir}/key.pem" "${certDir}/fullchain.pem" ];
+
+            virtual_mailbox_domains   = "proxy:pgsql:${pg "domains"   "SELECT 1 FROM domains WHERE name = '%s'"}";
+            virtual_mailbox_maps      = "proxy:pgsql:${pg "mailboxes" "SELECT 1 FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled"}";
+            virtual_alias_maps        = "proxy:pgsql:${pg "aliases"   "SELECT destination FROM aliases WHERE source = '%s' AND enabled"}";
+            virtual_sender_login_maps = "proxy:pgsql:${pg "senders"   "SELECT localpart || '@' || domain FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled UNION SELECT destination FROM aliases WHERE source = '%s' AND enabled"}";
 
             tls_config_file = "${pkgs.writeText "postfix-openssl.cnf" ''
                 openssl_conf = openssl_init
@@ -113,33 +124,6 @@ in
             smtpd_relay_restrictions = "permit_sasl_authenticated,reject";
             smtpd_etrn_restrictions = "reject";
         };
-    };
-
-    environment.etc = {
-        "postfix/pgsql/domains.cf".text = ''
-            hosts = unix:/run/postgresql
-            dbname = mail
-            user = postfix
-            query = SELECT 1 FROM domains WHERE name = '%s'
-        '';
-        "postfix/pgsql/mailboxes.cf".text = ''
-            hosts = unix:/run/postgresql
-            dbname = mail
-            user = postfix
-            query = SELECT 1 FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled
-        '';
-        "postfix/pgsql/aliases.cf".text = ''
-            hosts = unix:/run/postgresql
-            dbname = mail
-            user = postfix
-            query = SELECT destination FROM aliases WHERE source = '%s' AND enabled
-        '';
-        "postfix/pgsql/senders.cf".text = ''
-            hosts = unix:/run/postgresql
-            dbname = mail
-            user = postfix
-            query = SELECT localpart || '@' || domain FROM users WHERE localpart = '%u' AND domain = '%d' AND enabled UNION SELECT destination FROM aliases WHERE source = '%s' AND enabled
-        '';
     };
 
     security.acme.certs."mail.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
