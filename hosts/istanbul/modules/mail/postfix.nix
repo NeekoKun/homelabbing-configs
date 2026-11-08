@@ -38,7 +38,7 @@ in
         settings.main = {
             myhostname = mailHost;
             mydomain = "${vars.network.DNS.domain}.${vars.network.DNS.tld}";
-            mydestination = [ "$mydomain" "localhost" ];
+            mydestination = [ "$myhostname" "localhost" ];
             smtpd_tls_chain_files = [ "${certDir}/key.pem" "${certDir}/fullchain.pem" ];
 
             virtual_mailbox_domains   = "proxy:pgsql:${pg "domains"   "SELECT 1 FROM domains WHERE name = '%s'"}";
