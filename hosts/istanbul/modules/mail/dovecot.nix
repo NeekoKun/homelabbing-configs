@@ -20,7 +20,7 @@ let
     postfixQueue = "/var/lib/postfix/queue";
 in 
 {
-    imports = [ "../postgresql.nix" ];
+    imports = [ ../postgresql.nix ];
 
     users.groups.vmail = {};
     users.users.vmail = {
