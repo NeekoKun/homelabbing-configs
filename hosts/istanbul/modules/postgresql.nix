@@ -16,5 +16,5 @@
 {
     services.postgresql = {
         enable = true;
-    }
+    };
 }
