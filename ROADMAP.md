@@ -17,13 +17,13 @@ Turn the github repo public
 
 ### Setting up Mail Server
 - [x] Setup postfix
-  - [ ] Set SPF record
-  - [ ] Enable DANE
-  - [ ] Enable secure signing keys
-  - [ ] Setup DMARC policies
+  - [x] Set SPF record
+  - [x] Enable DANE
+  - [x] Enable secure signing keys
+  - [x] Setup DMARC policies
   - [ ] Pass internet.nl
-- [ ] Setup dovecot2
-- [ ] Setup rspamd
+- [x] Setup dovecot2
+- [x] Setup rspamd
 
 ### Extending Grafana Dashboard
 

@@ -20,6 +20,8 @@ let
     postfixQueue = "/var/lib/postfix/queue";
 in 
 {
+    imports = [ "../postgresql.nix" ];
+
     users.groups.vmail = {};
     users.users.vmail = {
         isSystemUser = true;
@@ -31,7 +33,6 @@ in
     users.users.dovecot2.extraGroups = [ "mailcerts" ];
 
     services.postgresql = {
-        enable = true;
         ensureDatabases = [ "mail" ];
         ensureUsers = [ { name = "dovecot2"; } { name = "postfix"; } ];
     };
