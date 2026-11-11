@@ -13,10 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, flakeRoot, ...}:
+{ config, vars, options, flakeRoot, ...}:
 
 {
     age.secrets.authentikSecrets.file = "${flakeRoot}/secrets/authentik-secrets.age";
+
+    imports = [ ../nginx.nix ];
 
     services.authentik = {
         enable = true;
@@ -26,6 +28,17 @@
         settings = {
             disable_startup_analytics = true;
             avatars = "initials";
+        };
+    };
+    
+    services.nginx.virtualHosts."auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = options.my.nginx.commonVHost // {
+        locations."/" = {
+            proxyPass = "http://127.0.0.1:9000";
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+            extraConfig = ''
+                proxy_set_header Host $host;
+            '';
         };
     };
 }

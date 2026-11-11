@@ -13,16 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, pkgs, vars, inputs, flakeRoot, ... }:
+{ config, pkgs, vars, inputs, lib, options, flakeRoot, ... }:
 
 let
   net = vars.network;
-
-  commonVHost = {
-    useACMEHost = "${net.DNS.domain}.${net.DNS.tld}";
-    forceSSL = true;
-    listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
-  };
 
   commonProxyHeaders = ''
     proxy_http_version 1.1;
@@ -35,6 +29,12 @@ in
   environment.systemPackages = with pkgs; [
     nginx
   ];
+
+  options.my.nginx.commonVHost = lib.mkOption {
+    useACMEHost = "${net.DNS.domain}.${net.DNS.tld}";
+    forceSSL = true;
+    listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+  };
 
   services.nginx = {
     enable = true;
@@ -63,24 +63,13 @@ in
     '';
 
     virtualHosts = {
-      "auth.${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:9000";
-          proxyWebsockets = true;
-          recommendedProxySettings = true;
-          extraConfig = ''
-            proxy_set_header Host $host;
-          '';
-        };
-      };
-
-      "navidrome.${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
+      "navidrome.${net.DNS.domain}.${net.DNS.tld}" = options.my.nginx.commonVHost // {
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
         };
       };
 
-      "wiki.${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
+      "wiki.${net.DNS.domain}.${net.DNS.tld}" = options.my.nginx.commonVHost // {
         root = inputs.myWiki.packages.x86_64-linux.wiki;
 
         locations."/" = {
@@ -105,7 +94,7 @@ in
       };
 
       # Doesn't work T.T
-      "https-catchall" = commonVHost // { # To only allow existing vhosts
+      "https-catchall" = options.my.nginx.commonVHost // { # To only allow existing vhosts
         locations."/" = {
           return = "301 https://${net.DNS.domain}.${net.DNS.tld}";
         };
@@ -120,7 +109,7 @@ in
         locations."/".return = "301 https://$host$request_uri";
       };
 
-      "${net.DNS.domain}.${net.DNS.tld}" = commonVHost // {
+      "${net.DNS.domain}.${net.DNS.tld}" = options.my.nginx.commonVHost // {
         default = true;
 
         locations."/.well-known/matrix/server" = {
