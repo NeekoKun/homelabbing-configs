@@ -21,13 +21,17 @@ let
 in
 {
     options.my.nginx.commonVHost = lib.mkOption {
+        type = lib.types.attrs;
+        readOnly = true;
+        description = "Settings applied to every proxied service vhost.";
+        default = {
         useACMEHost = "${domain}.${tld}";
         forceSSL = true;
-        listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+            listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+        };
     };
 
     config = {
-
         environment.systemPackages = with pkgs; [
             nginx
         ];
