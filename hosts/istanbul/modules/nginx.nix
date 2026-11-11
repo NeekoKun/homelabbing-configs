@@ -20,161 +20,164 @@ let
     tld = vars.network.DNS.tld;
 in
 {
-    environment.systemPackages = with pkgs; [
-        nginx
-    ];
-
     options.my.nginx.commonVHost = lib.mkOption {
         useACMEHost = "${domain}.${tld}";
         forceSSL = true;
         listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
     };
 
-    services.nginx = {
-        enable = true;
+    config = {
 
-        recommendedTlsSettings = true;
-        recommendedOptimisation = true;
-        recommendedGzipSettings = true;
-        recommendedProxySettings = true;
-        logError = "stderr debug";
+        environment.systemPackages = with pkgs; [
+            nginx
+        ];
 
-        appendHttpConfig = ''
-            log_format json_combined escape=json
-                '{'
-                    '"time_local":"$time_local",'
-                    '"remote_addr":"$remote_addr",'
-                    '"request":"$request",'
-                    '"status":$status,'
-                    '"body_bytes_sent":$body_bytes_sent,'
-                    '"http_referer":"$http_referer",'
-                    '"http_user_agent":"$http_user_agent",'
-                    '"http_x_forwarded_for":"$http_x_forwarded_for",'
-                    '"request_time":$request_time'
-                '}';
+        services.nginx = {
+            enable = true;
 
-            access_log /var/log/nginx/access.log json_combined;
-        '';
+            recommendedTlsSettings = true;
+            recommendedOptimisation = true;
+            recommendedGzipSettings = true;
+            recommendedProxySettings = true;
+            logError = "stderr debug";
 
-        virtualHosts = {
-            "navidrome.${domain}.${tld}" = options.my.nginx.commonVHost // {
-                locations."/" = {
-                    proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
+            appendHttpConfig = ''
+                log_format json_combined escape=json
+                    '{'
+                        '"time_local":"$time_local",'
+                        '"remote_addr":"$remote_addr",'
+                        '"request":"$request",'
+                        '"status":$status,'
+                        '"body_bytes_sent":$body_bytes_sent,'
+                        '"http_referer":"$http_referer",'
+                        '"http_user_agent":"$http_user_agent",'
+                        '"http_x_forwarded_for":"$http_x_forwarded_for",'
+                        '"request_time":$request_time'
+                    '}';
+
+                access_log /var/log/nginx/access.log json_combined;
+            '';
+
+            virtualHosts = {
+                "navidrome.${domain}.${tld}" = options.my.nginx.commonVHost // {
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
+                    };
+                };
+
+                "wiki.${domain}.${tld}" = options.my.nginx.commonVHost // {
+                    root = inputs.myWiki.packages.x86_64-linux.wiki;
+
+                    locations."/" = {
+                        tryFiles = "$uri $uri/ $uri.html =404";
+                        index = "index.html";
+                    };
+                };
+
+                "contacts.${domain}.${tld}" = {
+                    listen = [ { addr = "127.0.0.1"; port = 8222; } ];
+                    locations."/" = {
+                        return = "302 https://${domain}.${tld}/contacts";
+                        #root = "/var/www/contacts.${domain}.${tld}";
+                    };
+                };
+
+                "ssh-fallback" = {
+                    listen = [ { addr = "127.0.0.1"; port = 8222; ssl = false;} ];
+                    locations."/" = {
+                        return = "302 https://${domain}.${tld}/contacts";
+                    };
+                };
+
+                # Doesn't work T.T
+                "https-catchall" = options.my.nginx.commonVHost // { # To only allow existing vhosts
+                    locations."/" = {
+                        return = "301 https://${domain}.${tld}";
+                    };
+                };
+
+                "http-catchall" = { # Since with the streamConfig trick nginx doesn't automatically serve this
+                    default = true;
+                    listen = [
+                        { addr = "0.0.0.0"; port = 80; }
+                        { addr = "[::]"; port = 80; }
+                    ];
+                    locations."/".return = "301 https://$host$request_uri";
+                };
+
+                "${domain}.${tld}" = options.my.nginx.commonVHost // {
+                    default = true;
+
+                    locations."/.well-known/matrix/server" = {
+                        return = ''200 "{\"m.server\": \"matrix.${domain}.${tld}:443\"}"'';
+                        extraConfig = ''
+                            add_header Content-Type application/json;
+                        '';
+                    };
+
+                    locations."/.well-known/matrix/client" = {
+                        return = ''200 "{\"m.homeserver\": {\"base_url\": \"https://matrix.${domain}.${tld}\"}}"'';
+                        extraConfig = ''
+                            add_header Content-Type application/json;
+                            add_header Access-Control-Allow-Origin *;
+                        '';
+                    };
                 };
             };
 
-            "wiki.${domain}.${tld}" = options.my.nginx.commonVHost // {
-                root = inputs.myWiki.packages.x86_64-linux.wiki;
+            streamConfig = ''
+                map $ssl_preread_server_name $sni_backend {
+                    contacts.${domain}.${tld}   ssh_upstream;
+                    default                                     https_upstream;
+                }
 
-                locations."/" = {
-                    tryFiles = "$uri $uri/ $uri.html =404";
-                    index = "index.html";
-                };
-            };
+                upstream ssh_upstream {
+                    server 127.0.0.1:8022;
+                }
 
-            "contacts.${domain}.${tld}" = {
-                listen = [ { addr = "127.0.0.1"; port = 8222; } ];
-                locations."/" = {
-                    return = "302 https://${domain}.${tld}/contacts";
-                    #root = "/var/www/contacts.${domain}.${tld}";
-                };
-            };
+                upstream https_upstream {
+                    server 127.0.0.1:8443;
+                }
 
-            "ssh-fallback" = {
-                listen = [ { addr = "127.0.0.1"; port = 8222; ssl = false;} ];
-                locations."/" = {
-                    return = "302 https://${domain}.${tld}/contacts";
-                };
-            };
-
-            # Doesn't work T.T
-            "https-catchall" = options.my.nginx.commonVHost // { # To only allow existing vhosts
-                locations."/" = {
-                    return = "301 https://${domain}.${tld}";
-                };
-            };
-
-            "http-catchall" = { # Since with the streamConfig trick nginx doesn't automatically serve this
-                default = true;
-                listen = [
-                    { addr = "0.0.0.0"; port = 80; }
-                    { addr = "[::]"; port = 80; }
-                ];
-                locations."/".return = "301 https://$host$request_uri";
-            };
-
-            "${domain}.${tld}" = options.my.nginx.commonVHost // {
-                default = true;
-
-                locations."/.well-known/matrix/server" = {
-                    return = ''200 "{\"m.server\": \"matrix.${domain}.${tld}:443\"}"'';
-                    extraConfig = ''
-                        add_header Content-Type application/json;
-                    '';
-                };
-
-                locations."/.well-known/matrix/client" = {
-                    return = ''200 "{\"m.homeserver\": {\"base_url\": \"https://matrix.${domain}.${tld}\"}}"'';
-                    extraConfig = ''
-                        add_header Content-Type application/json;
-                        add_header Access-Control-Allow-Origin *;
-                    '';
-                };
-            };
+                server {
+                    listen 443;
+                    listen [::]:443;
+                    proxy_pass $sni_backend;
+                    ssl_preread on;
+                }
+            '';
         };
 
-        streamConfig = ''
-            map $ssl_preread_server_name $sni_backend {
-                contacts.${domain}.${tld}   ssh_upstream;
-                default                                     https_upstream;
-            }
+        systemd.services.nginx.serviceConfig = {
+            StartLimitIntervalSec = 0; # Avoid STUPID crash due to restarts
+        };
 
-            upstream ssh_upstream {
-                server 127.0.0.1:8022;
-            }
+        age.secrets.cloudflareAcme.file = "${flakeRoot}/secrets/cloudflare-acme.age";
 
-            upstream https_upstream {
-                server 127.0.0.1:8443;
-            }
+        security.acme = {
+            acceptTerms = true;
 
-            server {
-                listen 443;
-                listen [::]:443;
-                proxy_pass $sni_backend;
-                ssl_preread on;
-            }
-        '';
-    };
-
-    systemd.services.nginx.serviceConfig = {
-        StartLimitIntervalSec = 0; # Avoid STUPID crash due to restarts
-    };
-
-    age.secrets.cloudflareAcme.file = "${flakeRoot}/secrets/cloudflare-acme.age";
-
-    security.acme = {
-        acceptTerms = true;
-
-        defaults = {
-            email = "neekokun@proton.me";
-            dnsProvider = "cloudflare";
-            extraLegoFlags = [ "--dns.propagation-wait" "60s" ];
-            credentialFiles = {
-                CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflareAcme.path;
+            defaults = {
+                email = "neekokun@proton.me";
+                dnsProvider = "cloudflare";
+                extraLegoFlags = [ "--dns.propagation-wait" "60s" ];
+                credentialFiles = {
+                    CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflareAcme.path;
+                };
             };
-        };
 
-        certs."${domain}.${tld}" = {
-            domain = "*.${domain}.${tld}";
-            extraDomainNames = [ "${domain}.${tld}" ];
-            group = "nginx";
-        };
+            certs."${domain}.${tld}" = {
+                domain = "*.${domain}.${tld}";
+                extraDomainNames = [ "${domain}.${tld}" ];
+                group = "nginx";
+            };
 
-        certs."mail.${domain}.${tld}" = {
-            domain = "mail.${domain}.${tld}";
-            group = "mailcerts";
+            certs."mail.${domain}.${tld}" = {
+                domain = "mail.${domain}.${tld}";
+                group = "mailcerts";
 
-            reloadServices = [ "postfix.service" "dovecot2.service" ];
+                reloadServices = [ "postfix.service" "dovecot2.service" ];
+            };
         };
     };
 }
