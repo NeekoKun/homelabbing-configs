@@ -25,7 +25,7 @@
     ./nginx.nix
     ./ddns.nix
     #./coturn.nix
-    ./geoip.nix
+    #./geoip.nix
     ./dns.nix
 
     ./mail/default.nix

@@ -13,8 +13,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, options, flakeRoot, ...}:
+{ config, vars, options, pkgs, lib, flakeRoot, ...}:
 
+let
+    mergedBlueprints = pkgs.runCommandLocal "authentik-blueprints-merged" {} ''
+        mkdir -p $out/custom
+
+        cp -rL ${config.services.authentik.authentikComponents.staticWorkdirDeps}/blueprints/. $out/
+
+        cp -rL ${./blueprints}/. $out/custom/
+    '';
+in
 {
     age.secrets.authentikSecrets.file = "${flakeRoot}/secrets/authentik-secrets.age";
 
@@ -28,8 +37,14 @@
         settings = {
             disable_startup_analytics = true;
             avatars = "initials";
+
+            blueprints_dir = mergedBlueprints;
         };
     };
+
+    systemd.services = lib.genAttrs [ "authentik-worker" "authentik-migrate" "authentik" ] (_: {
+        environment._AUTHENTIK_LDAP_BASE_DN = "dc=${vars.network.DNS.domain},dc=${vars.network.DNS.tld}";
+    });
     
     services.nginx.virtualHosts."auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = options.my.nginx.commonVHost // {
         locations."/" = {

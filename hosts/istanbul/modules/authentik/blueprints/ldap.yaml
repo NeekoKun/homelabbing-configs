@@ -1,0 +1,48 @@
+version: 1
+metadata:
+  name: ldap-outpost
+  labels:
+    blueprints.goauthentik.io/instantiate: "true"
+entries:
+  - id: ldap-auth-flow
+    model: authentik_flows.flow
+    identifiers: { slug: ldap-authentication-flow }
+    attrs:
+      name: ldap-authentication-flow
+      title: ldap-authentication-flow
+      designation: authentication
+
+  - id: ldap-login-stage
+    model: authentik_stages_user_login.userloginstage
+    identifiers: { name: ldap-authentication-login }
+    attrs: { session_duration: seconds=5 }
+
+  - model: authentik_flows.flowstagebinding
+    identifiers:
+      order: 10
+      stage: !KeyOf ldap-login-stage
+      target: !KeyOf ldap-auth-flow
+
+  - id: ldap-provider
+    model: authentik_providers_ldap.ldapprovider
+    identifiers: { name: LDAP }
+    attrs:
+      authorization_flow: !KeyOf ldap-auth-flow
+      base_dn: !Env _AUTHENTIK_LDAP_BASE_DN
+      bind_mode: direct
+      search_mode: direct
+      uid_start_number: 2000
+      gid_start_number: 4000
+
+  - id: ldap-app
+    model: authentik_core.application
+    identifiers: { slug: ldap }
+    attrs:
+      name: LDAP
+      provider: !KeyOf ldap-provider
+
+  - model: authentik_outposts.outpost
+    identifiers: { name: LDAP }
+    attrs:
+      type: ldap
+      providers: [!KeyOf ldap-provider]
