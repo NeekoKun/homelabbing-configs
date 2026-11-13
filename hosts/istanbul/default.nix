@@ -21,6 +21,8 @@
         ./modules/default.nix
     ];
     
+    my.palette.base = "#228b22";
+
     environment.systemPackages = with pkgs; [
         openssl
         fail2ban
