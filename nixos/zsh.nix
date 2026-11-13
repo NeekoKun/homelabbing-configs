@@ -48,7 +48,7 @@
             typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs newline prompt_char)
             typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time background_jobs)
 
-            # ┌──(user㉿host)-[~/path]-main
+            # ┌──(user@host)-[~/path]-main
             # └─$
             typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='┌──'
             typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='└─'
@@ -57,7 +57,7 @@
             typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
             typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
 
-            typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='(%n㉿%m)'
+            typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='(%n@%m)'
             typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO,REMOTE,REMOTE_SUDO}_FOREGROUND=39
             typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=196
             typeset -g POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=true
