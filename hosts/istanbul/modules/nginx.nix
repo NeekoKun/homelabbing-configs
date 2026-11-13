@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, pkgs, vars, inputs, lib, options, flakeRoot, ... }:
+{ config, pkgs, vars, inputs, lib, flakeRoot, ... }:
 
 let
     domain = vars.network.DNS.domain;
@@ -63,13 +63,13 @@ in
             '';
 
             virtualHosts = {
-                "navidrome.${domain}.${tld}" = options.my.nginx.commonVHost // {
+                "navidrome.${domain}.${tld}" = config.my.nginx.commonVHost // {
                     locations."/" = {
                         proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
                     };
                 };
 
-                "wiki.${domain}.${tld}" = options.my.nginx.commonVHost // {
+                "wiki.${domain}.${tld}" = config.my.nginx.commonVHost // {
                     root = inputs.myWiki.packages.x86_64-linux.wiki;
 
                     locations."/" = {
@@ -94,7 +94,7 @@ in
                 };
 
                 # Doesn't work T.T
-                "https-catchall" = options.my.nginx.commonVHost // { # To only allow existing vhosts
+                "https-catchall" = config.my.nginx.commonVHost // { # To only allow existing vhosts
                     locations."/" = {
                         return = "301 https://${domain}.${tld}";
                     };
@@ -109,7 +109,7 @@ in
                     locations."/".return = "301 https://$host$request_uri";
                 };
 
-                "${domain}.${tld}" = options.my.nginx.commonVHost // {
+                "${domain}.${tld}" = config.my.nginx.commonVHost // {
                     default = true;
 
                     locations."/.well-known/matrix/server" = {
