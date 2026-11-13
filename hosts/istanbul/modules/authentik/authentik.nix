@@ -46,7 +46,7 @@ in
         environment._AUTHENTIK_LDAP_BASE_DN = "dc=${vars.network.DNS.domain},dc=${vars.network.DNS.tld}";
     });
     
-    services.nginx.virtualHosts."auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = options.my.nginx.commonVHost // {
+    services.nginx.virtualHosts."auth.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = config.my.nginx.commonVHost // {
         locations."/" = {
             proxyPass = "http://127.0.0.1:9000";
             proxyWebsockets = true;
