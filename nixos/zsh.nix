@@ -48,6 +48,12 @@
             typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs newline prompt_char)
             typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time background_jobs)
 
+            # Remove the padding around segments
+            typeset -g POWERLEVEL9K_LEFT_LEFT_WHITESPACE=
+            typeset -g POWERLEVEL9K_LEFT_RIGHT_WHITESPACE=
+            typeset -g POWERLEVEL9K_RIGHT_LEFT_WHITESPACE=
+            typeset -g POWERLEVEL9K_RIGHT_RIGHT_WHITESPACE=
+
             # ┌──(user@host)-[~/path]-main
             # └─$
             typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='┌──'
@@ -69,7 +75,7 @@
             typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=39
             typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_FOREGROUND=196
 
-            # Transient prompt: finished prompts collapse to just "└─$ command"
+            # Transient prompt: finished prompts collapse to just "$ command"
             typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
 
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
