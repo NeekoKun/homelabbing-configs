@@ -17,7 +17,7 @@
 
 let
   domains = [
-    "${vars.network.DNS.tld}.${vars.network.DNS.tld}"
+    "${vars.network.DNS.domain}.${vars.network.DNS.tld}"
   ];
 
   updateScript = pkgs.writeShellScript "cloudflare-ddns" ''

@@ -25,8 +25,8 @@ in
         readOnly = true;
         description = "Settings applied to every proxied service vhost.";
         default = {
-        useACMEHost = "${domain}.${tld}";
-        forceSSL = true;
+            useACMEHost = "${domain}.${tld}";
+            forceSSL = true;
             listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
         };
     };
