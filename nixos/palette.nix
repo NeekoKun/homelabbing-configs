@@ -39,6 +39,7 @@ in
                     zshexit() { printf '\e]104\a' }
                 fi
             fi
+            printf 'helloworld'
         '';
 
         programs.tmux = {
