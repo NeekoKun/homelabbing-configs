@@ -43,6 +43,10 @@
         '';
         interactiveShellInit = ''
             # --- Kali-style two-line prompt ---
+
+            # Change color based on root
+            _f='%F{%(#.blue.green)}'
+
             typeset -g POWERLEVEL9K_MODE=ascii
             typeset -g POWERLEVEL9K_BACKGROUND=
             typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs newline prompt_char)
@@ -56,19 +60,20 @@
 
             # ┌──(user@host)-[~/path]-main
             # └─$
-            typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='┌──'
-            typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='└─'
+            typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="''${_f}┌──"
+            typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="''${_f}└─"
             typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=
-            typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='-'
+            typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR="''${_f}-"
             typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
             typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
 
-            typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='(%n@%m)'
+            typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="''${_f}(%B%F{%(#.red.blue)}%n@%m%b''${_f})"
             typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO,REMOTE,REMOTE_SUDO}_FOREGROUND=blue
             typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=red
             typeset -g POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=true
             typeset -g POWERLEVEL9K_DIR_FOREGROUND=white
-            typeset -g POWERLEVEL9K_DIR_CONTENT_EXPANSION='[''${P9K_CONTENT}]'
+            typeset -g POWERLEVEL9K_DIR_CONTENT_EXPANSION="''${_f}[%B%f''${P9K_CONTENT}%b''${_f}]"
+            typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION="''${_f}[%f''${P9K_CONTENT}''${_f}]"
 
             typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_CONTENT_EXPANSION='$'
             typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_CONTENT_EXPANSION='$'
@@ -80,6 +85,10 @@
 
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         '';
+
+        shellAliases = {
+            cd = "z";
+        };
     };
 
     environment = {
