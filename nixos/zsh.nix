@@ -64,18 +64,18 @@
             typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
 
             typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='(%n@%m)'
-            typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO,REMOTE,REMOTE_SUDO}_FOREGROUND=39
-            typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=196
+            typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO,REMOTE,REMOTE_SUDO}_FOREGROUND=blue
+            typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=red
             typeset -g POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=true
-            typeset -g POWERLEVEL9K_DIR_FOREGROUND=252
+            typeset -g POWERLEVEL9K_DIR_FOREGROUND=white
             typeset -g POWERLEVEL9K_DIR_CONTENT_EXPANSION='[''${P9K_CONTENT}]'
 
             typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_CONTENT_EXPANSION='$'
             typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_CONTENT_EXPANSION='$'
-            typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=39
-            typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_FOREGROUND=196
+            typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=blue
+            typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_FOREGROUND=red
 
-            # Transient prompt: finished prompts collapse to just "$ command"
+            # Transient prompt
             typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
 
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
