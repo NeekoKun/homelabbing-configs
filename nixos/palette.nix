@@ -13,12 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, flakeRoot, ... }:
 
 let
     cfg = config.my.palette;
     osc = pkgs.runCommand "palette-osc" { } ''
-        ${pkgs.python3}/bin/python3 ${./colors.py} "${cfg.base}" --osc > $out
+        ${pkgs.python3}/bin/python3 ${flakeRoot}/colors.py "${cfg.base}" --osc > $out
     '';
 in
 {
