@@ -27,22 +27,24 @@ in
         example = "#5e81ac";
     };
 
-    config.programs.zsh.interactiveShellInit = ''
-        if [[ -n $SSH_CONNECTION ]]; then
-            if [[ -n $TMUX ]]; then
-                printf '\ePtmux;'
-                sed 's/\x1b/\x1b\x1b/g' ${osc}
-                printf '\e\\'
-            else
-                cat ${osc}
-                zshexit() { printf '\e]104\a' }
+    config = {
+        programs.zsh.interactiveShellInit = ''
+            if [[ -n $SSH_CONNECTION ]]; then
+                if [[ -n $TMUX ]]; then
+                    printf '\ePtmux;'
+                    sed 's/\x1b/\x1b\x1b/g' ${osc}
+                    printf '\e\\'
+                else
+                    cat ${osc}
+                    zshexit() { printf '\e]104\a' }
+                fi
             fi
-        fi
-    '';
-
-    programs.tmux = {
-        extraConfig = ''
-            set -g allow-passthrough on
         '';
+
+        programs.tmux = {
+            extraConfig = ''
+                set -g allow-passthrough on
+            '';
+        };
     };
 }
