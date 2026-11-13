@@ -27,7 +27,7 @@
             enable = true;
         };
         syntaxHighlighting = {
-            enavle = true;
+            enable = true;
         };
         loginShellInit = ''
             if [[ $- == *i* ]] && [[ -t 1 ]] && [ -z "$TMUX" ] && command -v tmux &>/dev/null && [ -n "$SSH_CONNECTION" ]; then
