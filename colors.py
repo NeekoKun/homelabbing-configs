@@ -96,6 +96,12 @@ def output(bright_colors, dimmed_colors):
         print(f'  "color{i}"="{color[0]},{color[1]},{color[2]}";')
     print("}")
 
+def output_osc(bright_colors, dimmed_colors):
+    colors = [hsl_to_rgb([(c[0] + 360) % 360, c[1], c[2]])
+              for c in list(bright_colors) + list(dimmed_colors)]
+    for i, (r, g, b) in enumerate(colors):
+        sys.stdout.write(f"\033]4;{i};rgb:{r:02x}/{g:02x}/{b:02x}\033\\")
+
 def main():
     hue_step = 10
 
@@ -159,6 +165,8 @@ def main():
 
         if "--debug" in sys.argv:
             print_colored_squares(bright_colors + list(dimmed_colors))
+        elif "--osc" in sys.argv:
+            output_osc(bright_colors, dimmed_colors)
         else:
             output(bright_colors, dimmed_colors)
     else:
@@ -173,6 +181,8 @@ def main():
 
         if "--debug" in sys.argv:
             print_colored_squares(bright_colors + list(dimmed_colors))
+        elif "--osc" in sys.argv:
+            output_osc(bright_colors, dimmed_colors)
         else:
             output(bright_colors, dimmed_colors)
     

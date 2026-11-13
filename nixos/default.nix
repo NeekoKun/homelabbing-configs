@@ -16,5 +16,6 @@
 {
   imports = [
     ./zsh.nix
+    ./palette.nix
   ];
 }
