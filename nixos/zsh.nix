@@ -22,6 +22,7 @@
 
     programs.zsh = {
         enable = true;
+
         enableCompletion = true;
         autosuggestions = {
             enable = true;
@@ -29,12 +30,17 @@
         syntaxHighlighting = {
             enable = true;
         };
+
+        histSize = 5000;
+
+        shellInit = ''
+            zsh-newuser-install() { :; }
+        '';
         loginShellInit = ''
             if [[ $- == *i* ]] && [[ -t 1 ]] && [ -z "$TMUX" ] && command -v tmux &>/dev/null && [ -n "$SSH_CONNECTION" ]; then
                 exec tmux new-session -A -s main
             fi
         '';
-
         interactiveShellInit = ''
             # --- Kali-style two-line prompt ---
             typeset -g POWERLEVEL9K_MODE=ascii
