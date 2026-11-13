@@ -72,8 +72,8 @@
             typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=red
             typeset -g POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=true
             typeset -g POWERLEVEL9K_DIR_FOREGROUND=white
-            typeset -g POWERLEVEL9K_DIR_CONTENT_EXPANSION="''${_f}[%B%f''${P9K_CONTENT}%b''${_f}]"
-            typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION="''${_f}[%f''${P9K_CONTENT}''${_f}]"
+            typeset -g POWERLEVEL9K_DIR_CONTENT_EXPANSION="''${_f}[%B%f\''${P9K_CONTENT}%b''${_f}]"
+            typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION="''${_f}[%f\''${P9K_CONTENT}''${_f}]"
 
             typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_CONTENT_EXPANSION='$'
             typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_CONTENT_EXPANSION='$'
