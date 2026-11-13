@@ -62,12 +62,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
-  ## USELESS: Using kmscon, set as fallback IN CASE
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "it";
-  };
-
   systemd.services."getti@tty1".enable = false;
 
   age.secrets.adminPassword.file = ./secrets/admin-password.age;
@@ -115,5 +109,5 @@
     tshark
   ];
   
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

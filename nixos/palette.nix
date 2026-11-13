@@ -28,10 +28,21 @@ in
     };
 
     config.programs.zsh.interactiveShellInit = ''
-        if [[ -n $SSH_TTY ]]; then
-            cat ${osc}
-            # restore the local terminal's palette on logout
-            zshexit() { printf '\e]104\a' }
+        if [[ -n $SSH_CONNECTION ]]; then
+            if [[ -n $TMUX ]]; then
+                printf '\ePtmux;'
+                sed 's/\x1b/\x1b\x1b/g' ${osc}
+                printf '\e\\'
+            else
+                cat ${osc}
+                zshexit() { printf '\e]104\a' }
+            fi
         fi
     '';
+
+    programs.tmux = {
+        extraConfig = ''
+            set -g allow-passthrough on
+        '';
+    };
 }
