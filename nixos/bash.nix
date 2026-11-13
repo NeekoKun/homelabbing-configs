@@ -13,21 +13,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, pkgs, vars, ... }:
+{ ... }:
 
 {
-  programs.bash = {
-    enable = true;
+    programs.bash = {
+        enable = true;
 
-    loginShellInit = ''
-      if [[ $- == *i* ]] && [[ -t 1 ]] && [ -z "$TMUX" ] && command -v tmux &>/dev/null && [ -n "$SSH_CONNECTION" ]; then
-        exec tmux new-session -A -s main
-      fi
+        loginShellInit = ''
+            if [[ $- == *i* ]] && [[ -t 1 ]] && [ -z "$TMUX" ] && command -v tmux &>/dev/null && [ -n "$SSH_CONNECTION" ]; then
+                exec tmux new-session -A -s main
+            fi
+        '';
+    };
+
+    programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        autosuggestion = {
+            enable = true;
+        };
+        loginShellInit = ''
+            if [[ $- == *i* ]] && [[ -t 1 ]] && [ -z "$TMUX" ] && command -v tmux &>/dev/null && [ -n "$SSH_CONNECTION" ]; then
+                exec tmux new-session -A -s main
+            fi
+        '';
+    };
+
+    environment.etc.inputrc.text = ''
+        "\e[A": history-search-backward
+        "\e[B": history-search-forward
     '';
-  };
-
-  environment.etc.inputrc.text = ''
-    "\e[A": history-search-backward
-    "\e[B": history-search-forward
-  '';
 }

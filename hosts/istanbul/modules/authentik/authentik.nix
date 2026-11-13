@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, vars, options, pkgs, lib, flakeRoot, ...}:
+{ config, vars, pkgs, lib, flakeRoot, ...}:
 
 let
     mergedBlueprints = pkgs.runCommandLocal "authentik-blueprints-merged" {} ''
