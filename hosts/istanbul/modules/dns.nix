@@ -34,13 +34,19 @@
             }
 
             .:53 {
+                errors
+                log
 
                 hosts /var/lib/coredns/ad-blocklist.hosts {
                     reload 5m
                     fallthrough
                 }
 
-                forward . https://1.1.1.1 {
+                template ANY ANY gemini.google.com {
+                    rcode NXDOMAIN
+                }
+
+                forward . tls://1.1.1.1 tls://1.0.0.1 {
                     tls_servername cloudflare-dns.com
                 }
 
