@@ -66,7 +66,7 @@ in
                 "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
                     serverAliases = [ ];
                     onlySSL = true;
-                    useACMEhost = "navidrome.${domain}.${tld}";
+                    useACMEHost = "navidrome.${domain}.${tld}";
 
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
                     
