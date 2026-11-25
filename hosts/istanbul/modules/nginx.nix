@@ -27,7 +27,7 @@ in
         default = {
             useACMEHost = "${domain}.${tld}";
             forceSSL = true;
-            listen = [ { addr = "127.0.0.1"; port = 443; ssl = true; } ];
+            listen = [ { addr = "0.0.0.0"; port = 443; ssl = true; } ];
         };
     };
 
@@ -99,13 +99,6 @@ in
                     listen = [ { addr = "127.0.0.1"; port = 8222; ssl = false;} ];
                     locations."/" = {
                         return = "302 https://${domain}.${tld}/contacts";
-                    };
-                };
-
-                # Doesn't work T.T
-                "https-catchall" = config.my.nginx.commonVHost // { # To only allow existing vhosts
-                    locations."/" = {
-                        return = "301 https://${domain}.${tld}";
                     };
                 };
 
