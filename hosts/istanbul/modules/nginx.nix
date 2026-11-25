@@ -70,7 +70,7 @@ in
 
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
                     
-                    location."/" = {
+                    locations."/" = {
                         return = "404";
                     };
                     
