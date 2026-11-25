@@ -42,9 +42,22 @@
 
     services.nginx.virtualHosts = {
         "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = config.my.nginx.commonVHost // {
+            http2 = true;
+            http3 = true;
+            quic = true;
+            reuseport = true;
+
+            extraConfig = ''
+                add_header Alt-Svc 'h3=":443"; ma=86400' always;
+            '';
+
             locations."/" = {
                     proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
             };
         };
     };
+
+    networking.firewall.allowedUDPPorts = [
+        443 # QUIC
+    ];
 }

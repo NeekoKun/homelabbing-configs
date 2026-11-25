@@ -126,7 +126,7 @@ in
             streamConfig = ''
                 map $ssl_preread_server_name $sni_backend {
                     contacts.${domain}.${tld}   ssh_upstream;
-                    default                                     https_upstream;
+                    default                     https_upstream;
                 }
 
                 upstream ssh_upstream {
