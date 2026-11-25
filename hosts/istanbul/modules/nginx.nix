@@ -65,7 +65,7 @@ in
             virtualHosts = {
                 "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
                     serverAliases = [ ];
-                    onlySSL = true;
+                    forceSSL = true;
                     useACMEHost = "navidrome.${domain}.${tld}";
 
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
@@ -75,7 +75,6 @@ in
                     };
                     
                     listen = [
-                        { addr = "0.0.0.0"; port = 80; }
                         { addr = "0.0.0.0"; port = 443; ssl = true; }
                     ];
 
