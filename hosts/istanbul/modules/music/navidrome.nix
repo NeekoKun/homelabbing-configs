@@ -41,7 +41,7 @@
     };
 
     services.nginx.virtualHosts = {
-        "navidrome.${vars.net.DNS.domain}.${vars.net.DNS.tld}" = config.my.nginx.commonVHost // {
+        "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = config.my.nginx.commonVHost // {
             locations."/" = {
                     proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
             };
