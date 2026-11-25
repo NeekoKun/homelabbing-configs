@@ -16,27 +16,35 @@
 { config, vars, ... }:
 
 {
-  services.navidrome = {
-    enable = true;
+    services.navidrome = {
+        enable = true;
 
-    settings = {
-      MusicFolder = "/data/music";
-      DataFolder = "/var/lib/navidrome";
-      Address = "0.0.0.0";
-      Port = vars.services.navidrome.http_port;
+        settings = {
+            MusicFolder = "/data/music";
+            DataFolder = "/var/lib/navidrome";
+            Address = "0.0.0.0";
+            Port = vars.services.navidrome.http_port;
 
-      EnableCoverAnimation = true;
-      EnableStarRating = true;
-      EnableUserEditing = true;
+            EnableCoverAnimation = true;
+            EnableStarRating = true;
+            EnableUserEditing = true;
 
-      ND_DEFAULTADMIN_USERNAME = "admin";
-      ND_DEFAULTADMIN_PASSWORD = "1234"; # Change this password once logged in for the first time
-    }; #TODO: add Prometheus endpoint
-  };
+            ND_DEFAULTADMIN_USERNAME = "admin";
+            ND_DEFAULTADMIN_PASSWORD = "1234"; # Change this password once logged in for the first time
+        }; #TODO: add Prometheus endpoint
+    };
 
-  systemd.services.navidrome = {
-    serviceConfig.SupplementaryGroups = [ "music" ];
-    after = [ "data-music.mount" ];
-    requires = [ "data-music.mount" ];
-  };
+    systemd.services.navidrome = {
+        serviceConfig.SupplementaryGroups = [ "music" ];
+        after = [ "data-music.mount" ];
+        requires = [ "data-music.mount" ];
+    };
+
+    services.nginx.virtualHosts = {
+        "navidrome.${domain}.${tld}" = config.my.nginx.commonVHost // {
+            locations."/" = {
+                    proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
+            };
+        };
+    };
 }

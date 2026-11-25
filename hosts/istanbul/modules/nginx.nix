@@ -63,12 +63,6 @@ in
             '';
 
             virtualHosts = {
-                "navidrome.${domain}.${tld}" = config.my.nginx.commonVHost // {
-                    locations."/" = {
-                        proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
-                    };
-                };
-
                 "wiki.${domain}.${tld}" = config.my.nginx.commonVHost // {
                     root = inputs.myWiki.packages.x86_64-linux.wiki;
 
