@@ -71,7 +71,7 @@ in
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
                     
                     locations."/" = {
-                        proxyPass = "https://127.0.0.1:${vars.services.navidrome.http_port}";
+                        proxyPass = "https://127.0.0.1:${toString vars.services.navidrome.http_port}";
                         proxyWebsockets = true;
                     };
 
