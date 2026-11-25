@@ -73,10 +73,6 @@ in
                     locations."/" = {
                         return = "404";
                     };
-                    
-                    listen = [
-                        { addr = "0.0.0.0"; port = 443; ssl = true; }
-                    ];
 
                     extraConfig = ''
                         add_header Alt-Svc 'h3=":443"; ma=864000' always;
