@@ -129,6 +129,8 @@ in
             };
         };
 
+        users.users.nginx.extraGroups = [ "hysteria" ]; # Read the certificate for navidrome redirect
+
         systemd.services.nginx.serviceConfig = {
             StartLimitIntervalSec = 0; # Avoid STUPID crash due to restarts
         };
