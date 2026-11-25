@@ -65,11 +65,23 @@ in
             virtualHosts = {
                 "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
                     serverAliases = [ ];
+                    onlySSL = true;
+                    useACMEhost = "navidrome.${domain}.${tld}";
+
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
+                    
+                    location."/" = {
+                        return = "404";
+                    };
+                    
                     listen = [
                         { addr = "0.0.0.0"; port = 80; }
-                        { addr = "0.0.0.0"; port = 443; }
+                        { addr = "0.0.0.0"; port = 443; ssl = true; }
                     ];
+
+                    extraConfig = ''
+                        add_header Alt-Svc 'h3=":443"; ma=864000' always;
+                    '';
                 };
 
                 "wiki.${domain}.${tld}" = config.my.nginx.commonVHost // {
