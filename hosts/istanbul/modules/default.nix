@@ -19,10 +19,10 @@
     #./vector.nix
     
     ./openssh.nix
-    ./SSHoTLS.nix
     
     #./suricata.nix
     ./nginx.nix
+    ./hysteria.nix
     ./ddns.nix
     #./coturn.nix
     #./geoip.nix

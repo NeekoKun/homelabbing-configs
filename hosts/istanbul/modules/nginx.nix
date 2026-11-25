@@ -27,7 +27,7 @@ in
         default = {
             useACMEHost = "${domain}.${tld}";
             forceSSL = true;
-            listen = [ { addr = "127.0.0.1"; port = 8443; ssl = true; } ];
+            listen = [ { addr = "127.0.0.1"; port = 443; ssl = true; } ];
         };
     };
 
@@ -63,6 +63,21 @@ in
             '';
 
             virtualHosts = {
+                "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
+                    http2 = true;
+                    http3 = true;
+                    quic = true;
+                    reuseport = true;
+
+                    extraConfig = ''
+                        add_header Alt-Svc 'h3=":443"; ma=86400' always;
+                    '';
+
+                    locations."/" = {
+                            proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
+                    };
+                };
+
                 "wiki.${domain}.${tld}" = config.my.nginx.commonVHost // {
                     root = inputs.myWiki.packages.x86_64-linux.wiki;
 
@@ -94,15 +109,6 @@ in
                     };
                 };
 
-                "http-catchall" = { # Since with the streamConfig trick nginx doesn't automatically serve this
-                    default = true;
-                    listen = [
-                        { addr = "0.0.0.0"; port = 80; }
-                        { addr = "[::]"; port = 80; }
-                    ];
-                    locations."/".return = "301 https://$host$request_uri";
-                };
-
                 "${domain}.${tld}" = config.my.nginx.commonVHost // {
                     default = true;
 
@@ -122,28 +128,6 @@ in
                     };
                 };
             };
-
-            streamConfig = ''
-                map $ssl_preread_server_name $sni_backend {
-                    contacts.${domain}.${tld}   ssh_upstream;
-                    default                     https_upstream;
-                }
-
-                upstream ssh_upstream {
-                    server 127.0.0.1:8022;
-                }
-
-                upstream https_upstream {
-                    server 127.0.0.1:8443;
-                }
-
-                server {
-                    listen 443;
-                    listen [::]:443;
-                    proxy_pass $sni_backend;
-                    ssl_preread on;
-                }
-            '';
         };
 
         systemd.services.nginx.serviceConfig = {
@@ -168,6 +152,14 @@ in
                 domain = "*.${domain}.${tld}";
                 extraDomainNames = [ "${domain}.${tld}" ];
                 group = "nginx";
+            };
+
+            certs."navidrome.${domain}.${tld}" = {
+                domain = "navidrome.${domain}.${tld}";
+                group = "hysteria";
+                postRun = ''
+                    systemctl restart hysteria.service
+                '';
             };
 
             certs."mail.${domain}.${tld}" = {
