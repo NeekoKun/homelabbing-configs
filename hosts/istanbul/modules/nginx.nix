@@ -71,7 +71,8 @@ in
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
                     
                     locations."/" = {
-                        return = "404";
+                        proxyPass = "https://127.0.0.1:${vars.services.navidrome.http_port}";
+                        proxyWebsockets = true;
                     };
 
                     extraConfig = ''
