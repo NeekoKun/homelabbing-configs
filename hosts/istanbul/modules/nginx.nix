@@ -66,7 +66,10 @@ in
                 "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
                     serverAliases = [ ];
                     locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
-                    listen = [ { addr = "0.0.0.0"; port = 80; } ];
+                    listen = [
+                        { addr = "0.0.0.0"; port = 80; }
+                        { addr = "0.0.0.0"; port = 443; }
+                    ];
                 };
 
                 "wiki.${domain}.${tld}" = config.my.nginx.commonVHost // {

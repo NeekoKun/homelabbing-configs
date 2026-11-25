@@ -22,6 +22,7 @@ Turn the github repo public
   - [x] Enable secure signing keys
   - [x] Setup DMARC policies
   - [ ] Pass internet.nl
+    - [ ] Get a static IPv6 address
 - [x] Setup dovecot2
 - [x] Setup rspamd
 
