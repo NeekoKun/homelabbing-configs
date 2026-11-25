@@ -64,18 +64,9 @@ in
 
             virtualHosts = {
                 "navidrome.${vars.network.DNS.domain}.${vars.network.DNS.tld}" = {
-                    http2 = true;
-                    http3 = true;
-                    quic = true;
-                    reuseport = true;
-
-                    extraConfig = ''
-                        add_header Alt-Svc 'h3=":443"; ma=86400' always;
-                    '';
-
-                    locations."/" = {
-                            proxyPass = "http://127.0.0.1:${toString vars.services.navidrome.http_port}/";
-                    };
+                    serverAliases = [ ];
+                    locations."/.well-known/acme-challenge".root = "/var/lib/acme/acme-challenge";
+                    listen = [ { addr = "0.0.0.0"; port = 80; } ];
                 };
 
                 "wiki.${domain}.${tld}" = config.my.nginx.commonVHost // {
