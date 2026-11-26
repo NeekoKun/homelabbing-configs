@@ -19,7 +19,8 @@
   age.secrets.ssh-key-manager-password = {
     file = "${flakeRoot}/secrets/ssh-key-manager-password.age";
     owner = "nobody";
-    mode = "0400";
+    group = "postgres";
+    mode = "0440";
   };
 
   services.ssh-key-manager = {
