@@ -19,6 +19,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    sshKeyManager = {
+      url = "git+https://codeberg.org/NeekoKun02/key-manager";
+    };
+
     wikiContent = {
       url = "path:./wiki";
       flake = false;
@@ -37,9 +41,10 @@
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
     };
+
   };
 
-  outputs = inputs@{ self, nixpkgs, agenix, authentik-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, agenix, authentik-nix, sshKeyManager, ... }:
     let
       vars = {
         services = {
@@ -137,6 +142,7 @@
         # Gateway Configs
         istanbul = mkHost "istanbul" [
           authentik-nix.nixosModules.default
+          sshKeyManager.nixosModules.default
         ];
 
         # Data Aggregation Configs

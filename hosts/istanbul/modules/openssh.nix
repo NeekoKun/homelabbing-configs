@@ -13,9 +13,63 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-{ config, lib, pkgs, vars, ... }:
+{ config, lib, pkgs, vars, flakeRoot, ... }:
 
 {
+  age.secrets.ssh-key-manager-password = {
+    file = "${flakeRoot}/secrets/ssh-key-manager-password.age";
+    owner = "nobody";
+    mode = "0400";
+  };
+
+  services.ssh-key-manager = {
+    enable = true;
+    logFile = "/var/log/key-manager.log";
+
+    database = {
+      host = "127.0.0.1";
+      user = "key-manager";
+      name = "key-manager";
+      passwordFile = config.age.secrets.ssh-key-manager-password.path;
+    };
+
+    baseKeys = [
+      {
+        localUser = "admin";
+        fingerprint = "SHA256:VQhm/AHZdksz5FsQvZ583wpvM1oi0GATEsJz1FHOzc4";
+        keyType = "ssh-ed25519";
+        publicKey = "AAAAC3NzaC1lZDI1NTE5AAAAIP1SORqrVF2xg0MlOIi9xT82lBal98BPipIuHZIpQMfN";
+      }
+    ];
+  };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "key-manager" ];
+    ensureUsers = [
+      {
+        name = "key-manager";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
+  systemd.services.postgresql-setup.postStart = lib.mkAfter ''
+    KEY_MANAGER_DB_PASSWORD="$(cat ${config.age.secrets.ssh-key-manager-password.path})" || exit 1
+    if [ -z "$KEY_MANAGER_DB_PASSWORD" ]; then
+      echo "ssh-key-manager database password secret is empty" >&2
+      exit 1
+    fi
+    export KEY_MANAGER_DB_PASSWORD
+
+    ${config.services.postgresql.package}/bin/psql -X -d postgres -v ON_ERROR_STOP=1 <<'SQL' || exit 1
+    \getenv key_manager_password KEY_MANAGER_DB_PASSWORD
+    SELECT format('ALTER ROLE "key-manager" WITH PASSWORD %L', :'key_manager_password') \gexec
+    SQL
+
+    unset KEY_MANAGER_DB_PASSWORD
+  '';
+
   services.openssh = {
     enable = true;
     openFirewall = false;

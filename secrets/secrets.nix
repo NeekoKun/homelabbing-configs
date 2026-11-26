@@ -25,6 +25,7 @@ let
 in
 {
   "admin-password.age".publicKeys = allHosts;
+  "ssh-key-manager-password.age".publicKeys = [ admin istanbul ];
   "cloudflare-env.age".publicKeys = [ admin istanbul ];
   "cloudflare-acme.age".publicKeys = [ admin istanbul ];
   "authentik-secrets.age".publicKeys = [ admin istanbul ];
