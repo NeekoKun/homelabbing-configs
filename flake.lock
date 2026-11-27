@@ -311,11 +311,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1795782399,
-        "narHash": "sha256-W3tGqUaRZQ5qSRI+GIyWRvDxvQpDmaHecerdIUynaBk=",
+        "lastModified": 1795801585,
+        "narHash": "sha256-b8JKzCT7Nr4C/WAY0VtGlettgtHpgs4FrFWCFFk6g3w=",
         "ref": "refs/heads/master",
-        "rev": "2eb7b6b0f7995ad4f171aa9bcac434ef50730a06",
-        "revCount": 13,
+        "rev": "ecdfdf963093e3bd1f10890da62fcbeb4af0e524",
+        "revCount": 17,
         "type": "git",
         "url": "https://codeberg.org/NeekoKun02/key-manager"
       },
