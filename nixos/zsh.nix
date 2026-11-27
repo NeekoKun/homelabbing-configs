@@ -84,6 +84,12 @@
             typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
 
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+            # Keybinds
+            bindkey '^[[A' history-beginning-search-backward
+            bindkey '^[[B' history-beginning-search-forward
+            bindkey '^[[1;5D' backward-word
+            bindkey '^[[1;5C' forward-word
         '';
 
         shellAliases = {
